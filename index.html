@@ -1,0 +1,1871 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth dark">
+<head>
+  <script>
+    if (localStorage.getItem('theme') === 'light' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+    }
+    // Update logo images early to prevent flashing
+    document.addEventListener("DOMContentLoaded", function() {
+      const isDark = document.documentElement.classList.contains('dark');
+      document.querySelectorAll('.logo-img').forEach(img => {
+        img.src = isDark ? 'docs/images/logo.svg' : 'docs/images/logo-light.svg';
+      });
+    });
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hakan Altın | Canlı Kapalıçarşı Fiyatları & Hızlı Hesaplama</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome for Premium Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter & Roboto for elegant hierarchy -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            gold: {
+              50: '#FFFDF0',
+              100: '#FFFAD8',
+              200: '#FFF0B0',
+              300: '#FFE17A',
+              400: '#FFD24D',
+              500: '#D4AF37', // Premium Base Gold
+              600: '#B88F24',
+              700: '#946E13',
+              800: '#755307',
+              900: '#523A02',
+            },
+            darkBg: '#0D0E12',
+            darkCard: '#15171E',
+            darkBorder: '#232731'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            roboto: ['Roboto', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .text-glow {
+      text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+    }
+    .neon-border {
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+    }
+    .ticker-wrap {
+      overflow: hidden;
+    }
+    .ticker-content {
+      display: inline-block;
+      white-space: nowrap;
+      animation: ticker 30s linear infinite;
+    }
+    @keyframes ticker {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #15171E;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #D4AF37;
+      border-radius: 3px;
+    }
+    /* Hide arrows in input number */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type=number] {
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+
+    /* --- LIGHT THEME STYLE OVERRIDES --- */
+    html:not(.dark) body {
+      background-color: #F8FAFC !important;
+      color: #1E293B !important;
+    }
+    html:not(.dark) .bg-darkBg {
+      background-color: #F8FAFC !important;
+    }
+    html:not(.dark) .bg-\[\#08090C\] {
+      background-color: #EDF2F7 !important;
+    }
+    html:not(.dark) .bg-darkCard {
+      background-color: #FFFFFF !important;
+      box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05) !important;
+    }
+    
+    /* --- WHITE CARDS IN DARK MODE PRETTIER BLENDING --- */
+    html.dark .bg-white {
+      background-color: #121319 !important;
+      border-color: #232731 !important;
+      color: #F8FAFC !important;
+    }
+    html.dark .bg-white .text-gray-900 {
+      color: #F8FAFC !important;
+    }
+    html.dark .bg-white .text-gray-400 {
+      color: #64748B !important;
+    }
+
+    html:not(.dark) .border-darkBorder, 
+    html:not(.dark) .border-darkBorder\/80, 
+    html:not(.dark) .border-darkBorder\/60,
+    html:not(.dark) .border-darkBorder\/40,
+    html:not(.dark) .border-darkBorder\/30 {
+      border-color: #E2E8F0 !important;
+    }
+    html:not(.dark) .text-white {
+      color: #0F172A !important;
+    }
+    html:not(.dark) .text-gray-100 {
+      color: #1E293B !important;
+    }
+    html:not(.dark) .text-gray-200 {
+      color: #334155 !important;
+    }
+    html:not(.dark) .text-gray-300 {
+      color: #475569 !important;
+    }
+    html:not(.dark) .text-gray-400 {
+      color: #64748B !important;
+    }
+    html:not(.dark) .text-gray-500 {
+      color: #94A3B8 !important;
+    }
+    html:not(.dark) .bg-darkBg\/90 {
+      background-color: rgba(255, 255, 255, 0.9) !important;
+    }
+    html:not(.dark) .bg-darkBg\/95 {
+      background-color: rgba(255, 255, 255, 0.95) !important;
+    }
+    html:not(.dark) .bg-darkBg\/60 {
+      background-color: rgba(241, 245, 249, 0.7) !important;
+    }
+    html:not(.dark) .bg-white\/5 {
+      background-color: rgba(0, 0, 0, 0.03) !important;
+    }
+    html:not(.dark) .hover\:bg-white\/5:hover {
+      background-color: rgba(0, 0, 0, 0.05) !important;
+    }
+    html:not(.dark) .hover\:bg-white\/\[0\.02\]:hover {
+      background-color: rgba(0, 0, 0, 0.015) !important;
+    }
+    html:not(.dark) input,
+    html:not(.dark) select {
+      background-color: #FFFFFF !important;
+      color: #1E293B !important;
+      border-color: #CBD5E1 !important;
+    }
+    html:not(.dark) .bg-\[\#111218\] {
+      background-color: #F1F5F9 !important;
+    }
+    html:not(.dark) .text-transparent.bg-clip-text {
+      color: #0F172A !important;
+      background: none !important;
+      -webkit-text-fill-color: #0F172A !important;
+    }
+    html:not(.dark) .custom-scrollbar::-webkit-scrollbar-track {
+      background: #F1F5F9;
+    }
+    /* --- APP BANNER LIGHT MODE --- */
+    html:not(.dark) .app-banner-bg {
+      background: linear-gradient(135deg, #FFFBF0 0%, #FFF8E1 50%, #F8FAFC 100%) !important;
+    }
+    html:not(.dark) .app-pill {
+      background-color: rgba(0,0,0,0.04) !important;
+      border-color: rgba(0,0,0,0.08) !important;
+      color: #374151 !important;
+    }
+    html:not(.dark) .app-gplay-btn {
+      background-color: #1E1B4B !important;
+      border-color: rgba(0,0,0,0.15) !important;
+      color: #ffffff !important;
+    }
+    html:not(.dark) .app-banner-title {
+      color: #0F172A !important;
+    }
+    html:not(.dark) .app-banner-desc {
+      color: #475569 !important;
+    }
+    html:not(.dark) .app-banner-rating-count {
+      color: #64748B !important;
+    }
+    html:not(.dark) .app-banner-rating-num {
+      color: #0F172A !important;
+    }
+
+    /* gold-400 too pale on light bg — override to a richer amber-gold */
+    html:not(.dark) .text-gold-400 {
+      color: #92670A !important;
+    }
+    html:not(.dark) .hover\:text-gold-400:hover {
+      color: #92670A !important;
+    }
+    html:not(.dark) .text-gold-500 {
+      color: #7A5508 !important;
+    }
+    html:not(.dark) .hover\:text-gold-500:hover {
+      color: #7A5508 !important;
+    }
+
+    /* ── INTENT SELECTION CARDS ──────────────────────────────── */
+    .intent-card {
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 0.3s ease,
+                  box-shadow 0.3s ease;
+      border: 2px solid transparent;
+      overflow: hidden;
+    }
+    .intent-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(212,175,55,0.07) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .intent-card:hover::before { opacity: 1; }
+    
+    
+
+
+    .intent-card.selected {
+      border-color: #D4AF37;
+      box-shadow: 0 0 0 2px rgba(212,175,55,0.25), 0 20px 40px -8px rgba(212,175,55,0.22);
+      transform: translateY(-4px);
+    }
+    .intent-card.selected::before { opacity: 1; }
+    .intent-card .icon-wrap {
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .intent-card:hover .icon-wrap,
+    .intent-card.selected .icon-wrap {
+      transform: scale(1.12) rotate(-4deg);
+    }
+    html:not(.dark) .intent-card {
+      background-color: #FFFFFF !important;
+    }
+    html:not(.dark) .intent-card.selected {
+      border-color: rgba(180, 130, 20, 0.55) !important;
+    }
+    html:not(.dark) #intent-dynamic-banner {
+      background-color: rgba(250, 240, 200, 0.35) !important;
+      border-color: rgba(180, 130, 20, 0.3) !important;
+    }
+
+    /* --- GOLD ADVISOR WIZARD --- */
+    .advisor-option {
+      border: 1px solid rgba(35, 39, 49, 1);
+      background: rgba(13, 14, 18, 0.65);
+      transition: all 0.25s ease;
+    }
+    .advisor-option:hover {
+      border-color: rgba(212, 175, 55, 0.45);
+      transform: translateY(-2px);
+    }
+    .advisor-option.selected {
+      border-color: rgba(212, 175, 55, 0.65);
+      background: rgba(212, 175, 55, 0.12);
+      box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.25) inset;
+    }
+    .advisor-step {
+      display: none;
+    }
+    .advisor-step.active {
+      display: block;
+    }
+    html:not(.dark) .advisor-option {
+      background: #FFFFFF !important;
+      border-color: #E2E8F0 !important;
+    }
+    html:not(.dark) .advisor-option.selected {
+      border-color: rgba(146, 103, 10, 0.55) !important;
+      background: rgba(146, 103, 10, 0.09) !important;
+      box-shadow: 0 0 0 1px rgba(146, 103, 10, 0.2) inset !important;
+    }
+    html:not(.dark) #gold-advisor-shell {
+      background: #FFFFFF !important;
+    }
+  </style>
+</head>
+<body class="bg-darkBg text-gray-100 min-h-screen selection:bg-gold-500 selection:text-darkBg custom-scrollbar">
+
+  <!-- TOP TICKER BAR -->
+  <div class="bg-[#08090C] border-b border-darkBorder py-2.5 text-xs overflow-hidden z-50 relative">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center z-10 relative">
+      <div class="flex items-center space-x-2 text-emerald-500 font-semibold animate-pulse mr-4 whitespace-nowrap">
+        <span class="h-2 w-2 rounded-full bg-emerald-500 inline-block"></span>
+        <span>KAPALIÇARŞI</span>
+      </div>
+      <div class="ticker-wrap flex-1 overflow-hidden">
+        <div class="ticker-content flex space-x-8 text-gray-400">
+          <span>HAS ALTIN: <b class="text-white">2.435,50 TL</b> <i class="fa-solid fa-caret-up text-emerald-500"></i> +0.34%</span>
+          <span>ÇEYREK: <b class="text-white">4.012,00 TL</b> <i class="fa-solid fa-caret-up text-emerald-500"></i> +0.45%</span>
+          <span>ATA ALTIN: <b class="text-white">16.540,00 TL</b> <i class="fa-solid fa-caret-down text-rose-500"></i> -0.12%</span>
+          <span>Dolar/TL: <b class="text-white">32,2450 TL</b> <i class="fa-solid fa-caret-up text-emerald-500"></i> +0.08%</span>
+          <span>Euro/TL: <b class="text-white">35,1240 TL</b> <i class="fa-solid fa-caret-up text-emerald-500"></i> +0.15%</span>
+          <span>ONS ALTIN: <b class="text-white">2.342,10 $</b> <i class="fa-solid fa-caret-down text-rose-500"></i> -0.22%</span>
+          <!-- Duplicate for seamless loop -->
+          <span>HAS ALTIN: <b class="text-white">2.435,50 TL</b> <i class="fa-solid fa-caret-up text-emerald-500"></i> +0.34%</span>
+          <span>ÇEYREK: <b class="text-white">4.012,00 TL</b> <i class="fa-solid fa-caret-up text-emerald-500"></i> +0.45%</span>
+          <span>ATA ALTIN: <b class="text-white">16.540,00 TL</b> <i class="fa-solid fa-caret-down text-rose-500"></i> -0.12%</span>
+          <span>Dolar/TL: <b class="text-white">32,2450 TL</b> <i class="fa-solid fa-caret-up text-emerald-500"></i> +0.08%</span>
+          <span>Euro/TL: <b class="text-white">35,1240 TL</b> <i class="fa-solid fa-caret-up text-emerald-500"></i> +0.15%</span>
+          <span>ONS ALTIN: <b class="text-white">2.342,10 $</b> <i class="fa-solid fa-caret-down text-rose-500"></i> -0.22%</span>
+        </div>
+      </div>
+      <div class="hidden md:flex items-center space-x-4 pl-4 border-l border-darkBorder text-gray-400">
+        <a href="tel:4447511" class="hover:text-gold-500 transition-colors font-medium whitespace-nowrap">
+          <i class="fa-solid fa-phone mr-1.5 text-gold-500"></i> 444 75 11
+        </a>
+        <span class="text-gray-600">|</span>
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle" class="p-1 rounded text-gray-400 hover:text-gold-450 transition-all flex items-center justify-center" title="Temayı Değiştir">
+          <i id="theme-icon" class="fa-solid fa-sun text-sm"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN NAVIGATION -->
+  <header id="main-header" class="sticky top-0 bg-darkBg/90 backdrop-blur-xl border-b border-darkBorder/80 z-40 transition-all duration-300">
+    <div id="main-header-inner" class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <!-- Logo -->
+      <a href="/" class="flex items-center space-x-3.5 group">
+        <div class="relative">
+          <img src="docs/images/logo.svg" alt="Hakan Altın Logo" class="h-10 w-auto group-hover:scale-105 transition-transform duration-300 logo-img" />
+        </div>
+       
+      </a>
+
+      <!-- Navarre Desktop -->
+      <nav class="hidden lg:flex items-center space-x-1.5">
+        <a href="index.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-gold-400 bg-gold-500/10 border border-gold-500/20">
+          <i class="fa-solid fa-chart-line mr-1.5"></i> Canlı Piyasalar
+        </a>
+        <a href="sarrafiye.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-all">
+          Sarrafiye & Ziynet
+        </a>
+        <a href="milyem.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-all">
+          <i class="fa-solid fa-calculator mr-1.5 text-gold-500/80"></i> Milyem Hesaplayıcı
+        </a>
+        <a href="terazi.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-all">
+          <i class="fa-solid fa-scale-balanced mr-1.5 text-gold-500/80"></i> Sanal Terazi
+        </a>
+        <a href="gecmis.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-all">
+          Geçmiş Veriler
+        </a>
+        <a href="iletisim.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-all">
+          İletişim
+        </a>
+      </nav>
+
+      <!-- Right Actions -->
+      <div class="hidden lg:flex items-center space-x-3">
+        <a href="tel:4447511" class="px-4 py-2 rounded-lg text-xs font-bold text-white bg-darkCard border border-darkBorder flex items-center space-x-2 hover:bg-darkBorder transition-all">
+          <span class="flex h-2 w-2 relative">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-gold-500"></span>
+          </span>
+          <span>Destek Hattı</span>
+        </a>
+       
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button class="lg:hidden h-10 w-10 flex items-center justify-center border border-darkBorder rounded-lg text-gray-300 hover:text-white hover:bg-darkCard transition-all" onclick="toggleMobileMenu()">
+        <i class="fa-solid fa-bars text-lg" id="menu-icon"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu panel -->
+    <div class="hidden lg:hidden border-t border-darkBorder bg-darkBg/95 backdrop-blur-2xl py-4 space-y-1.5 px-4" id="mobile-menu">
+      <a href="index.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gold-500/10 text-gold-400 border border-gold-500/20 font-semibold text-sm">
+        <i class="fa-solid fa-chart-line text-lg w-6"></i>
+        <span>Canlı Piyasalar</span>
+      </a>
+      <a href="sarrafiye.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
+        <i class="fa-solid fa-gem text-lg w-6 text-gray-400"></i>
+        <span>Sarrafiye & Ziynet</span>
+      </a>
+      <a href="milyem.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
+        <i class="fa-solid fa-calculator text-lg w-6 text-gray-400"></i>
+        <span>Milyem Hesaplayıcı</span>
+      </a>
+      <a href="terazi.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
+        <i class="fa-solid fa-scale-balanced text-lg w-6 text-gray-400"></i>
+        <span>Sanal Terazi</span>
+      </a>
+      <a href="gecmis.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
+        <i class="fa-solid fa-calendar-days text-lg w-6 text-gray-400"></i>
+        <span>Geçmiş Veriler</span>
+      </a>
+      <a href="iletisim.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
+        <i class="fa-solid fa-headset text-lg w-6 text-gray-400"></i>
+        <span>İletişim & Konum</span>
+      </a>
+      <div class="pt-4 border-t border-darkBorder flex flex-col space-y-2">
+        <button id="mobile-theme-toggle" class="w-full py-3 rounded-xl text-center bg-darkCard border border-darkBorder font-bold text-sm text-gray-300 flex justify-center items-center space-x-2">
+          <i id="mobile-theme-icon" class="fa-solid fa-moon text-gold-500"></i>
+          <span id="mobile-theme-text">Karanlık Tema</span>
+        </button>
+        <a href="tel:4447511" class="w-full py-3 rounded-xl text-center bg-darkCard border border-darkBorder font-bold text-sm text-white flex justify-center items-center space-x-2">
+          <i class="fa-solid fa-phone text-gold-500"></i>
+          <span>Destek: 444 75 11</span>
+        </a>
+       
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION WITH LIVE PRICING CONVERTER -->
+  <section class="relative pt-12 pb-20 overflow-hidden">
+    <!-- Background Golden Glows -->
+    <div class="absolute top-20 left-12 w-96 h-96 bg-gold-500/5 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-10 right-20 w-80 h-80 bg-gold-400/5 rounded-full blur-3xl pointer-events-none"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <!-- Title Message (Left Column) -->
+      <div class="lg:col-span-6 space-y-6">
+      
+        <h1 class="font-sans text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.1] text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-gold-300">
+          Kapalıçarşı'nın <br>Canlı Altın Nabzı Burada Atıyor!
+        </h1>
+        <p class="font-roboto text-gray-400 leading-relaxed max-w-xl text-sm sm:text-base">
+          Anlık Kapalıçarşı makas aralıkları ile Has Altın, sarrafiye-gram ürünleri ve parite verilerine hızlıca ulaşın. Bizimle anında iletişime geçerek anlık fiyatınızı sabitleyip güvenli ticaretin keyfini çıkarın.
+        </p>
+
+      
+      </div>
+
+      <!-- Quick Pricing Widget (Right Column) -->
+      <div class="lg:col-span-6 relative">
+        <!-- Shiny Border Shadow -->
+   
+        
+        <div class="relative grid grid-cols-2 gap-4">
+          
+          <!-- Gram Card -->
+          <div class="bg-white rounded-3xl border border-gold-600/50 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
+            <div class="text-gray-400 text-xs sm:text-sm font-medium uppercase tracking-wide">
+              Gram Altın
+            </div>
+
+            <div class="mt-2 text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">
+              <span id="hero-sell-has">6.596</span>₺
+            </div>
+
+            <div id="hero-change-container-has" class="mt-2.5 flex items-center gap-1.5 text-emerald-600 font-semibold text-xs sm:text-sm">
+              <span id="hero-arrow-has">▲</span>
+              <span id="hero-change-has">+1,45%</span>
+            </div>
+          </div>
+
+          <!-- 22 Ayar Card -->
+          <div class="bg-white rounded-3xl border border-gold-600/50 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
+            <div class="text-gray-400 text-xs sm:text-sm font-medium uppercase tracking-wide">
+              22 Ayar Altın
+            </div>
+
+            <div class="mt-2 text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">
+              <span id="hero-sell-22_ayar">6.043</span>₺
+            </div>
+
+            <div id="hero-change-container-22_ayar" class="mt-2.5 flex items-center gap-1.5 text-emerald-600 font-semibold text-xs sm:text-sm">
+              <span id="hero-arrow-22_ayar">▲</span>
+              <span id="hero-change-22_ayar">+0,45%</span>
+            </div>
+          </div>
+
+          <!-- Çeyrek Card -->
+          <div class="bg-white rounded-3xl border border-gold-600/50 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
+            <div class="text-gray-400 text-xs sm:text-sm font-medium uppercase tracking-wide">
+              Çeyrek
+            </div>
+
+            <div class="mt-2 text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">
+              <span id="hero-sell-ceyrek">10.782</span>₺
+            </div>
+
+            <div id="hero-change-container-ceyrek" class="mt-2.5 flex items-center gap-1.5 text-emerald-600 font-semibold text-xs sm:text-sm">
+              <span id="hero-arrow-ceyrek">▲</span>
+              <span id="hero-change-ceyrek">+0,9%</span>
+            </div>
+          </div>
+
+          <!-- Yarım Card -->
+          <div class="bg-white rounded-3xl border border-gold-600/50 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
+            <div class="text-gray-400 text-xs sm:text-sm font-medium uppercase tracking-wide">
+              Yarım
+            </div>
+
+            <div class="mt-2 text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">
+              <span id="hero-sell-yarim">21.560</span>₺
+            </div>
+
+            <div id="hero-change-container-yarim" class="mt-2.5 flex items-center gap-1.5 text-emerald-600 font-semibold text-xs sm:text-sm">
+              <span id="hero-arrow-yarim">▲</span>
+              <span id="hero-change-yarim">+1,0%</span>
+            </div>
+          </div>
+
+          <!-- Tam Altın Card -->
+          <div class="bg-white rounded-3xl border border-gold-600/50 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
+            <div class="text-gray-400 text-xs sm:text-sm font-medium uppercase tracking-wide">
+              Tam Altın
+            </div>
+
+            <div class="mt-2 text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">
+              <span id="hero-sell-tam">43.120</span>₺
+            </div>
+
+            <div id="hero-change-container-tam" class="mt-2.5 flex items-center gap-1.5 text-rose-600 font-semibold text-xs sm:text-sm">
+              <span id="hero-arrow-tam">▼</span>
+              <span id="hero-change-tam">-0,2%</span>
+            </div>
+          </div>
+
+          <!-- Ata Altın Card -->
+          <div class="bg-white rounded-3xl border border-gold-600/50 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
+            <div class="text-gray-400 text-xs sm:text-sm font-medium uppercase tracking-wide">
+              Ata Altın
+            </div>
+
+            <div class="mt-2 text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">
+              <span id="hero-sell-ata">44.540</span>₺
+            </div>
+
+            <div id="hero-change-container-ata" class="mt-2.5 flex items-center gap-1.5 text-rose-600 font-semibold text-xs sm:text-sm">
+              <span id="hero-arrow-ata">▼</span>
+              <span id="hero-change-ata">-0,12%</span>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════
+       INTENT / PURPOSE SELECTION SECTION
+       Kullanıcının geliş amacını ilk 5 saniyede belirleme alanı
+       ══════════════════════════════════════════════════════════ -->
+  <section id="intent-section" class="max-w-7xl mx-auto px-4 py-10 sm:py-14">
+
+    <!-- Header -->
+    <div class="text-center mb-8 sm:mb-10">
+      <p class="text-xs font-bold tracking-widest text-gold-500 uppercase mb-2">
+        <i class="fa-solid fa-wand-magic-sparkles mr-1.5"></i>Kişiselleştirilmiş Deneyim
+      </p>
+      <h2 class="font-sans text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight">
+        Bugün ne yapmak istiyorsunuz?
+      </h2>
+      <p class="text-sm text-gray-400 mt-3 max-w-md mx-auto leading-relaxed">
+        Seçiminiz siteyi size göre yönlendirmek için kullanılır. İstediğiniz zaman değiştirebilirsiniz.
+      </p>
+    </div>
+
+    <!-- 4 Intent Cards Grid -->
+    <div class="bg-darkCard  rounded-2xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 " id="intent-cards-grid">
+
+      <!-- Card 1 — Yatırım -->
+      <div class="intent-card relative rounded-2xl p-6 flex flex-col items-center text-center gap-4"
+           data-intent="yatirim" onclick="selectIntent('yatirim', this)">
+        <div class="icon-wrap h-16 w-16 rounded-2xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center">
+          <i class="fa-solid fa-chart-line text-2xl text-gold-400"></i>
+        </div>
+        <div>
+          <h3 class="font-bold text-white text-base sm:text-lg leading-tight">Yatırım Yapacağım</h3>
+          <p class="text-gray-400 text-xs mt-1.5 leading-relaxed">Gram altın ve has değerleriyle birikimimi büyütmek istiyorum.</p>
+        </div>
+        <div class="mt-auto w-full">
+          <span class="intent-check-badge hidden items-center justify-center gap-1.5 w-full py-2 rounded-xl bg-gold-500/15 text-gold-400 text-xs font-bold border border-gold-500/30">
+            <i class="fa-solid fa-circle-check"></i> Seçildi
+          </span>
+        </div>
+      </div>
+
+      <!-- Card 2 — Piyasa Takibi -->
+      <div class="intent-card relative  rounded-2xl p-6 flex flex-col items-center text-center gap-4"
+           data-intent="piyasa-takibi" onclick="selectIntent('piyasa-takibi', this)">
+        <div class="icon-wrap h-16 w-16 rounded-2xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center">
+          <i class="fa-solid fa-binoculars text-2xl text-sky-400"></i>
+        </div>
+        <div>
+          <h3 class="font-bold text-white text-base sm:text-lg leading-tight">Piyasa Takibi Yapacağım</h3>
+          <p class="text-gray-400 text-xs mt-1.5 leading-relaxed">Anlık alış-satış farklarını ve fiyat değişimlerini izleyip uygun zamanı takip etmek istiyorum.</p>
+        </div>
+        <div class="mt-auto w-full">
+          <span class="intent-check-badge hidden items-center justify-center gap-1.5 w-full py-2 rounded-xl bg-gold-500/15 text-gold-400 text-xs font-bold border border-gold-500/30">
+            <i class="fa-solid fa-circle-check"></i> Seçildi
+          </span>
+        </div>
+      </div>
+
+      <!-- Card 3 — Birikim -->
+      <div class="intent-card relative  rounded-2xl p-6 flex flex-col items-center text-center gap-4"
+           data-intent="birikim" onclick="selectIntent('birikim', this)">
+        <div class="icon-wrap h-16 w-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+          <i class="fa-solid fa-piggy-bank text-2xl text-emerald-400"></i>
+        </div>
+        <div>
+          <h3 class="font-bold text-white text-base sm:text-lg leading-tight">Düzenli Birikim Yapacağım</h3>
+          <p class="text-gray-400 text-xs mt-1.5 leading-relaxed">Her ay düzenli altın alarak uzun vadeli birikim yapmak istiyorum.</p>
+        </div>
+        <div class="mt-auto w-full">
+          <span class="intent-check-badge hidden items-center justify-center gap-1.5 w-full py-2 rounded-xl bg-gold-500/15 text-gold-400 text-xs font-bold border border-gold-500/30">
+            <i class="fa-solid fa-circle-check"></i> Seçildi
+          </span>
+        </div>
+      </div>
+
+      <!-- Card 4 — Yüksek Tutar -->
+      <div class="intent-card relative  rounded-2xl p-6 flex flex-col items-center text-center gap-4"
+           data-intent="buyuk-yatirim" onclick="selectIntent('buyuk-yatirim', this)">
+        <div class="icon-wrap h-16 w-16 rounded-2xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center">
+          <i class="fa-solid fa-building-columns text-2xl text-violet-400"></i>
+        </div>
+        <div>
+          <h3 class="font-bold text-white text-base sm:text-lg leading-tight">Yüksek Tutarla Yatırım Yapacağım</h3>
+          <p class="text-gray-400 text-xs mt-1.5 leading-relaxed">Tam altın, Ata altın veya büyük miktarda has alım yapmak istiyorum.</p>
+        </div>
+        <div class="mt-auto w-full">
+          <span class="intent-check-badge hidden items-center justify-center gap-1.5 w-full py-2 rounded-xl bg-gold-500/15 text-gold-400 text-xs font-bold border border-gold-500/30">
+            <i class="fa-solid fa-circle-check"></i> Seçildi
+          </span>
+        </div>
+      </div>
+
+    </div><!-- /intent-cards-grid -->
+
+    <!-- Dynamic Context Banner (shows after a selection is made) -->
+    <div id="intent-dynamic-banner"
+         class="hidden mt-6 rounded-2xl border border-gold-500/20 bg-gold-500/5 px-6 py-5 items-start sm:items-center gap-4"
+         role="status" aria-live="polite">
+      <div class="h-12 w-12 rounded-xl flex items-center justify-center shrink-0 bg-gold-500/10 border border-gold-500/20">
+        <i id="intent-banner-ico" class="fa-solid fa-star text-xl text-gold-400"></i>
+      </div>
+      <div class="flex-1 min-w-0">
+        <p id="intent-banner-title" class="text-white font-bold text-sm">Seçiminize Göre Öneriler</p>
+        <p id="intent-banner-desc"  class="text-gray-400 text-xs mt-0.5 leading-relaxed"></p>
+      </div>
+      <div class="flex items-center gap-3 shrink-0 mt-3 sm:mt-0">
+        <a id="intent-banner-cta" href="#canli-piyasa"
+           class="px-4 py-2.5 rounded-xl bg-gold-500 text-darkBg text-xs font-bold hover:bg-gold-400 transition-all whitespace-nowrap">
+          Devam Et →
+        </a>
+        <button onclick="clearIntent()" title="Seçimi Temizle"
+                class="h-8 w-8 flex items-center justify-center rounded-lg border border-darkBorder text-gray-500 hover:text-gray-200 hover:border-gray-500 transition-all">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
+    </div>
+
+  </section><!-- /intent-section -->
+
+  <!-- GOLD ADVISOR WIZARD SECTION -->
+  <section id="gold-advisor" class="max-w-7xl mx-auto px-4 py-10 sm:py-14">
+    <div id="gold-advisor-shell" class="bg-darkCard border border-darkBorder rounded-none sm:rounded-3xl min-h-[100dvh] sm:min-h-0 sm:max-w-4xl sm:mx-auto p-5 sm:p-8 lg:p-10">
+      <div class="mb-6 sm:mb-8 text-center space-y-3">
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-gold-500/10 border border-gold-500/20 text-gold-400">
+          <i class="fa-solid fa-compass"></i>
+          Altın Danışmanı
+        </span>
+        <h2 class="font-sans text-2xl sm:text-3xl font-bold text-white leading-tight">
+          Size birkaç soru soralım, ihtiyacınıza uygun altınları önerelim.
+        </h2>
+        <p class="text-xs sm:text-sm text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          Bu araç yatırım tavsiyesi vermez; verdiğiniz yanıtlara göre genel bilgilendirme ve ürün grubu yönlendirmesi sunar.
+        </p>
+      </div>
+
+      <div class="mb-6">
+        <div class="h-2 rounded-full bg-darkBg border border-darkBorder overflow-hidden">
+          <div id="advisor-progress" class="h-full bg-gradient-to-r from-gold-500 to-gold-300 transition-all duration-300" style="width: 33.33%;"></div>
+        </div>
+        <p id="advisor-step-label" class="text-[11px] text-gray-500 font-semibold mt-2">Adım 1/3</p>
+      </div>
+
+      <div class="space-y-6">
+        <div class="advisor-step active" data-step="1">
+          <h3 class="text-base sm:text-lg font-bold text-white mb-4">1. Altını hangi amaçla alıyorsunuz?</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button class="advisor-option rounded-xl p-4 text-left" data-question="purpose" data-value="yatirim">Yatırım</button>
+            <button class="advisor-option rounded-xl p-4 text-left" data-question="purpose" data-value="birikim">Birikim</button>
+            <button class="advisor-option rounded-xl p-4 text-left" data-question="purpose" data-value="deger-koruma">Değer Koruma</button>
+            <button class="advisor-option rounded-xl p-4 text-left" data-question="purpose" data-value="fiyat-takibi">Fiyat Takibi</button>
+          </div>
+        </div>
+
+        <div class="advisor-step" data-step="2">
+          <h3 class="text-base sm:text-lg font-bold text-white mb-4">2. Bütçeniz nedir?</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button class="advisor-option rounded-xl p-4 text-left" data-question="budget" data-value="under5">5.000 TL altı</button>
+            <button class="advisor-option rounded-xl p-4 text-left" data-question="budget" data-value="5to25">5.000 - 25.000 TL</button>
+            <button class="advisor-option rounded-xl p-4 text-left" data-question="budget" data-value="25to100">25.000 - 100.000 TL</button>
+            <button class="advisor-option rounded-xl p-4 text-left" data-question="budget" data-value="over100">100.000 TL üzeri</button>
+          </div>
+        </div>
+
+        <div class="advisor-step" data-step="3">
+          <h3 class="text-base sm:text-lg font-bold text-white mb-4">3. Ne kadar süre saklamayı düşünüyorsunuz?</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <button class="advisor-option rounded-xl p-4 text-left" data-question="horizon" data-value="under1">1 yıl altı</button>
+            <button class="advisor-option rounded-xl p-4 text-left" data-question="horizon" data-value="1to3">1-3 yıl</button>
+            <button class="advisor-option rounded-xl p-4 text-left" data-question="horizon" data-value="over3">3 yıl+</button>
+          </div>
+        </div>
+
+        <div class="advisor-step" data-step="4">
+          <h3 class="text-base sm:text-lg font-bold text-white mb-4">Sonuç</h3>
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div class="bg-darkBg border border-darkBorder rounded-2xl p-4 lg:col-span-1">
+              <p class="text-[11px] uppercase tracking-wider text-gray-500 font-bold mb-1">Kullanıcı Profili</p>
+              <p id="advisor-profile-title" class="text-sm font-bold text-white"></p>
+              <p id="advisor-profile-desc" class="text-xs text-gray-400 mt-2 leading-relaxed"></p>
+            </div>
+
+            <div class="bg-darkBg border border-darkBorder rounded-2xl p-4 lg:col-span-2">
+              <p class="text-[11px] uppercase tracking-wider text-gray-500 font-bold mb-2">Önerilen Ürün Grupları</p>
+              <ul id="advisor-products" class="text-sm text-white space-y-2"></ul>
+              <p class="text-[11px] uppercase tracking-wider text-gray-500 font-bold mt-4 mb-2">Öneri Sebepleri</p>
+              <ul id="advisor-reasons" class="text-xs text-gray-400 space-y-1.5"></ul>
+            </div>
+          </div>
+
+          <div class="mt-4 p-3 rounded-xl border border-gold-500/25 bg-gold-500/5 text-xs text-gray-400 leading-relaxed">
+            Bu sonuçlar yatırım tavsiyesi değildir. Genel bilgilendirme niteliğindedir; kişisel kararlarınız için finansal durumunuza uygun profesyonel destek almanız önerilir.
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-7 flex items-center justify-between gap-3">
+        <button id="advisor-prev" class="px-4 py-2.5 rounded-xl border border-darkBorder text-gray-300 text-sm font-semibold hover:text-white hover:border-gray-500 transition-all disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+          Geri
+        </button>
+        <div class="flex items-center gap-2">
+          <button id="advisor-reset" class="px-4 py-2.5 rounded-xl border border-darkBorder text-gray-300 text-sm font-semibold hover:text-white hover:border-gray-500 transition-all hidden">
+            Baştan Başla
+          </button>
+          <button id="advisor-next" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-gold-500 to-gold-600 text-darkBg text-sm font-bold hover:from-gold-400 hover:to-gold-500 transition-all">
+            İlerle
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE MARKET BOARDS SECTION -->
+  <section class="max-w-7xl mx-auto px-4 py-8 relative" id="canli-piyasa">
+    
+    <!-- Section Title & Tabs Controls Header -->
+    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-8 pb-6 border-b border-darkBorder">
+      <div>
+        <h2 class="font-sans text-2xl sm:text-3xl font-bold text-white flex items-center space-x-2">
+          <span class="flex h-3 w-3 relative">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+          </span>
+          <span>Canlı Fiyat Panosu</span>
+        </h2>
+        <p class="text-xs text-gray-400 mt-1">Anlık kapalıçarşı ve uluslararası serbest piyasa alış & satış fiyatları.</p>
+      </div>
+
+      <!-- Controls inside market header: Search & Tab filters -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
+        <!-- Quick search box inside table -->
+        <div class="relative flex-1 sm:w-60">
+          <input type="text" id="market-search" oninput="filterMarketTable()" placeholder="Tabloda ara (has, çeyrek, dolar...)" class="w-full bg-darkCard text-white text-xs border border-darkBorder focus:border-gold-500 rounded-xl pl-9 pr-4 py-3 placeholder-gray-500 outline-none transition-all">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 text-xs"></i>
+        </div>
+
+        <!-- Desktop tabs structure -->
+        <div class="grid grid-cols-3 bg-darkCard border border-darkBorder p-1 rounded-xl">
+          <button id="tab-madenler" onclick="switchMarketTab('madenler')" class="px-4 py-2.5 rounded-lg text-xs font-bold transition-all bg-gold-500/10 text-gold-400 border border-gold-500/20">
+            Kıymetli Madenler
+          </button>
+          <button id="tab-sarrafiye" onclick="switchMarketTab('sarrafiye')" class="px-4 py-2.5 rounded-lg text-xs font-bold transition-all text-gray-400 hover:text-white">
+            Ziynet & Sarrafiye
+          </button>
+          <button id="tab-pariteler" onclick="switchMarketTab('pariteler')" class="px-4 py-2.5 rounded-lg text-xs font-bold transition-all text-gray-400 hover:text-white">
+            Döviz & Parite
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Market Grid/Table Container -->
+    <div class="bg-darkCard border border-darkBorder/80 rounded-2xl overflow-hidden shadow-2xl">
+      <!-- Grid table headers: Perfect for mobile display too (We avoid rigid tables, using modular grid lists) -->
+      <div class="hidden md:grid grid-cols-12 gap-4 px-6 py-4 border-b border-darkBorder bg-[#111218] text-xs font-bold uppercase tracking-wider text-gray-400">
+        <div class="col-span-4 flex items-center">Birim / Ürün Açıklaması</div>
+        <div class="col-span-2 text-right">Müşteri Satış (Biz Alırız)</div>
+        <div class="col-span-2 text-right">Müşteri Alış (Biz Satarız)</div>
+        <div class="col-span-2 text-center">Günlük Değişim %</div>
+        <div class="col-span-2 text-center">Mini Grafik</div>
+      </div>
+
+      <!-- Live rows content wrapper -->
+      <div class="divide-y divide-gold-600/50 dark:divide-gray-600/50" id="market-rows-container">
+        <!-- JS will populate these custom-crafted premium list items -->
+      </div>
+    </div>
+
+    <div class="mt-4 flex items-center justify-between text-xs text-gray-500 px-2 lg:px-0">
+      <p class="flex items-center">
+        <i class="fa-solid fa-circle-info mr-1.5 text-gold-500"></i>
+        <span>Canlı fiyatlarımız piyasa volatilitesine göre milisaniyeler içerisinde yenilenir.</span>
+      </p>
+      <span class="font-medium">Son Güncelleme: <span id="last-updated" class="text-gray-400 font-bold">Şimdi</span></span>
+    </div>
+
+  </section>
+
+  <!-- QUICK B2B TOOLS SHOWCASE SECTION -->
+  <section class="max-w-7xl mx-auto px-4 py-16">
+    <div class="mb-12 text-center max-w-2xl mx-auto space-y-3">
+      <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/10 text-gold-400 text-xs font-bold">
+        <i class="fa-solid fa-toolbox"></i>
+        <span>KUYUMCU VE ESNAF ARAÇLARI</span>
+      </div>
+      <h2 class="font-sans text-3xl sm:text-4xl font-bold text-white">Sektörel Pratik Çözümler</h2>
+      <p class="text-sm text-gray-400 leading-relaxed">
+        Kapalıçarşı esnafının günlük hayatını kolaylaştıran hızlı Milyem ve Sanal Hassas Terazi hesaplayıcılarını deneyimleyin.
+      </p>
+    </div>
+
+    <!-- Quick Tools Interactive Grids -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      
+      <!-- Tool 1: Interactive Quick Milyem Calculator -->
+      <div class="bg-darkCard border border-darkBorder rounded-2xl p-6 relative group overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-gold-500/5 rounded-full blur-2xl group-hover:bg-gold-500/10 transition-all"></div>
+        
+        <div class="flex items-center justify-between pb-4 border-b border-darkBorder mb-6">
+          <div class="flex items-center space-x-3">
+            <div class="h-10 w-10 rounded-xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400">
+              <i class="fa-solid fa-calculator text-lg"></i>
+            </div>
+            <div>
+              <h3 class="font-sans font-bold text-white text-base">Hızlı Milyem Çevirici</h3>
+              <p class="text-xs text-gray-400">Girdiğiniz hurda ayar değerini anında milyem ve has karşılığına dökün.</p>
+            </div>
+          </div>
+          <a href="milyem.html" class="h-8 w-8 rounded-lg bg-darkBg border border-darkBorder text-gray-400 hover:text-gold-400 hover:border-gold-500 flex items-center justify-center transition-all">
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </a>
+        </div>
+
+        <div class="space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-gray-400 mb-2 uppercase">Alaşım Ayarı</label>
+              <select id="milyem-select-ayar" onchange="runMilyemHome()" class="w-full bg-darkBg text-white border border-darkBorder rounded-xl px-3.5 py-3 text-xs font-bold outline-none cursor-pointer">
+                <option value="22" selected>22 Ayar (%91.6 Has)</option>
+                <option value="18">18 Ayar (%75.0 Has)</option>
+                <option value="14">14 Ayar (%58.5 Has)</option>
+                <option value="8">8 Ayar (%33.3 Has)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-400 mb-2 uppercase">Kütle (Gram)</label>
+              <input type="number" id="milyem-input-gram" value="100" oninput="runMilyemHome()" class="w-full bg-darkBg text-white border border-darkBorder focus:border-gold-500 rounded-xl px-3.5 py-3 text-xs font-bold outline-none">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3 pt-3">
+            <div class="bg-darkBg border border-darkBorder rounded-xl p-3 text-center">
+              <span class="block text-[9px] text-gray-500 font-semibold mb-1 uppercase">Alaşım Milyemi</span>
+              <span id="milyem-res-milyem" class="text-sm font-bold text-gold-400">916 Milyem</span>
+            </div>
+            <div class="bg-darkBg border border-darkBorder rounded-xl p-3 text-center">
+              <span class="block text-[9px] text-gray-500 font-semibold mb-1 uppercase">Has Gram Karşılığı</span>
+              <span id="milyem-res-has" class="text-sm font-bold text-white">91,60 Gr.</span>
+            </div>
+            <div class="bg-darkBg border border-darkBorder rounded-xl p-3 text-center">
+              <span class="block text-[9px] text-gray-500 font-semibold mb-1 uppercase">Yaklaşık Değeri</span>
+              <span id="milyem-res-tutar" class="text-sm font-bold text-emerald-400">223.091 TL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tool 2: Virtual Digital Scale (Sanal Terazi) Preview -->
+      <div class="bg-darkCard border border-darkBorder rounded-2xl p-6 relative group overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-gold-500/5 rounded-full blur-2xl group-hover:bg-gold-500/10 transition-all"></div>
+        
+        <div class="flex items-center justify-between pb-4 border-b border-darkBorder mb-6">
+          <div class="flex items-center space-x-3">
+            <div class="h-10 w-10 rounded-xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400">
+              <i class="fa-solid fa-scale-balanced text-lg"></i>
+            </div>
+            <div>
+              <h3 class="font-sans font-bold text-white text-base">Hassas Sanal Terazi</h3>
+              <p class="text-xs text-gray-400">Birden fazla sarrafiye altınını terazinin üstüne atarak anında toplam ağırlığı bulun.</p>
+            </div>
+          </div>
+          <a href="terazi.html" class="h-8 w-8 rounded-lg bg-darkBg border border-darkBorder text-gray-400 hover:text-gold-400 hover:border-gold-500 flex items-center justify-center transition-all">
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </a>
+        </div>
+
+        <div class="space-y-4">
+          <p class="text-xs text-gray-400">Aşağıdaki butonlara tıklayarak terazinin üzerine paket ekleyin:</p>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="addTeraziItem(1.75, 'Çeyrek')" class="px-3 py-2 bg-darkBg text-xs font-semibold text-white hover:text-gold-400 hover:border-gold-500/50 border border-darkBorder rounded-lg transition-all flex items-center space-x-1.5">
+              <span>+ Çeyrek (1.75g)</span>
+            </button>
+            <button onclick="addTeraziItem(3.50, 'Yarım')" class="px-3 py-2 bg-darkBg text-xs font-semibold text-white hover:text-gold-400 hover:border-gold-500/50 border border-darkBorder rounded-lg transition-all flex items-center space-x-1.5">
+              <span>+ Yarım (3.50g)</span>
+            </button>
+            <button onclick="addTeraziItem(7.01, 'Ata / Cumhuriyet')" class="px-3 py-2 bg-darkBg text-xs font-semibold text-white hover:text-gold-400 hover:border-gold-500/50 border border-darkBorder rounded-lg transition-all flex items-center space-x-1.5">
+              <span>+ Ata (7.01g)</span>
+            </button>
+            <button onclick="clearTerazi()" class="px-3 py-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-xs font-bold border border-rose-500/20 rounded-lg transition-all">
+              Sıfırla / TARE
+            </button>
+          </div>
+
+          <div class="dark:bg-[#090A0E] bg:red-500  border-2 border-solid border-darkBorder focus-within:border-gold-500/60 rounded-xl p-4 flex flex-col items-center justify-center">
+            <!-- Actual scale graphic indicator -->
+            <span class="text-[9px] text-gray-500 uppercase tracking-widest font-extrabold mb-1">SANAL TERAZİ HASSAS GÖSTERGE</span>
+            <div class="flex items-baseline space-x-1">
+              <span id="scale-display" class="text-3xl font-mono font-black text-gold-400 text-glow">0.00</span>
+              <span class="text-xs text-gray-400 font-bold font-mono">g</span>
+            </div>
+            <p id="scale-items-count" class="text-[10px] text-gray-500 mt-1 font-semibold">Sepet boş</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MOBILE APP DOWNLOAD BANNER -->
+  <section class="max-w-7xl mx-auto px-4 py-10">
+    <div class="relative overflow-hidden rounded-3xl border border-gold-500/20 shadow-2xl">
+
+      <!-- Dark gradient background -->
+      <div class="app-banner-bg absolute inset-0 bg-gradient-to-br from-[#1A1507] via-[#0D0E12] to-[#0D0E12]"></div>
+      <!-- Glow blobs -->
+      <!-- Thin gold top border accent -->
+
+      <div class="relative z-10 flex flex-col lg:flex-row items-center gap-10 p-8 lg:p-14">
+
+        <!-- LEFT: Text + Badges + Buttons -->
+        <div class="flex-1 space-y-6 text-center lg:text-left">
+          <!-- Badge -->
+         
+          <h2 class="app-banner-title font-sans text-4xl lg:text-5xl font-black text-white leading-tight">
+            Cebindeki<br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200">Kapalıçarşı!</span>
+          </h2>
+
+          <p class="app-banner-desc text-sm text-gray-400 leading-relaxed max-w-md mx-auto lg:mx-0">
+            Anlık fiyat alarmı kurun, kur dalgalanmalarından anında haberdar olun. Kapalıçarşı'yı cebinize taşıyın.
+          </p>
+
+          <!-- Feature pills -->
+          <div class="flex flex-wrap gap-2 justify-center lg:justify-start">
+            <span class="app-pill flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300 font-medium">
+              <i class="fa-solid fa-bell text-gold-400 text-[10px]"></i> Fiyat Alarmı
+            </span>
+            <span class="app-pill flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300 font-medium">
+              <i class="fa-solid fa-bolt text-emerald-400 text-[10px]"></i> Anlık Bildirim
+            </span>
+            <span class="app-pill flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300 font-medium">
+              <i class="fa-solid fa-chart-line text-blue-400 text-[10px]"></i> Geçmiş Grafik
+            </span>
+            <span class="app-pill flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300 font-medium">
+              <i class="fa-solid fa-lock text-purple-400 text-[10px]"></i> Güvenli İşlem
+            </span>
+          </div>
+
+          <!-- Download Buttons -->
+          <div class="flex flex-wrap gap-3 items-center justify-center lg:justify-start pt-2">
+            <a href="https://apps.apple.com/us/app/hakan-alt%C4%B1n/id1575182331" target="_blank"
+               class="group flex items-center space-x-3 px-5 py-3.5 rounded-2xl bg-white text-darkBg hover:bg-gold-100 transition-all shadow-lg shadow-white/10">
+              <i class="fa-brands fa-apple text-2xl"></i>
+              <div class="text-left">
+                <span class="block text-[9px] font-semibold uppercase tracking-wider opacity-60 leading-none">Download on the</span>
+                <span class="block text-sm font-extrabold leading-tight">App Store</span>
+              </div>
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.hakanaltin" target="_blank"
+               class="app-gplay-btn group flex items-center space-x-3 px-5 py-3.5 rounded-2xl bg-[#1A1A2E] border border-white/10 hover:border-gold-500/50 text-white transition-all shadow-lg">
+              <i class="fa-brands fa-google-play text-xl text-white"></i>
+              <div class="text-left">
+                <span class="block text-[9px] font-semibold uppercase tracking-wider opacity-50 leading-none">Get it on</span>
+                <span class="block text-sm font-extrabold leading-tight">Google Play</span>
+              </div>
+            </a>
+          </div>
+
+          <!-- Rating row -->
+          <div class="flex items-center gap-3 justify-center lg:justify-start pt-1 text-xs app-banner-rating-count">
+            <div class="flex items-center gap-0.5 text-gold-400">
+              <i class="fa-solid fa-star text-[10px]"></i>
+              <i class="fa-solid fa-star text-[10px]"></i>
+              <i class="fa-solid fa-star text-[10px]"></i>
+              <i class="fa-solid fa-star text-[10px]"></i>
+              <i class="fa-solid fa-star-half-stroke text-[10px]"></i>
+            </div>
+            <span class="app-banner-rating-num text-white font-bold">4.8</span>
+            <span>· 2.400+ değerlendirme</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: Phone Mockup -->
+        <div class="relative shrink-0 w-full max-w-[230px] mx-auto lg:mx-0">
+          <!-- Glow halo behind phone -->
+          <div class="absolute -inset-4 bg-gradient-to-tr from-gold-500/30 to-gold-300/10 rounded-[48px] blur-2xl opacity-50"></div>
+
+          <div class="relative bg-[#0A0B0F] border-[3px] border-[#2A2C36] rounded-[40px] overflow-hidden shadow-2xl">
+            <!-- Dynamic Island -->
+            <div class="flex justify-center pt-3 pb-1">
+              <div class="h-[18px] w-[80px] bg-black rounded-full"></div>
+            </div>
+
+            <!-- Screen Content -->
+            <div class="px-3 pb-4 space-y-2.5 text-[10px]">
+
+              <!-- Status bar -->
+              <div class="flex justify-between items-center text-[8px] text-gray-500 px-1">
+                <span class="font-bold">9:41</span>
+                <div class="flex items-center gap-1">
+                  <i class="fa-solid fa-signal"></i>
+                  <i class="fa-solid fa-wifi"></i>
+                  <i class="fa-solid fa-battery-full"></i>
+                </div>
+              </div>
+
+              <!-- App header -->
+              <div class="flex items-center justify-between px-1">
+                <span class="font-extrabold text-white text-[11px]">Hakan Altın</span>
+                <span class="flex items-center gap-1 text-emerald-400 font-bold text-[9px]">
+                  <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  CANLI
+                </span>
+              </div>
+
+              <!-- Price hero card -->
+              <div class="bg-gradient-to-br from-gold-600/20 to-gold-900/10 border border-gold-500/20 rounded-2xl p-2.5">
+                <span class="text-[8px] text-gold-400/70 uppercase tracking-widest font-bold">Has Altın / Gram</span>
+                <div class="flex items-baseline gap-1 mt-0.5">
+                  <span class="text-white font-black text-base">6.596</span>
+                  <span class="text-gray-400 text-[9px]">TL</span>
+                </div>
+                <span class="text-emerald-400 text-[9px] font-bold">▲ +1.45% bugün</span>
+              </div>
+
+              <!-- Mini price list -->
+              <div class="bg-white/[0.03] border border-white/[0.06] rounded-xl divide-y divide-white/[0.05]">
+                <div class="flex justify-between items-center px-2 py-1.5">
+                  <span class="text-gray-400">Çeyrek</span>
+                  <span class="text-white font-semibold">10.782 ₺</span>
+                </div>
+                <div class="flex justify-between items-center px-2 py-1.5">
+                  <span class="text-gray-400">Ata Altın</span>
+                  <span class="text-white font-semibold">44.540 ₺</span>
+                </div>
+                <div class="flex justify-between items-center px-2 py-1.5">
+                  <span class="text-gray-400">USD/TRY</span>
+                  <span class="text-white font-semibold">32,24 ₺</span>
+                </div>
+              </div>
+
+              <!-- CTA button -->
+              <button class="w-full py-2 bg-gradient-to-r from-gold-500 to-gold-400 rounded-xl text-[#0D0E12] font-extrabold text-[10px] tracking-wide">
+                <i class="fa-solid fa-bell mr-1"></i> Fiyat Alarmı Kur
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- REASONS TO CHOOSE US / TRUST SECTION -->
+  <section class="max-w-7xl mx-auto px-4 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="bg-darkCard border border-darkBorder rounded-2xl p-6 space-y-3">
+        <div class="h-10 w-10 rounded-lg bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 text-lg">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <h4 class="font-sans font-bold text-white text-base">Güvenli Fiziki Altyapı</h4>
+        <p class="text-xs text-gray-400 leading-relaxed">
+          Kapalıçarşı merkez şubemizdeki ileri teknoloji güvenlik standartları ve uzman kadromuzla fiziki teslimatlar saniyeler içerisinde güvenle tamamlanır.
+        </p>
+      </div>
+
+      <div class="bg-darkCard border border-darkBorder rounded-2xl p-6 space-y-3">
+        <div class="h-10 w-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-lg">
+          <i class="fa-solid fa-chart-bar"></i>
+        </div>
+        <h4 class="font-sans font-bold text-white text-base">Hassas Yayılım (Makas)</h4>
+        <p class="text-xs text-gray-400 leading-relaxed">
+          Müşteri lehine minimize edilmiş serbest piyasa alış-satış farkından faydalanarak yatırımlarınızın maksimum değere ulaşmasını sağlayın.
+        </p>
+      </div>
+
+      <div class="bg-darkCard border border-darkBorder rounded-2xl p-6 space-y-3">
+        <div class="h-10 w-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-lg">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+        </div>
+        <h4 class="font-sans font-bold text-white text-base">Kesintisiz Canlılık</h4>
+        <p class="text-xs text-gray-400 leading-relaxed">
+          Cumartesi ve Pazar dahil olmak üzere, küresel altın, dolar, euro ve gümüş kurlarını serbest piyasa entegrasyonuyla takip edin.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALTIN REHBERI TEASER SECTION -->
+  <section class="max-w-7xl mx-auto px-4 py-12">
+    <div class="bg-darkCard border border-darkBorder rounded-3xl p-6 sm:p-8 lg:p-10 relative overflow-hidden">
+      <div class="absolute -top-20 -right-20 w-72 h-72 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="relative z-10">
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-7">
+          <div class="space-y-2 max-w-2xl">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-gold-500/10 border border-gold-500/20 text-gold-400">
+              <i class="fa-solid fa-book-open"></i>
+              Altın Akademisi
+            </span>
+            <h2 class="font-sans text-2xl sm:text-3xl font-bold text-white">Altın Rehberi</h2>
+            <p class="text-sm text-gray-400 leading-relaxed">
+              Altın yatırımı hakkında temel kavramları sade bir dille öğrenin. Eğitim içerikleriyle doğru karar verin, yeni başlayanlar için güvenli bir başlangıç yapın.
+            </p>
+          </div>
+          <a href="altin-rehberi.html" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-gold-500 to-gold-600 text-darkBg font-bold text-sm hover:from-gold-400 hover:to-gold-500 transition-all">
+            Tüm Rehberi Gör
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <a href="altin-rehberi.html#gram-vs-ceyrek" class="group rounded-2xl border border-darkBorder bg-darkBg p-4 hover:border-gold-500/40 hover:bg-white/[0.02] transition-all">
+            <h3 class="text-sm font-bold text-white group-hover:text-gold-400 transition-colors">Gram Altın mı Çeyrek Altın mı?</h3>
+            <p class="text-xs text-gray-400 mt-2 leading-relaxed">Hangi ürünün hangi profile daha uygun olduğunu kıyaslayın.</p>
+          </a>
+          <a href="altin-rehberi.html#ilk-kez-altin" class="group rounded-2xl border border-darkBorder bg-darkBg p-4 hover:border-gold-500/40 hover:bg-white/[0.02] transition-all">
+            <h3 class="text-sm font-bold text-white group-hover:text-gold-400 transition-colors">İlk Kez Altın Alacaklar İçin Rehber</h3>
+            <p class="text-xs text-gray-400 mt-2 leading-relaxed">İlk alışta dikkat edilmesi gereken 5 temel adımı görün.</p>
+          </a>
+          <a href="altin-rehberi.html#22-24-fark" class="group rounded-2xl border border-darkBorder bg-darkBg p-4 hover:border-gold-500/40 hover:bg-white/[0.02] transition-all">
+            <h3 class="text-sm font-bold text-white group-hover:text-gold-400 transition-colors">22 Ayar ve 24 Ayar Arasındaki Fark</h3>
+            <p class="text-xs text-gray-400 mt-2 leading-relaxed">Ayar, saflık ve kullanım amacını pratik örneklerle öğrenin.</p>
+          </a>
+          <a href="altin-rehberi.html#duzenli-birikim" class="group rounded-2xl border border-darkBorder bg-darkBg p-4 hover:border-gold-500/40 hover:bg-white/[0.02] transition-all">
+            <h3 class="text-sm font-bold text-white group-hover:text-gold-400 transition-colors">Düzenli Altın Birikimi Nasıl Yapılır?</h3>
+            <p class="text-xs text-gray-400 mt-2 leading-relaxed">Aylık plan ve disiplinli alım yaklaşımıyla birikim modeli kurun.</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFESSIONAL PREMIUM FOOTER -->
+  <footer class="bg-[#08090C] border-t border-darkBorder pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-10">
+      <!-- Col 1: Brand Info -->
+      <div class="space-y-4">
+        <!-- Logo -->
+        <div class="flex items-center space-x-3.5">
+          <img src="docs/images/logo.svg" alt="Hakan Altın Logo" class="h-9 w-auto logo-img">
+        </div>
+        <p class="text-xs text-gray-400 leading-relaxed">
+          Hakan Altın, Kapalıçarşı esnafı ve altın yatırımcısı kurumlara 40 yılı aşkın süredir en kaliteli, şeffaf ve anlık kıymetli madenler aracılık hizmetlerini sunmaktadır.
+        </p>
+        <div class="flex space-x-2 pt-2">
+          <a href="#" class="h-8 w-8 rounded-lg bg-darkCard border border-darkBorder hover:border-gold-500 text-gray-400 hover:text-white flex items-center justify-center transition-all"><i class="fa-brands fa-instagram text-sm"></i></a>
+          <a href="#" class="h-8 w-8 rounded-lg bg-darkCard border border-darkBorder hover:border-gold-500 text-gray-400 hover:text-white flex items-center justify-center transition-all"><i class="fa-brands fa-linkedin text-sm"></i></a>
+          <a href="#" class="h-8 w-8 rounded-lg bg-darkCard border border-darkBorder hover:border-gold-500 text-gray-400 hover:text-white flex items-center justify-center transition-all"><i class="fa-brands fa-youtube text-sm"></i></a>
+        </div>
+      </div>
+
+      <!-- Col 2: Quick Links -->
+      <div class="space-y-4">
+        <h5 class="font-sans font-bold text-white text-xs uppercase tracking-wider">Hızlı Erişim</h5>
+        <div class="flex flex-col space-y-2.5 text-xs text-gray-400">
+          <a href="#canli-piyasa" class="hover:text-gold-400 transition-colors">Canlı Piyasalar</a>
+          <a href="sarrafiye.html" class="hover:text-gold-400 transition-colors">Sarrafiye & Ziynet</a>
+          <a href="altin-rehberi.html" class="hover:text-gold-400 transition-colors">Altın Rehberi</a>
+          <a href="milyem.html" class="hover:text-gold-400 transition-colors">Milyem Çevirici</a>
+          <a href="terazi.html" class="hover:text-gold-400 transition-colors">Sanal Terazi</a>
+          <a href="gecmis.html" class="hover:text-gold-400 transition-colors">Geçmiş Kurlar</a>
+        </div>
+      </div>
+
+      <!-- Col 3: Legal & Corp -->
+      <div class="space-y-4">
+        <h5 class="font-sans font-bold text-white text-xs uppercase tracking-wider">Kurumsal & Yasal</h5>
+        <div class="flex flex-col space-y-2.5 text-xs text-gray-400">
+          <a href="#" class="hover:text-gold-400 transition-colors">Hakkımızda</a>
+          <a href="#" class="hover:text-gold-400 transition-colors">KVKK Aydınlatma Metni</a>
+          <a href="#" class="hover:text-gold-400 transition-colors">Çerez Politikası</a>
+          <a href="#" class="hover:text-gold-400 transition-colors">Kullanıcı Sözleşmesi</a>
+        </div>
+      </div>
+
+      <!-- Col 4: Contact & Locations -->
+      <div class="space-y-4">
+        <h5 class="font-sans font-bold text-white text-xs uppercase tracking-wider">Şube & İletişim</h5>
+        <div class="space-y-2.5 text-xs text-gray-400">
+          <p class="flex items-start">
+            <i class="fa-solid fa-map-marker-alt text-gold-500 mr-2 mt-0.5 w-4 shrink-0 text-center"></i>
+            <span>Molla Fenari Mah. Şeref Efendi Sok. Şeref Han, No: 28/402 Kapalıçarşı, Fatih / İstanbul</span>
+          </p>
+          <p class="flex items-center">
+            <i class="fa-solid fa-phone text-gold-500 mr-2 w-4 shrink-0 text-center"></i>
+            <a href="tel:4447511" class="hover:text-white font-bold">444 75 11</a>
+          </p>
+          <p class="flex items-center">
+            <i class="fa-solid fa-envelope text-gold-500 mr-2 w-4 shrink-0 text-center"></i>
+            <a href="mailto:info@hakanaltin.com" class="hover:text-white">info@hakanaltin.com</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 mt-12 pt-8 border-t border-darkBorder flex flex-col md:flex-row justify-between items-center gap-4 text-center">
+      <p class="text-xs text-gray-500">&copy; 2026 Hakan Altın Kıymetli Madenler Tic. A.Ş. Tüm hakları saklıdır.</p>
+      <p class="text-xs text-gray-500">Bu web sitesindeki fiyatlar, grafikler ve bilgiler bilgilendirme amacıyla yayınlanmaktadır.</p>
+    </div>
+  </footer>
+
+  <!-- CORE JAVASCRIPT FOR MOCKUPS AND SIMULATION -->
+  <script>
+    // Live price state mock dataset
+    const priceDb = {
+      buyMultiplier: 0.998,  // 0.2% buy spread
+      sellMultiplier: 1.002, // 0.2% sell spread
+      assets: {
+        has: { name: "Has Altın/TL (24 Ayar)", buy: 6580.00, sell: 6596.00, type: "madenler", suffix: "Gr.", change: '+1.45%', series: [20, 25, 45, 12, 60, 40, 80] },
+        "22_ayar": { name: "22 Ayar Altın / TL", buy: 6010.10, sell: 6043.80, type: "madenler", suffix: "Gr.", change: '+0.45%', series: [10, 15, 30, 22, 45, 30, 55] },
+        ceyrek: { name: "Çeyrek Altın / Adet", buy: 10650.00, sell: 10782.00, type: "sarrafiye", suffix: "Adet", change: '+0.90%', series: [40, 30, 50, 60, 35, 70, 75] },
+        yarim: { name: "Yarım Altın / Adet", buy: 21300.00, sell: 21560.00, type: "sarrafiye", suffix: "Adet", change: '+1.00%', series: [80, 70, 65, 55, 60, 45, 40] },
+        tam: { name: "Tam Ziynet Lira Altını", buy: 42800.00, sell: 43120.00, type: "sarrafiye", suffix: "Adet", change: '-0.20%', series: [70, 75, 80, 85, 75, 90, 95] },
+        ata: { name: "Ata Altın / Adet", buy: 44180.00, sell: 44540.00, type: "sarrafiye", suffix: "Adet", change: '-0.12%', series: [90, 85, 80, 70, 75, 60, 50] },
+        dolar: { name: "ABD Doları (USD)", buy: 32.2210, sell: 32.2450, type: "pariteler", suffix: "$", change: '+0.08%', series: [10, 12, 11, 20, 15, 18, 22] },
+        euro: { name: "Euro (EUR)", buy: 35.0910, sell: 35.1240, type: "pariteler", suffix: "€", change: '+0.15%', series: [15, 20, 12, 35, 22, 28, 45] },
+        ons: { name: "Uluslararası Altın Ons", buy: 2341.10, sell: 2342.10, type: "madenler", suffix: "Ons", change: '-0.22%', series: [45, 40, 35, 55, 30, 20, 15] },
+        gumus_try: { name: "Gümüş/TL", buy: 28.15, sell: 28.52, type: "madenler", suffix: "Gr.", change: '+1.20%', series: [5, 15, 20, 35, 45, 55, 75] },
+        ons_gumus: { name: "Uluslararası Gümüş Ons", buy: 30.12, sell: 30.25, type: "madenler", suffix: "Ons", change: '+0.88%', series: [10, 8, 15, 25, 30, 40, 52] }
+      }
+    };
+
+    let activeMarketTab = 'madenler';
+
+    // MOBILE MENU TOGGLE
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const icon = document.getElementById('menu-icon');
+      if (menu.classList.contains('hidden')) {
+        menu.classList.remove('hidden');
+        icon.className = "fa-solid fa-xmark text-lg";
+      } else {
+        menu.classList.add('hidden');
+        icon.className = "fa-solid fa-bars text-lg";
+      }
+    }
+
+    // HERO POPULAR PRODUCTS DYNAMIC UPDATE
+    function updateHeroPopularProducts() {
+      const keys = ['has', '22_ayar', 'ceyrek', 'yarim', 'tam', 'ata', 'dolar', 'euro'];
+      
+      keys.forEach(key => {
+        const item = priceDb.assets[key];
+        if (!item) return;
+        
+        // Format to 2 or 4 decimal places depending on asset
+        const decCount = (key === 'dolar' || key === 'euro') ? 4 : 2;
+        const customFormatter = new Intl.NumberFormat('tr-TR', { minimumFractionDigits: decCount, maximumFractionDigits: decCount });
+        
+        const buyEl = document.getElementById(`hero-buy-${key}`);
+        const sellEl = document.getElementById(`hero-sell-${key}`);
+        const changeEl = document.getElementById(`hero-change-${key}`);
+        const containerEl = document.getElementById(`hero-change-container-${key}`);
+        const arrowEl = document.getElementById(`hero-arrow-${key}`);
+        
+        if (buyEl) buyEl.innerText = customFormatter.format(item.buy);
+        if (sellEl) sellEl.innerText = customFormatter.format(item.sell);
+        
+        const isUp = item.change.startsWith('+');
+        
+        if (changeEl) {
+          changeEl.innerText = item.change;
+        }
+
+        if (arrowEl) {
+          arrowEl.innerText = isUp ? '▲' : '▼';
+        }
+
+        if (containerEl) {
+          if (isUp) {
+            containerEl.className = "mt-2.5 flex items-center gap-1.5 text-emerald-600 font-bold text-xs sm:text-sm";
+          } else {
+            containerEl.className = "mt-2.5 flex items-center gap-1.5 text-rose-600 font-bold text-xs sm:text-sm";
+          }
+        }
+      });
+    }
+
+    // MARKET TABS MANAGEMENT
+    function switchMarketTab(tabName) {
+      activeMarketTab = tabName;
+      
+      // Tabs aesthetic update
+      ['madenler', 'sarrafiye', 'pariteler'].forEach(t => {
+        const btn = document.getElementById(`tab-${t}`);
+        if (t === tabName) {
+          btn.className = "px-4 py-2.5 rounded-lg text-xs font-bold transition-all bg-gold-500/10 text-gold-400 border border-gold-500/20";
+        } else {
+          btn.className = "px-4 py-2.5 rounded-lg text-xs font-bold transition-all text-gray-400 hover:text-white";
+        }
+      });
+
+      renderMarketTable();
+    }
+
+    // Render Sparkline SVG element
+    function drawSparkline(series, isPositive) {
+      const minVal = Math.min(...series);
+      const maxVal = Math.max(...series);
+      const strokeColor = isPositive ? '#10B981' : '#F43F5E';
+      const width = 120;
+      const height = 30;
+      const step = width / (series.length - 1);
+      
+      let points = '';
+      series.forEach((val, i) => {
+        const x = i * step;
+        const normalizedY = maxVal === minVal ? height / 2 : height - ((val - minVal) / (maxVal - minVal)) * height;
+        points += `${x},${normalizedY} `;
+      });
+
+      return `
+        <svg width="${width}" height="${height}" class="mx-auto overflow-visible">
+          <polyline fill="none" stroke="${strokeColor}" stroke-width="2" points="${points}" />
+          <!-- Animated pulse pointer on the last coordinate -->
+          <circle cx="${width}" cy="${maxVal === minVal ? height/2 : height - ((series[series.length-1] - minVal) / (maxVal - minVal)) * height}" r="3.5" fill="${strokeColor}" class="animate-pulse" />
+        </svg>
+      `;
+    }
+
+    // Build/Render the Live market rows
+    function renderMarketTable() {
+      const searchVal = document.getElementById('market-search').value.toLowerCase();
+      const container = document.getElementById('market-rows-container');
+      container.innerHTML = "";
+
+      const formatter = new Intl.NumberFormat('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 4 });
+
+      Object.keys(priceDb.assets).forEach(key => {
+        const item = priceDb.assets[key];
+        
+        // Filter tabs & Search criteria
+        if (item.type !== activeMarketTab) return;
+        if (searchVal && !item.name.toLowerCase().includes(searchVal) && !key.toLowerCase().includes(searchVal)) return;
+
+        const isPositive = item.change.startsWith('+');
+        const iconCaret = isPositive ? 'fa-caret-up text-emerald-500' : 'fa-caret-down text-rose-500';
+        const colorPercentage = isPositive ? 'text-emerald-500' : 'text-rose-500';
+
+        const row = document.createElement('div');
+        row.className = "grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 px-6 py-4 md:py-5 items-center hover:bg-white/[0.02] transition-colors duration-150 group";
+        
+        row.innerHTML = `
+          <!-- Name -->
+          <div class="col-span-12 md:col-span-4 flex items-center justify-between md:justify-start space-x-3">
+            <div class="flex items-center space-x-3.5">
+              <div class="h-8 w-8 rounded-lg bg-darkBg border border-darkBorder flex items-center justify-center text-gold-500/80 font-mono font-bold text-xs uppercase">
+                ${key.slice(0,3)}
+              </div>
+              <div>
+                <span class="block text-sm font-bold text-white group-hover:text-gold-400 transition-colors">${item.name}</span>
+                <span class="text-[10px] text-gray-500 uppercase tracking-widest font-semibold">${key} / Serbest Piyasa</span>
+              </div>
+            </div>
+            <!-- Mobile Badge Change -->
+            <div class="md:hidden flex items-center space-x-1.5 bg-darkBg tracking-tight border border-darkBorder px-2.5 py-1 rounded-lg text-xs ${colorPercentage}">
+              <i class="fa-solid ${iconCaret}"></i>
+              <span class="font-extrabold">${item.change}</span>
+            </div>
+          </div>
+
+          <!-- Sell Price -->
+          <div class="col-span-6 md:col-span-2 text-left md:text-right border-r border-darkBorder/40 md:border-none pr-4 md:pr-0">
+            <span class="text-[9px] text-gray-500 block md:hidden uppercase font-semibold">Biz Alırız (Bozdurma)</span>
+            <span class="text-sm font-semibold  text-white">${formatter.format(item.buy)}</span>
+            <span class="text-[10px] text-gray-400 font-mono block md:hidden">TL</span>
+          </div>
+
+          <!-- Buy Price -->
+          <div class="col-span-6 md:col-span-2 text-right">
+            <span class="text-[9px] text-gray-500 block md:hidden uppercase font-semibold">Biz Satarız (Alışınız)</span>
+            <span class="text-sm font-semibold  text-white">${formatter.format(item.sell)}</span>
+            <span class="text-[10px] text-gray-400 font-mono block md:hidden">TL</span>
+          </div>
+
+          <!-- Desktop Change badge -->
+          <div class="hidden md:flex col-span-2 justify-center items-center">
+            <div class="flex items-center space-x-1 border border-darkBorder bg-darkBg rounded-lg px-2.5 py-1.5 text-xs ${colorPercentage}">
+              <i class="fa-solid ${iconCaret}"></i>
+              <span class="font-extrabold">${item.change}</span>
+            </div>
+          </div>
+
+          <!-- Desktop Sparkline -->
+          <div class="hidden md:block col-span-2">
+            ${drawSparkline(item.series, isPositive)}
+          </div>
+        `;
+        
+        container.appendChild(row);
+      });
+    }
+
+    function filterMarketTable() {
+      renderMarketTable();
+    }
+
+
+    // SECTORAL TOOLS RUN DEMOS
+    // Milyem Home Logic
+    function runMilyemHome() {
+      const ayar = parseInt(document.getElementById('milyem-select-ayar').value) || 22;
+      const gram = parseFloat(document.getElementById('milyem-input-gram').value) || 0;
+      
+      let milyem = 916;
+      if (ayar === 18) milyem = 750;
+      if (ayar === 14) milyem = 585;
+      if (ayar === 8) milyem = 333;
+
+      const hasGram = (gram * milyem) / 1000;
+      const approximationValue = hasGram * priceDb.assets.has.buy;
+
+      const numFormat = new Intl.NumberFormat('tr-TR', { maximumFractionDigits: 2 });
+      const currencyFormat = new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY', maximumFractionDigits: 0 });
+
+      document.getElementById('milyem-res-milyem').innerText = `${milyem} Milyem`;
+      document.getElementById('milyem-res-has').innerText = `${numFormat.format(hasGram)} Gr.`;
+      document.getElementById('milyem-res-tutar').innerText = currencyFormat.format(approximationValue);
+    }
+
+    // Terazi Home Logic
+    let teraziTotalSum = 0;
+    let teraziCount = 0;
+    function addTeraziItem(mass, name) {
+      teraziTotalSum += mass;
+      teraziCount++;
+      document.getElementById('scale-display').innerText = teraziTotalSum.toFixed(2);
+      document.getElementById('scale-items-count').innerText = `${teraziCount} parça altın terazi üstünde`;
+    }
+    function clearTerazi() {
+      teraziTotalSum = 0;
+      teraziCount = 0;
+      document.getElementById('scale-display').innerText = "0.00";
+      document.getElementById('scale-items-count').innerText = "Sepet boş";
+    }
+
+    // Interval to slightly fluctuate live prices to simulate websocket ticker action
+    setInterval(() => {
+      Object.keys(priceDb.assets).forEach(key => {
+        const item = priceDb.assets[key];
+        const fluctuation = (Math.random() - 0.5) * (item.sell * 0.0005); // 0.025% max fluctuation
+        item.buy += fluctuation;
+        item.sell += fluctuation;
+        
+        // Slightly rotate sparkline
+        item.series.shift();
+        item.series.push(item.series[item.series.length - 1] + Math.floor((Math.random() - 0.5) * 15));
+      });
+
+      // Update calculations
+      updateHeroPopularProducts();
+      renderMarketTable();
+      runMilyemHome();
+
+      // Show last updated flashing
+      const date = new Date();
+      document.getElementById('last-updated').innerText = date.toLocaleTimeString('tr-TR');
+    }, 4000);
+
+    // Initial setup running on load
+    window.onload = function() {
+      updateHeroPopularProducts();
+      renderMarketTable();
+      runMilyemHome();
+      initGoldAdvisorWizard();
+      initThemeSwitcher();
+      initShrinkHeader();
+    };
+
+    function initGoldAdvisorWizard() {
+      const state = {
+        step: 1,
+        purpose: null,
+        budget: null,
+        horizon: null
+      };
+
+      const shell = document.getElementById('gold-advisor');
+      if (!shell) return;
+
+      const steps = Array.from(shell.querySelectorAll('.advisor-step'));
+      const options = Array.from(shell.querySelectorAll('.advisor-option'));
+      const prevBtn = document.getElementById('advisor-prev');
+      const nextBtn = document.getElementById('advisor-next');
+      const resetBtn = document.getElementById('advisor-reset');
+      const progressBar = document.getElementById('advisor-progress');
+      const stepLabel = document.getElementById('advisor-step-label');
+
+      function updateOptionUI() {
+        options.forEach(btn => {
+          const q = btn.dataset.question;
+          const v = btn.dataset.value;
+          btn.classList.toggle('selected', state[q] === v);
+        });
+      }
+
+      function updateStepUI() {
+        steps.forEach(s => {
+          s.classList.toggle('active', Number(s.dataset.step) === state.step);
+        });
+
+        const progress = state.step <= 3 ? (state.step / 3) * 100 : 100;
+        if (progressBar) progressBar.style.width = progress + '%';
+        if (stepLabel) stepLabel.textContent = state.step <= 3 ? ('Adım ' + state.step + '/3') : 'Sonuç';
+
+        if (prevBtn) prevBtn.disabled = state.step === 1;
+        if (nextBtn) {
+          if (state.step <= 3) {
+            nextBtn.textContent = state.step === 3 ? 'Sonucu Gör' : 'İlerle';
+            nextBtn.classList.remove('hidden');
+          } else {
+            nextBtn.classList.add('hidden');
+          }
+        }
+        if (resetBtn) {
+          resetBtn.classList.toggle('hidden', state.step !== 4);
+        }
+      }
+
+      function hasAnswerForStep(step) {
+        if (step === 1) return !!state.purpose;
+        if (step === 2) return !!state.budget;
+        if (step === 3) return !!state.horizon;
+        return true;
+      }
+
+      function buildResult() {
+        let profileTitle = 'Dengeli kullanıcı profili';
+        let profileDesc = 'Verdiğiniz yanıtlara göre farklı ürün gruplarını karşılaştırarak ilerlemeniz uygun görünüyor.';
+        const products = [];
+        const reasons = [];
+
+        if (state.purpose === 'birikim') {
+          profileTitle = 'Disiplinli birikim profili';
+          profileDesc = 'Düzenli alım yaklaşımı için parça parça alınabilen ürünler daha uygundur.';
+          products.push('Gram Altın');
+          products.push('22 Ayar / Has karşılaştırmalı alım');
+          reasons.push('Bütçeye göre esnek alım yapılabilir.');
+          reasons.push('Periyodik birikim planlarına uygundur.');
+        } else if (state.purpose === 'deger-koruma') {
+          profileTitle = 'Değer koruma odaklı profil';
+          profileDesc = 'Alım gücünü koruma hedefinde sade ve takip edilebilir ürün grupları ön plana çıkar.';
+          products.push('Gram Altın');
+          products.push('Has Altın');
+          reasons.push('Fiyat takibi ve karşılaştırması daha şeffaf ilerler.');
+          reasons.push('Uzun vadeli korunma yaklaşımına uyum sağlar.');
+        } else if (state.purpose === 'fiyat-takibi') {
+          profileTitle = 'Piyasa takip odaklı profil';
+          profileDesc = 'Makas aralığı ve gün içi hareketleri izleyerek işlem zamanı planlamaya odaklanırsınız.';
+          products.push('Gram Altın');
+          products.push('Has Altın');
+          reasons.push('Alış-satış farklarını düzenli kontrol etmek daha kolaydır.');
+          reasons.push('Günlük/haftalık fiyat takibi için net veri sağlar.');
+        } else {
+          profileTitle = 'Yatırım odaklı takip profili';
+          profileDesc = 'Piyasa takibi ve makas farkına dikkat ederek ürün seçimi yapmanız önerilir.';
+          products.push('Gram Altın ve Has Altın');
+          products.push('Ata/Tam Altın (yüksek tutar için)');
+          reasons.push('Likidite ve ürün çeşitliliği dengesi sağlar.');
+          reasons.push('Farklı bütçe dilimlerinde alternatif sunar.');
+        }
+
+        if (state.budget === 'under5') {
+          products.unshift('Düşük tutarlı Gram Altın alımları');
+          reasons.push('Düşük bütçede küçük parçalı alım daha yönetilebilir olur.');
+        } else if (state.budget === 'over100') {
+          products.unshift('Paket Gram (10g/50g) ve Ata/Tam ürün grupları');
+          reasons.push('Yüksek tutarda ürün çeşitlendirmesi riski dağıtmaya yardımcı olur.');
+        }
+
+        if (state.horizon === 'under1') {
+          reasons.push('Kısa vadede fiyat dalgalanmaları daha etkili olabilir; işlem maliyetlerini dikkate alın.');
+        } else if (state.horizon === 'over3') {
+          reasons.push('Uzun vadede düzenli alım yaklaşımı ortalama maliyeti dengeleyebilir.');
+        }
+
+        document.getElementById('advisor-profile-title').textContent = profileTitle;
+        document.getElementById('advisor-profile-desc').textContent = profileDesc;
+
+        const productEl = document.getElementById('advisor-products');
+        const reasonEl = document.getElementById('advisor-reasons');
+        if (productEl) {
+          productEl.innerHTML = products.map(function (p) { return '<li><i class="fa-solid fa-check text-gold-400 mr-2"></i>' + p + '</li>'; }).join('');
+        }
+        if (reasonEl) {
+          reasonEl.innerHTML = reasons.map(function (r) { return '<li><i class="fa-solid fa-circle-info text-gold-500 mr-1.5"></i>' + r + '</li>'; }).join('');
+        }
+      }
+
+      options.forEach(btn => {
+        btn.addEventListener('click', function () {
+          const q = this.dataset.question;
+          const v = this.dataset.value;
+          state[q] = v;
+          updateOptionUI();
+        });
+      });
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function () {
+          if (state.step > 1) {
+            state.step -= 1;
+            updateStepUI();
+          }
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function () {
+          if (state.step <= 3 && !hasAnswerForStep(state.step)) {
+            alert('Lütfen bu adım için bir seçim yapın.');
+            return;
+          }
+          if (state.step < 4) {
+            state.step += 1;
+            if (state.step === 4) buildResult();
+            updateStepUI();
+          }
+        });
+      }
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', function () {
+          state.step = 1;
+          state.purpose = null;
+          state.budget = null;
+          state.horizon = null;
+          updateOptionUI();
+          updateStepUI();
+        });
+      }
+
+      updateOptionUI();
+      updateStepUI();
+    }
+
+    // Shrink header on scroll
+    function initShrinkHeader() {
+      const header = document.getElementById('main-header');
+      const inner = document.getElementById('main-header-inner');
+      const logo = header.querySelector('.logo-img');
+      const navLinks = header.querySelectorAll('nav a');
+
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 40) {
+          inner.classList.replace('py-4', 'py-2');
+          if (logo) { logo.classList.replace('h-10', 'h-7'); }
+          navLinks.forEach(a => {
+            a.classList.replace('text-sm', 'text-xs');
+            a.classList.replace('px-4', 'px-3');
+          });
+        } else {
+          inner.classList.replace('py-2', 'py-4');
+          if (logo) { logo.classList.replace('h-7', 'h-10'); }
+          navLinks.forEach(a => {
+            a.classList.replace('text-xs', 'text-sm');
+            a.classList.replace('px-3', 'px-4');
+          });
+        }
+      }, { passive: true });
+    }
+
+    // Theme Switcher Initialization
+    function initThemeSwitcher() {
+      const toggleBtn = document.getElementById("theme-toggle");
+      const icon = document.getElementById("theme-icon");
+      const mobileToggleBtn = document.getElementById("mobile-theme-toggle");
+      const mobileIcon = document.getElementById("mobile-theme-icon");
+      const mobileText = document.getElementById("mobile-theme-text");
+      
+      function updateIcon() {
+        const isDark = document.documentElement.classList.contains("dark");
+        if (isDark) {
+          if (icon) icon.className = "fa-solid fa-sun text-sm text-gold-400";
+          if (toggleBtn) toggleBtn.title = "Açık Temaya Geç";
+          if (mobileIcon) mobileIcon.className = "fa-solid fa-sun text-gold-500";
+          if (mobileText) mobileText.innerText = "Açık Tema";
+        } else {
+          if (icon) icon.className = "fa-solid fa-moon text-sm text-gray-500 hover:text-gold-500";
+          if (toggleBtn) toggleBtn.title = "Karanlık Temaya Geç";
+          if (mobileIcon) mobileIcon.className = "fa-solid fa-moon text-gray-400";
+          if (mobileText) mobileText.innerText = "Karanlık Tema";
+        }
+        // Update all logo images
+        document.querySelectorAll('.logo-img').forEach(img => {
+          img.src = isDark ? 'docs/images/logo.svg' : 'docs/images/logo-light.svg';
+        });
+      }
+      
+      updateIcon();
+      
+      function toggleTheme() {
+        if (document.documentElement.classList.contains("dark")) {
+          document.documentElement.classList.remove("dark");
+          localStorage.setItem("theme", "light");
+        } else {
+          document.documentElement.classList.add("dark");
+          localStorage.setItem("theme", "dark");
+        }
+        updateIcon();
+      }
+      
+      if (toggleBtn) toggleBtn.addEventListener("click", toggleTheme);
+      if (mobileToggleBtn) mobileToggleBtn.addEventListener("click", toggleTheme);
+    }
+
+  </script>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       INTENT SELECTION SYSTEM
+       Kullanıcının niyetini belirleyip localStorage'a kayıt eder
+       ve dinamik içerikleri buna göre günceller.
+       ═══════════════════════════════════════════════════════════ -->
+  <script>
+    (function () {
+      'use strict';
+
+      var INTENT_KEY = 'hk_user_intent';
+
+      var intentData = {
+        'yatirim': {
+          title: 'Yatırım odaklı içerikler aktif',
+          desc: 'Gram altın, Has ve ONS fiyatları öne çıkarıldı. Canlı fiyat panosunu inceleyebilirsiniz.',
+          ico: 'fa-chart-line',
+          cta: '#canli-piyasa',
+          ctaLabel: 'Piyasalara Git →'
+        },
+        'piyasa-takibi': {
+          title: 'Piyasa takibi modu aktif',
+          desc: 'Anlık alış-satış farkları ve değişim oranları öne çıkarıldı. Hızlı karşılaştırma için canlı tabloyu kullanabilirsiniz.',
+          ico: 'fa-binoculars',
+          cta: '#canli-piyasa',
+          ctaLabel: 'Canlı Tabloya Git →'
+        },
+        'birikim': {
+          title: 'Birikim planı için hazırsınız',
+          desc: 'Gram altın ve çeyrek fiyatlarına odaklanın. Düzenli alımlarınızı Milyem Hesaplayıcı ile takip edin.',
+          ico: 'fa-piggy-bank',
+          cta: 'milyem.html',
+          ctaLabel: 'Hesaplayıcıya Git →'
+        },
+        'buyuk-yatirim': {
+          title: 'Kurumsal & yüksek tutar modu',
+          desc: 'Tam Altın, Ata Altın ve büyük miktarlı has alım fiyatları öne çıkarıldı. Destek hattından anlık fiyat alabilirsiniz.',
+          ico: 'fa-building-columns',
+          cta: 'tel:4447511',
+          ctaLabel: 'Hemen Ara →'
+        }
+      };
+
+      function _applyCardSelected(key) {
+        document.querySelectorAll('.intent-card').forEach(function (c) {
+          var isTarget = c.getAttribute('data-intent') === key;
+          c.classList.toggle('selected', isTarget);
+          var badge = c.querySelector('.intent-check-badge');
+          if (badge) {
+            badge.classList.toggle('hidden', !isTarget);
+            badge.classList.toggle('flex', isTarget);
+          }
+        });
+      }
+
+      function _showBanner(key) {
+        var data = intentData[key];
+        if (!data) return;
+        var banner = document.getElementById('intent-dynamic-banner');
+        var ico    = document.getElementById('intent-banner-ico');
+        var title  = document.getElementById('intent-banner-title');
+        var desc   = document.getElementById('intent-banner-desc');
+        var cta    = document.getElementById('intent-banner-cta');
+        if (ico)    { ico.className = 'fa-solid ' + data.ico + ' text-xl text-gold-400'; }
+        if (title)  { title.textContent = data.title; }
+        if (desc)   { desc.textContent  = data.desc; }
+        if (cta)    { cta.href = data.cta; cta.textContent = data.ctaLabel; }
+        if (banner) { banner.classList.remove('hidden'); banner.classList.add('flex'); }
+      }
+
+      function _hideBanner() {
+        var banner = document.getElementById('intent-dynamic-banner');
+        if (banner) { banner.classList.add('hidden'); banner.classList.remove('flex'); }
+      }
+
+      window.selectIntent = function (key, cardEl) {
+        localStorage.setItem(INTENT_KEY, key);
+        _applyCardSelected(key);
+        _showBanner(key);
+      };
+
+      window.clearIntent = function () {
+        localStorage.removeItem(INTENT_KEY);
+        _applyCardSelected(null);
+        _hideBanner();
+      };
+
+      // Restore persisted selection on page load
+      document.addEventListener('DOMContentLoaded', function () {
+        var saved = localStorage.getItem(INTENT_KEY);
+        if (saved === 'hediye') {
+          saved = 'piyasa-takibi';
+          localStorage.setItem(INTENT_KEY, saved);
+        }
+        if (saved && intentData[saved]) {
+          _applyCardSelected(saved);
+          _showBanner(saved);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

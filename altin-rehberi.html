@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth dark">
+<head>
+  <script>
+    if (localStorage.getItem('theme') === 'light' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Altın Rehberi: Gram altın ve çeyrek altın farkı, ilk kez altın alacaklar için rehber, 22 ve 24 ayar farkları ve düzenli altın birikimi yöntemleri.">
+  <title>Altın Rehberi | Altın Akademisi - Hakan Altın</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            gold: {
+              50: '#FFFDF0',
+              100: '#FFFAD8',
+              200: '#FFF0B0',
+              300: '#FFE17A',
+              400: '#FFD24D',
+              500: '#D4AF37',
+              600: '#B88F24',
+              700: '#946E13',
+              800: '#755307',
+              900: '#523A02'
+            },
+            darkBg: '#0D0E12',
+            darkCard: '#15171E',
+            darkBorder: '#232731'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    html:not(.dark) body { background-color: #F8FAFC !important; color: #1E293B !important; }
+    html:not(.dark) .bg-darkBg { background-color: #F8FAFC !important; }
+    html:not(.dark) .bg-darkCard { background-color: #FFFFFF !important; box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05) !important; }
+    html:not(.dark) .border-darkBorder,
+    html:not(.dark) .border-darkBorder\/80,
+    html:not(.dark) .border-darkBorder\/60,
+    html:not(.dark) .border-darkBorder\/40,
+    html:not(.dark) .border-darkBorder\/30 { border-color: #E2E8F0 !important; }
+    html:not(.dark) .text-white { color: #0F172A !important; }
+    html:not(.dark) .text-gray-400 { color: #64748B !important; }
+    html:not(.dark) .text-gray-500 { color: #94A3B8 !important; }
+    html:not(.dark) .text-gold-400 { color: #92670A !important; }
+    html:not(.dark) .bg-\[\#08090C\] { background-color: #EDF2F7 !important; }
+    .guide-card {
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .guide-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(212, 175, 55, 0.45);
+      box-shadow: 0 18px 35px -14px rgba(212, 175, 55, 0.35);
+    }
+  </style>
+</head>
+<body class="bg-darkBg text-gray-100 min-h-screen">
+  <header class="sticky top-0 bg-darkBg/90 backdrop-blur-xl border-b border-darkBorder/80 z-40">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="docs/images/logo.svg" alt="Hakan Altın Logo" class="h-9 w-auto" id="guide-logo">
+      </a>
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="px-4 py-2 rounded-lg text-xs font-bold text-white bg-darkCard border border-darkBorder hover:bg-darkBorder transition-all">
+          <i class="fa-solid fa-arrow-left mr-1.5"></i>Anasayfa
+        </a>
+        <button id="theme-toggle" class="h-9 w-9 rounded-lg border border-darkBorder text-gray-400 hover:text-gold-400 transition-all">
+          <i id="theme-icon" class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-12 space-y-10">
+    <section class="bg-darkCard border border-darkBorder rounded-3xl p-7 sm:p-10 relative overflow-hidden">
+      <div class="absolute -top-24 -right-16 w-80 h-80 rounded-full bg-gold-500/10 blur-3xl pointer-events-none"></div>
+      <div class="relative z-10 max-w-3xl space-y-4">
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-gold-500/10 border border-gold-500/20 text-gold-400">
+          <i class="fa-solid fa-graduation-cap"></i>
+          Altın Akademisi
+        </span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight">Altın Rehberi</h1>
+        <p class="text-sm sm:text-base text-gray-400 leading-relaxed">
+          Temel kavramlar, ürün farkları ve birikim stratejileri. Bu sayfa SEO odaklı bilgi mimarisiyle yapılandırıldı ve blog yazılarına bağlanabilecek kartlarla tasarlandı.
+        </p>
+      </div>
+    </section>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <article id="gram-vs-ceyrek" class="guide-card bg-darkCard border border-darkBorder rounded-2xl p-6 space-y-3" data-blog-slug="gram-altin-mi-ceyrek-altin-mi">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold uppercase tracking-wider text-gold-400">Temel Karşılaştırma</span>
+          <span class="text-[11px] text-gray-500">6 dk okuma</span>
+        </div>
+        <h2 class="text-lg font-bold text-white">Gram Altın mı Çeyrek Altın mı?</h2>
+        <p class="text-sm text-gray-400 leading-relaxed">Likidite, işçilik, alım-satım farkı ve yatırım hedefi açısından iki ürünün avantajlarını kıyaslayın.</p>
+        <a href="blog/gram-altin-mi-ceyrek-altin-mi" class="inline-flex items-center gap-2 text-sm font-bold text-gold-400 hover:text-gold-300 transition-colors">Yazıyı Oku <i class="fa-solid fa-arrow-right"></i></a>
+      </article>
+
+      <article id="ilk-kez-altin" class="guide-card bg-darkCard border border-darkBorder rounded-2xl p-6 space-y-3" data-blog-slug="ilk-kez-altin-alacaklar-icin-rehber">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold uppercase tracking-wider text-gold-400">Yeni Başlayanlar</span>
+          <span class="text-[11px] text-gray-500">7 dk okuma</span>
+        </div>
+        <h2 class="text-lg font-bold text-white">İlk Kez Altın Alacaklar İçin Rehber</h2>
+        <p class="text-sm text-gray-400 leading-relaxed">İlk alışta bütçe planı, ürün seçimi, fiyat takibi ve güvenli işlem adımlarını öğrenin.</p>
+        <a href="blog/ilk-kez-altin-alacaklar-icin-rehber" class="inline-flex items-center gap-2 text-sm font-bold text-gold-400 hover:text-gold-300 transition-colors">Yazıyı Oku <i class="fa-solid fa-arrow-right"></i></a>
+      </article>
+
+      <article id="22-24-fark" class="guide-card bg-darkCard border border-darkBorder rounded-2xl p-6 space-y-3" data-blog-slug="22-ayar-24-ayar-farki">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold uppercase tracking-wider text-gold-400">Teknik Bilgi</span>
+          <span class="text-[11px] text-gray-500">5 dk okuma</span>
+        </div>
+        <h2 class="text-lg font-bold text-white">22 Ayar ve 24 Ayar Arasındaki Fark</h2>
+        <p class="text-sm text-gray-400 leading-relaxed">Saflık oranı, dayanıklılık, kullanım amacı ve fiyat etkisini anlaşılır örneklerle görün.</p>
+        <a href="blog/22-ayar-24-ayar-farki" class="inline-flex items-center gap-2 text-sm font-bold text-gold-400 hover:text-gold-300 transition-colors">Yazıyı Oku <i class="fa-solid fa-arrow-right"></i></a>
+      </article>
+
+      <article id="duzenli-birikim" class="guide-card bg-darkCard border border-darkBorder rounded-2xl p-6 space-y-3" data-blog-slug="duzenli-altin-birikimi-nasil-yapilir">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold uppercase tracking-wider text-gold-400">Strateji</span>
+          <span class="text-[11px] text-gray-500">8 dk okuma</span>
+        </div>
+        <h2 class="text-lg font-bold text-white">Düzenli Altın Birikimi Nasıl Yapılır?</h2>
+        <p class="text-sm text-gray-400 leading-relaxed">Aylık alım disiplini, hedef belirleme ve dalgalı piyasada birikimi sürdürme yöntemlerini keşfedin.</p>
+        <a href="blog/duzenli-altin-birikimi-nasil-yapilir" class="inline-flex items-center gap-2 text-sm font-bold text-gold-400 hover:text-gold-300 transition-colors">Yazıyı Oku <i class="fa-solid fa-arrow-right"></i></a>
+      </article>
+    </section>
+  </main>
+
+  <footer class="bg-[#08090C] border-t border-darkBorder py-8 mt-16">
+    <div class="max-w-7xl mx-auto px-4 text-center text-xs text-gray-500">
+      <p>&copy; 2026 Hakan Altın Kıymetli Madenler Tic. A.Ş. Tüm hakları saklıdır.</p>
+    </div>
+  </footer>
+
+  <script>
+    function updateGuideThemeIcon() {
+      var isDark = document.documentElement.classList.contains('dark');
+      var icon = document.getElementById('theme-icon');
+      var logo = document.getElementById('guide-logo');
+      if (icon) icon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+      if (logo) logo.src = isDark ? 'docs/images/logo.svg' : 'docs/images/logo-light.svg';
+    }
+
+    document.getElementById('theme-toggle').addEventListener('click', function () {
+      if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+      updateGuideThemeIcon();
+    });
+
+    updateGuideThemeIcon();
+  </script>
+</body>
+</html>

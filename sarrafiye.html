@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth dark">
+<head>
+  <script>
+    if (localStorage.getItem('theme') === 'light' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+    }
+    // Update logo images early to prevent flashing
+    document.addEventListener("DOMContentLoaded", function() {
+      const isDark = document.documentElement.classList.contains('dark');
+      document.querySelectorAll('.logo-img').forEach(img => {
+        img.src = isDark ? 'docs/images/logo.svg' : 'docs/images/logo-light.svg';
+      });
+    });
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sarrafiye & Gram Altın Kataloğu | Hakan Altın</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome for Premium Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            gold: {
+              50: '#FFFDF0',
+              100: '#FFFAD8',
+              200: '#FFF0B0',
+              300: '#FFE17A',
+              400: '#FFD24D',
+              500: '#D4AF37',
+              600: '#B88F24',
+              700: '#946E13',
+              800: '#755307',
+              900: '#523A02',
+            },
+            darkBg: '#0D0E12',
+            darkCard: '#15171E',
+            darkBorder: '#232731'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            roboto: ['Roboto', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .text-glow {
+      text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #15171E;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #D4AF37;
+      border-radius: 3px;
+    }
+
+    /* --- LIGHT THEME STYLE OVERRIDES --- */
+    html:not(.dark) body {
+      background-color: #F8FAFC !important;
+      color: #1E293B !important;
+    }
+    html:not(.dark) .bg-darkBg {
+      background-color: #F8FAFC !important;
+    }
+    html:not(.dark) .bg-\[\#08090C\] {
+      background-color: #EDF2F7 !important;
+    }
+    html:not(.dark) .bg-darkCard {
+      background-color: #FFFFFF !important;
+      box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05) !important;
+    }
+    html:not(.dark) .border-darkBorder, 
+    html:not(.dark) .border-darkBorder\/80, 
+    html:not(.dark) .border-darkBorder\/60,
+    html:not(.dark) .border-darkBorder\/40,
+    html:not(.dark) .border-darkBorder\/30 {
+      border-color: #E2E8F0 !important;
+    }
+    html:not(.dark) .text-white {
+      color: #0F172A !important;
+    }
+    html:not(.dark) .text-gray-100 {
+      color: #1E293B !important;
+    }
+    html:not(.dark) .text-gray-200 {
+      color: #334155 !important;
+    }
+    html:not(.dark) .text-gray-300 {
+      color: #475569 !important;
+    }
+    html:not(.dark) .text-gray-400 {
+      color: #64748B !important;
+    }
+    html:not(.dark) .text-gray-500 {
+      color: #94A3B8 !important;
+    }
+    html:not(.dark) .bg-darkBg\/90 {
+      background-color: rgba(255, 255, 255, 0.9) !important;
+    }
+    html:not(.dark) .bg-darkBg\/95 {
+      background-color: rgba(255, 255, 255, 0.95) !important;
+    }
+    html:not(.dark) .bg-darkBg\/60 {
+      background-color: rgba(241, 245, 249, 0.7) !important;
+    }
+    html:not(.dark) .bg-darkBg\/70 {
+      background-color: rgba(241, 245, 249, 0.82) !important;
+    }
+    html:not(.dark) .bg-white\/5 {
+      background-color: rgba(0, 0, 0, 0.03) !important;
+    }
+    html:not(.dark) .hover\:bg-white\/5:hover {
+      background-color: rgba(0, 0, 0, 0.05) !important;
+    }
+    html:not(.dark) .hover\:bg-white\/\[0\.02\]:hover {
+      background-color: rgba(0, 0, 0, 0.015) !important;
+    }
+    html:not(.dark) input,
+    html:not(.dark) select {
+      background-color: #FFFFFF !important;
+      color: #1E293B !important;
+      border-color: #CBD5E1 !important;
+    }
+    html:not(.dark) .bg-\[\#111218\] {
+      background-color: #F1F5F9 !important;
+    }
+    html:not(.dark) .text-transparent.bg-clip-text {
+      color: #0F172A !important;
+      background: none !important;
+      -webkit-text-fill-color: #0F172A !important;
+    }
+    html:not(.dark) .bg-darkCard\/70 {
+      background-color: rgba(255, 255, 255, 0.86) !important;
+      box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05) !important;
+    }
+    html:not(.dark) .bg-darkCard\/75 {
+      background-color: rgba(255, 255, 255, 0.92) !important;
+      box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05) !important;
+    }
+    html:not(.dark) .catalog-shell::before {
+      background: radial-gradient(circle, rgba(146, 103, 10, 0.14) 0%, rgba(146, 103, 10, 0) 72%);
+    }
+    html:not(.dark) .custom-scrollbar::-webkit-scrollbar-track {
+      background: #F1F5F9;
+    }
+
+    .catalog-shell {
+      position: relative;
+    }
+    .catalog-shell::before {
+      content: '';
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      right: -60px;
+      top: -40px;
+      border-radius: 9999px;
+      background: radial-gradient(circle, rgba(212,175,55,0.12) 0%, rgba(212,175,55,0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .catalog-card {
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+    .catalog-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 40px -18px rgba(212,175,55,0.35);
+      border-color: rgba(212,175,55,0.45);
+    }
+    .catalog-chip.active {
+      color: #D4AF37;
+      border-color: rgba(212,175,55,0.45);
+      background: rgba(212,175,55,0.11);
+    }
+    .catalog-card.hidden-by-filter {
+      display: none !important;
+    }
+    html:not(.dark) .catalog-chip.active {
+      border-color: rgba(146,103,10,0.4) !important;
+      color: #7A5508 !important;
+      background: rgba(146,103,10,0.09) !important;
+    }
+  </style>
+</head>
+<body class="bg-darkBg text-gray-100 min-h-screen selection:bg-gold-500 selection:text-darkBg custom-scrollbar">
+
+  <!-- TOP TICKER BAR -->
+  <div class="bg-[#08090C] border-b border-darkBorder py-2.5 text-xs overflow-hidden z-50 relative">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center z-10 relative">
+      <div class="flex items-center space-x-2 text-emerald-500 font-semibold animate-pulse mr-4 whitespace-nowrap">
+        <span class="h-2 w-2 rounded-full bg-emerald-500 inline-block"></span>
+        <span>KAPALIÇARŞI</span>
+      </div>
+      <div class="flex items-center space-x-4 pl-4 border-l border-darkBorder text-gray-400">
+        <a href="tel:4447511" class="hover:text-gold-500 transition-colors font-medium whitespace-nowrap">
+          <i class="fa-solid fa-phone mr-1.5 text-gold-500"></i> 444 75 11
+        </a>
+        <span class="text-gray-600">|</span>
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle" class="p-1 rounded text-gray-400 hover:text-gold-450 transition-all flex items-center justify-center" title="Temayı Değiştir">
+          <i id="theme-icon" class="fa-solid fa-sun text-sm"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN NAVIGATION -->
+  <header class="sticky top-0 bg-darkBg/90 backdrop-blur-xl border-b border-darkBorder/80 z-40">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center space-x-3.5 group">
+        <div class="relative">
+          <img src="docs/images/logo.svg" alt="Hakan Altın Logo" class="h-10 w-auto group-hover:scale-105 transition-transform duration-300 logo-img">
+        </div>
+       
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="hidden lg:flex items-center space-x-1.5 flex-1 justify-center max-w-xl mx-auto">
+        <a href="index.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-all">
+          Canlı Piyasalar
+        </a>
+        <a href="sarrafiye.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-gold-400 bg-gold-500/10 border border-gold-500/20">
+          Sarrafiye & Ziynet
+        </a>
+        <a href="milyem.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-all">
+          Milyem Hesaplayıcı
+        </a>
+        <a href="terazi.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-all">
+          Sanal Terazi
+        </a>
+        <a href="iletisim.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-all font-semibold">
+          İletişim
+        </a>
+      </nav>
+
+      <!-- Right Action CTAs -->
+      <div class="flex items-center space-x-3">
+        <a href="tel:4447511" class="hidden sm:flex px-4 py-2 rounded-lg text-xs font-bold text-white bg-darkCard border border-darkBorder items-center space-x-1.5 hover:bg-darkBorder">
+          <i class="fa-solid fa-phone text-gold-500"></i>
+          <span>Destek</span>
+        </a>
+        <a href="index.html" class="px-4 py-2 rounded-lg text-xs font-bold text-darkBg bg-gradient-to-r from-gold-300 to-gold-500 hover:from-gold-400 hover:to-gold-600 transition-all flex items-center space-x-1 shadow-md">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Piyasaya Dön</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- INTERACTIVE CATALOGUE SECTION -->
+  <main class="max-w-7xl mx-auto px-4 py-12 space-y-10 catalog-shell">
+    <!-- Header Banner -->
+    <div class="relative z-10 rounded-3xl border border-darkBorder bg-darkCard/70 backdrop-blur-xl p-6 sm:p-8 lg:p-10 overflow-hidden">
+      <div class="absolute -top-16 -right-8 h-44 w-44 rounded-full bg-gold-500/10 blur-2xl pointer-events-none"></div>
+      <div class="space-y-4 text-center">
+        <span class="inline-flex px-3 py-1 bg-gold-500/10 border border-gold-500/20 text-gold-400 rounded-full text-xs font-bold uppercase tracking-wider">
+          ZİYNET VE FİZİKİ HEDİYELİK PORTFÖYÜ
+        </span>
+        <h1 class="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight">Ziynet ve Sarrafiye Kataloğu</h1>
+        <p class="font-roboto text-sm sm:text-base text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          Cumhuriyet, Ata, Çeyrek ve paket gram altın ürünlerini tek ekranda karşılaştırın. Aradığınız ürünü filtreleyin, adedi belirleyin ve tek tıkla sipariş mesajını hazırlayın.
+        </p>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 text-left">
+        <div class="rounded-2xl border border-darkBorder bg-darkBg/70 px-4 py-3">
+          <p class="text-[11px] uppercase tracking-wide text-gray-500 font-bold">Toplam Ürün</p>
+          <p class="text-lg font-extrabold text-white" id="summary-total-products">6</p>
+        </div>
+        <div class="rounded-2xl border border-darkBorder bg-darkBg/70 px-4 py-3">
+          <p class="text-[11px] uppercase tracking-wide text-gray-500 font-bold">Filtre Sonucu</p>
+          <p class="text-lg font-extrabold text-gold-400" id="summary-visible-products">6</p>
+        </div>
+        <div class="rounded-2xl border border-darkBorder bg-darkBg/70 px-4 py-3">
+          <p class="text-[11px] uppercase tracking-wide text-gray-500 font-bold">Kısa Yol</p>
+          <a href="tel:4447511" class="text-sm font-bold text-gold-400 hover:text-gold-300 transition-colors">Hızlı teklif için ara: 444 75 11</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter & Search Bar -->
+    <section class="relative z-10 rounded-2xl border border-darkBorder bg-darkCard/75 backdrop-blur-lg p-4 sm:p-5 space-y-4">
+      <div class="flex flex-col lg:flex-row gap-3 lg:items-center lg:justify-between">
+        <div class="relative flex-1">
+          <input id="catalog-search" type="text" placeholder="Ürün ara: çeyrek, ata, has 50..." class="w-full bg-darkBg border border-darkBorder rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder:text-gray-500 outline-none focus:border-gold-500 transition-all">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 text-xs"></i>
+        </div>
+        <p class="text-xs text-gray-500 font-medium" id="catalog-feedback">6 ürün görüntüleniyor</p>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <button class="catalog-chip active px-3 py-2 rounded-lg border border-darkBorder bg-darkBg text-xs font-bold text-gray-300 transition-all" data-filter="all">Tümü</button>
+        <button class="catalog-chip px-3 py-2 rounded-lg border border-darkBorder bg-darkBg text-xs font-bold text-gray-300 transition-all" data-filter="ziynet">Ziynet</button>
+        <button class="catalog-chip px-3 py-2 rounded-lg border border-darkBorder bg-darkBg text-xs font-bold text-gray-300 transition-all" data-filter="sarrafiye">Sarrafiye</button>
+        <button class="catalog-chip px-3 py-2 rounded-lg border border-darkBorder bg-darkBg text-xs font-bold text-gray-300 transition-all" data-filter="gram-bar">Gram Bar</button>
+      </div>
+    </section>
+
+    <!-- Catalogue grid list -->
+    <div id="catalog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
+      
+      <!-- Card 1: Çeyrek Altın -->
+      <div class="catalog-card bg-darkCard border border-darkBorder rounded-2xl p-5 space-y-4 flex flex-col justify-between hover:border-gold-500/40 transition-colors group" data-category="ziynet" data-title="yarım çeyrek altın kulplu baskı ziynet">
+        <div class="space-y-3">
+          <div class="flex justify-between items-start">
+            <div class="h-12 w-12 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-400 flex items-center justify-center font-sans font-black text-sm group-hover:scale-110 transition-all duration-300">
+              Ç
+            </div>
+            <span class="px-2 py-0.5 bg-[#111218] border border-darkBorder font-mono text-[10px] text-gray-500 font-bold uppercase rounded">Ziynet</span>
+          </div>
+
+          <div>
+            <h3 class="font-sans text-base font-bold text-white group-hover:text-gold-400 transition-colors">Yarım Çeyrek Altın (Kulplu/Baskı)</h3>
+            <p class="text-[11px] text-gray-500 mt-1 leading-normal">Saflık: 22 Ayar (%91.6 Has) | Çap: 18mm | Net Ağırlık: 1.75 Gram</p>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <div class="grid grid-cols-2 gap-2 text-center text-xs py-2 bg-darkBg border border-darkBorder/40 rounded-xl font-mono">
+            <div>
+              <span class="block text-[9px] text-gray-500 font-bold uppercase mb-0.5">Biz Alırız</span>
+              <span class="text-white font-extrabold text-sm">3.955,00 TL</span>
+            </div>
+            <div class="border-l border-darkBorder/40">
+              <span class="block text-[9px] text-gray-500 font-bold uppercase mb-0.5">Biz Satarız</span>
+              <span class="text-gold-400 font-extrabold text-sm">4.012,00 TL</span>
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-2">
+            <input type="number" id="qty-ceyrek" value="1" min="1" class="w-16 bg-darkBg border border-darkBorder text-center text-white font-bold py-2.5 rounded-lg text-xs outline-none">
+            <button onclick="requestOrder('ceyrek', 'Çeyrek Altın')" class="flex-1 py-2.5 bg-gradient-to-r from-gold-500 to-gold-600 text-darkBg font-bold text-xs rounded-lg uppercase tracking-wider transition-all">Sipariş Hazırla</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Yarım Altın -->
+      <div class="catalog-card bg-darkCard border border-darkBorder rounded-2xl p-5 space-y-4 flex flex-col justify-between hover:border-gold-500/40 transition-colors group" data-category="ziynet" data-title="yarım ziynet altını">
+        <div class="space-y-3">
+          <div class="flex justify-between items-start">
+            <div class="h-12 w-12 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-400 flex items-center justify-center font-sans font-black text-sm group-hover:scale-110 transition-all duration-300">
+              Y
+            </div>
+            <span class="px-2 py-0.5 bg-[#111218] border border-darkBorder font-mono text-[10px] text-gray-500 font-bold uppercase rounded">Ziynet</span>
+          </div>
+
+          <div>
+            <h3 class="font-sans text-base font-bold text-white group-hover:text-gold-400 transition-colors">Yarım Ziynet Altını</h3>
+            <p class="text-[11px] text-gray-500 mt-1 leading-normal">Saflık: 22 Ayar (%91.6 Has) | Çap: 22mm | Net Ağırlık: 3.50 Gram</p>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <div class="grid grid-cols-2 gap-2 text-center text-xs py-2 bg-darkBg border border-darkBorder/40 rounded-xl font-mono">
+            <div>
+              <span class="block text-[9px] text-gray-500 font-bold uppercase mb-0.5">Biz Alırız</span>
+              <span class="text-white font-extrabold text-sm">7.910,00 TL</span>
+            </div>
+            <div class="border-l border-darkBorder/40">
+              <span class="block text-[9px] text-gray-500 font-bold uppercase mb-0.5">Biz Satarız</span>
+              <span class="text-gold-400 font-extrabold text-sm">8.024,00 TL</span>
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-2">
+            <input type="number" id="qty-yarim" value="1" min="1" class="w-16 bg-darkBg border border-darkBorder text-center text-white font-bold py-2.5 rounded-lg text-xs outline-none">
+            <button onclick="requestOrder('yarim', 'Yarım Altın')" class="flex-1 py-2.5 bg-gradient-to-r from-gold-500 to-gold-600 text-darkBg font-bold text-xs rounded-lg uppercase tracking-wider transition-all">Sipariş Hazırla</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Tam Altın -->
+      <div class="catalog-card bg-darkCard border border-darkBorder rounded-2xl p-5 space-y-4 flex flex-col justify-between hover:border-gold-500/40 transition-colors group" data-category="ziynet" data-title="tam ziynet lira altını">
+        <div class="space-y-3">
+          <div class="flex justify-between items-start">
+            <div class="h-12 w-12 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-400 flex items-center justify-center font-sans font-black text-sm group-hover:scale-110 transition-all duration-300">
+              T
+            </div>
+            <span class="px-2 py-0.5 bg-[#111218] border border-darkBorder font-mono text-[10px] text-gray-500 font-bold uppercase rounded">Ziynet</span>
+          </div>
+
+          <div>
+            <h3 class="font-sans text-base font-bold text-white group-hover:text-gold-400 transition-colors">Tam Ziynet Lira Altını</h3>
+            <p class="text-[11px] text-gray-500 mt-1 leading-normal">Saflık: 22 Ayar (%91.6 Has) | Çap: 30mm | Net Ağırlık: 7.01 Gram</p>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <div class="grid grid-cols-2 gap-2 text-center text-xs py-2 bg-darkBg border border-darkBorder/40 rounded-xl font-mono">
+            <div>
+              <span class="block text-[9px] text-gray-500 font-bold uppercase mb-0.5">Biz Alırız</span>
+              <span class="text-white font-extrabold text-sm">15.820,00 TL</span>
+            </div>
+            <div class="border-l border-darkBorder/40">
+              <span class="block text-[9px] text-gray-500 font-bold uppercase mb-0.5">Biz Satarız</span>
+              <span class="text-gold-400 font-extrabold text-sm">16.048,00 TL</span>
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-2">
+            <input type="number" id="qty-tam" value="1" min="1" class="w-16 bg-darkBg border border-darkBorder text-center text-white font-bold py-2.5 rounded-lg text-xs outline-none">
+            <button onclick="requestOrder('tam', 'Tam Altın')" class="flex-1 py-2.5 bg-gradient-to-r from-gold-500 to-gold-600 text-darkBg font-bold text-xs rounded-lg uppercase tracking-wider transition-all">Sipariş Hazırla</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Ata Beşli (Gremse) -->
+      <div class="catalog-card bg-darkCard border border-darkBorder rounded-2xl p-5 space-y-4 flex flex-col justify-between hover:border-gold-500/40 transition-colors group" data-category="sarrafiye" data-title="ata cumhuriyet altını">
+        <div class="space-y-3">
+          <div class="flex justify-between items-start">
+            <div class="h-12 w-12 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-400 flex items-center justify-center font-sans font-black text-sm group-hover:scale-110 transition-all duration-300">
+              A
+            </div>
+            <span class="px-2 py-0.5 bg-[#111218] border border-darkBorder font-mono text-[10px] text-gray-500 font-bold uppercase rounded">Sarrafiye</span>
+          </div>
+
+          <div>
+            <h3 class="font-sans text-base font-bold text-white group-hover:text-gold-400 transition-colors">Ata Cumhuriyet Altını</h3>
+            <p class="text-[11px] text-gray-500 mt-1 leading-normal">Saflık: 22 Ayar (%91.6 Has) | Çap: 22mm | Net Ağırlık: 7.21 Gram</p>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <div class="grid grid-cols-2 gap-2 text-center text-xs py-2 bg-darkBg border border-darkBorder/40 rounded-xl font-mono">
+            <div>
+              <span class="block text-[9px] text-gray-500 font-bold uppercase mb-0.5">Biz Alırız</span>
+              <span class="text-white font-extrabold text-sm">16.180,00 TL</span>
+            </div>
+            <div class="border-l border-darkBorder/40">
+              <span class="block text-[9px] text-gray-500 font-bold uppercase mb-0.5">Biz Satarız</span>
+              <span class="text-gold-400 font-extrabold text-sm">16.540,00 TL</span>
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-2">
+            <input type="number" id="qty-ata" value="1" min="1" class="w-16 bg-darkBg border border-darkBorder text-center text-white font-bold py-2.5 rounded-lg text-xs outline-none">
+            <button onclick="requestOrder('ata', 'Ata Altın')" class="flex-1 py-2.5 bg-gradient-to-r from-gold-500 to-gold-600 text-darkBg font-bold text-xs rounded-lg uppercase tracking-wider transition-all">Sipariş Hazırla</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5: Has Külçe 10g Package -->
+      <div class="catalog-card bg-darkCard border border-darkBorder rounded-2xl p-5 space-y-4 flex flex-col justify-between hover:border-gold-500/40 transition-colors group" data-category="gram-bar" data-title="10 gr has paket altın">
+        <div class="space-y-3">
+          <div class="flex justify-between items-start">
+            <div class="h-12 w-12 rounded-xl bg-gold-500/10 border border-gold-500/20 text-gold-400 flex items-center justify-center font-sans font-black text-sm group-hover:scale-110 transition-all duration-300">
+              10
+            </div>
+            <span class="px-2 py-0.5 bg-[#111218] border border-darkBorder font-mono text-[10px] text-gray-500 font-bold uppercase rounded">Gram Bar</span>
+          </div>
+
+          <div>
+            <h3 class="font-sans text-base font-bold text-white group-hover:text-gold-400 transition-colors">10 Gr. Has Paket Altın</h3>
+            <p class="text-[11px] text-gray-500 mt-1 leading-normal">Saflık: 24 Ayar (%99.5 Has) | Sertifikalı Güvence | Seri No Takipli</p>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <div class="grid grid-cols-2 gap-2 text-center text-xs py-2 bg-darkBg border border-darkBorder/40 rounded-xl font-mono">
+            <div>
+              <span class="block text-[9px] text-gray-500 font-bold uppercase mb-0.5">Biz Alırız</span>
+              <span class="text-white font-extrabold text-sm">24.250,00 TL</span>
+            </div>
+            <div class="border-l border-darkBorder/40">
+              <span class="block text-[9px] text-gray-500 font-bold uppercase mb-0.5">Biz Satarız</span>
+              <span class="text-gold-400 font-extrabold text-sm">24.355,00 TL</span>
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-2">
+            <input type="number" id="qty-has10" value="1" min="1" class="w-16 bg-darkBg border border-darkBorder text-center text-white font-bold py-2.5 rounded-lg text-xs outline-none">
+            <button onclick="requestOrder('has10', '10g Has Altın')" class="flex-1 py-2.5 bg-gradient-to-r from-gold-500 to-gold-600 text-darkBg font-bold text-xs rounded-lg uppercase tracking-wider transition-all">Sipariş Hazırla</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6: Has Külçe 50g Package -->
+      <div class="catalog-card bg-darkCard border border-darkBorder rounded-2xl p-5 space-y-4 flex flex-col justify-between hover:border-gold-500/40 transition-colors group" data-category="gram-bar" data-title="50 gr has paket altın">
+        <div class="space-y-3">
+          <div class="flex justify-between items-start">
+            <div class="h-12 w-12 rounded-xl bg-gold-500/10 border border-gold-500/20 text-gold-400 flex items-center justify-center font-sans font-black text-sm group-hover:scale-110 transition-all duration-300">
+              50
+            </div>
+            <span class="px-2 py-0.5 bg-[#111218] border border-darkBorder font-mono text-[10px] text-gray-500 font-bold uppercase rounded">Gram Bar</span>
+          </div>
+
+          <div>
+            <h3 class="font-sans text-base font-bold text-white group-hover:text-gold-400 transition-colors">50 Gr. Has Paket Altın</h3>
+            <p class="text-[11px] text-gray-500 mt-1 leading-normal">Saflık: 24 Ayar (%99.5 Has) | Rafineri Tescilli | Kilitli Ambalaj</p>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <div class="grid grid-cols-2 gap-2 text-center text-xs py-2 bg-darkBg border border-darkBorder/40 rounded-xl font-mono">
+            <div>
+              <span class="block text-[9px] text-gray-500 font-bold uppercase mb-0.5">Biz Alırız</span>
+              <span class="text-white font-extrabold text-sm">121.250,00 TL</span>
+            </div>
+            <div class="border-l border-darkBorder/40">
+              <span class="block text-[9px] text-gray-500 font-bold uppercase mb-0.5">Biz Satarız</span>
+              <span class="text-gold-400 font-extrabold text-sm">121.775,00 TL</span>
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-2">
+            <input type="number" id="qty-has50" value="1" min="1" class="w-16 bg-darkBg border border-darkBorder text-center text-white font-bold py-2.5 rounded-lg text-xs outline-none">
+            <button onclick="requestOrder('has50', '50g Has Altın')" class="flex-1 py-2.5 bg-gradient-to-r from-gold-500 to-gold-600 text-darkBg font-bold text-xs rounded-lg uppercase tracking-wider transition-all">Sipariş Hazırla</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- PROFESSIONAL PREMIUM FOOTER -->
+  <footer class="bg-[#08090C] border-t border-darkBorder pt-8 pb-8 mt-24">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-center">
+      <p class="text-xs text-gray-500">&copy; 2026 Hakan Altın Kıymetli Madenler Tic. A.Ş. Tüm hakları saklıdır.</p>
+      <p class="text-xs text-gray-500">Bu web sitesindeki fiyatlar, grafikler ve bilgiler bilgilendirme amacıyla yayınlanmaktadır.</p>
+    </div>
+  </footer>
+
+  <script>
+    window.onload = function() {
+      initThemeSwitcher();
+      initCatalogFilters();
+    };
+
+    // Theme Switcher Initialization
+    function initThemeSwitcher() {
+      const toggleBtn = document.getElementById("theme-toggle");
+      const icon = document.getElementById("theme-icon");
+      
+      function updateIcon() {
+        const isDark = document.documentElement.classList.contains("dark");
+        if (isDark) {
+          if (icon) icon.className = "fa-solid fa-sun text-sm text-gold-400";
+          if (toggleBtn) toggleBtn.title = "Açık Temaya Geç";
+        } else {
+          if (icon) icon.className = "fa-solid fa-moon text-sm text-gray-500 hover:text-gold-500";
+          if (toggleBtn) toggleBtn.title = "Karanlık Temaya Geç";
+        }
+        // Update all logo images
+        document.querySelectorAll('.logo-img').forEach(img => {
+          img.src = isDark ? 'docs/images/logo.svg' : 'docs/images/logo-light.svg';
+        });
+      }
+      
+      updateIcon();
+      
+      function toggleTheme() {
+        if (document.documentElement.classList.contains("dark")) {
+          document.documentElement.classList.remove("dark");
+          localStorage.setItem("theme", "light");
+        } else {
+          document.documentElement.classList.add("dark");
+          localStorage.setItem("theme", "dark");
+        }
+        updateIcon();
+      }
+      
+      if (toggleBtn) toggleBtn.addEventListener("click", toggleTheme);
+    }
+
+    function initCatalogFilters() {
+      const cards = Array.from(document.querySelectorAll('.catalog-card'));
+      const chips = Array.from(document.querySelectorAll('.catalog-chip'));
+      const searchInput = document.getElementById('catalog-search');
+      const feedback = document.getElementById('catalog-feedback');
+      const totalProducts = document.getElementById('summary-total-products');
+      const visibleProducts = document.getElementById('summary-visible-products');
+
+      if (!cards.length) return;
+
+      if (totalProducts) totalProducts.textContent = String(cards.length);
+
+      let activeFilter = 'all';
+
+      function applyFilters() {
+        const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
+
+        let visibleCount = 0;
+        cards.forEach(card => {
+          const category = (card.dataset.category || '').toLowerCase();
+          const title = (card.dataset.title || '').toLowerCase();
+
+          const categoryMatch = activeFilter === 'all' || category === activeFilter;
+          const searchMatch = !query || title.includes(query);
+          const visible = categoryMatch && searchMatch;
+
+          card.classList.toggle('hidden-by-filter', !visible);
+          if (visible) visibleCount += 1;
+        });
+
+        if (feedback) {
+          feedback.textContent = visibleCount + ' ürün görüntüleniyor';
+        }
+        if (visibleProducts) {
+          visibleProducts.textContent = String(visibleCount);
+        }
+      }
+
+      chips.forEach(chip => {
+        chip.addEventListener('click', function () {
+          activeFilter = this.dataset.filter || 'all';
+          chips.forEach(c => c.classList.remove('active'));
+          this.classList.add('active');
+          applyFilters();
+        });
+      });
+
+      if (searchInput) {
+        searchInput.addEventListener('input', applyFilters);
+      }
+
+      applyFilters();
+    }
+
+    // Live Order compilation helper 
+    function requestOrder(key, name) {
+      const qty = parseInt(document.getElementById(`qty-${key}`).value) || 1;
+      
+      const prices = {
+        ceyrek: 4012,
+        yarim: 8024,
+        tam: 16048,
+        ata: 16540,
+        has10: 24355,
+        has50: 121775
+      };
+
+      const specPrice = prices[key] || 1000;
+      const totalSum = specPrice * qty;
+
+      const formatter = new Intl.NumberFormat('tr-TR', { style: 'decimal', minimumFractionDigits: 2 });
+      
+      const waMessage = encodeURIComponent(`Merhaba, www.hakanaltin.com Kataloğundan sipariş paketi hazırladım:\n\nÜrün: ${name}\nMiktar: ${qty} Adet\nBirim Fiyatı: ${formatter.format(specPrice)} TL\nToplam Paket Tutarı: ${formatter.format(totalSum)} TL.\n\nBu toptan sipariş emrini sabitleyip Kapalıçarşı şubenizden teslim almak istiyoruz.`);
+      const activeUrl = `https://wa.me/905320000000?text=${waMessage}`;
+      
+      // Navigate user to WhatsApp in new tab
+      window.open(activeUrl, '_blank');
+    }
+  </script>
+</body>
+</html>

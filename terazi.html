@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth dark">
+<head>
+  <script>
+    if (localStorage.getItem('theme') === 'light' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+    }
+    // Update logo images early to prevent flashing
+    document.addEventListener("DOMContentLoaded", function() {
+      const isDark = document.documentElement.classList.contains('dark');
+      document.querySelectorAll('.logo-img').forEach(img => {
+        img.src = isDark ? 'docs/images/logo.svg' : 'docs/images/logo-light.svg';
+      });
+    });
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sanal Hassas Terazi | Hakan Altın Sektörel Pratik Araçlar</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome for Premium Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            gold: {
+              50: '#FFFDF0',
+              100: '#FFFAD8',
+              200: '#FFF0B0',
+              300: '#FFE17A',
+              400: '#FFD24D',
+              500: '#D4AF37',
+              600: '#B88F24',
+              700: '#946E13',
+              800: '#755307',
+              900: '#523A02',
+            },
+            darkBg: '#0D0E12',
+            darkCard: '#15171E',
+            darkBorder: '#232731'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            roboto: ['Roboto', 'sans-serif'],
+            mono: ['Share Tech Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .text-glow-green {
+      text-shadow: 0 0 15px rgba(16, 185, 129, 0.6);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #15171E;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #D4AF37;
+      border-radius: 3px;
+    }
+
+    /* --- LIGHT THEME STYLE OVERRIDES --- */
+    html:not(.dark) body {
+      background-color: #F8FAFC !important;
+      color: #1E293B !important;
+    }
+    html:not(.dark) .bg-darkBg {
+      background-color: #F8FAFC !important;
+    }
+    html:not(.dark) .bg-\[\#08090C\] {
+      background-color: #EDF2F7 !important;
+    }
+    html:not(.dark) .bg-darkCard {
+      background-color: #FFFFFF !important;
+      box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05) !important;
+    }
+    html:not(.dark) .border-darkBorder, 
+    html:not(.dark) .border-darkBorder\/80, 
+    html:not(.dark) .border-darkBorder\/60,
+    html:not(.dark) .border-darkBorder\/40,
+    html:not(.dark) .border-darkBorder\/30 {
+      border-color: #E2E8F0 !important;
+    }
+    html:not(.dark) .text-white {
+      color: #0F172A !important;
+    }
+    html:not(.dark) .text-gray-100 {
+      color: #1E293B !important;
+    }
+    html:not(.dark) .text-gray-200 {
+      color: #334155 !important;
+    }
+    html:not(.dark) .text-gray-300 {
+      color: #475569 !important;
+    }
+    html:not(.dark) .text-gray-400 {
+      color: #64748B !important;
+    }
+    html:not(.dark) .text-gray-500 {
+      color: #94A3B8 !important;
+    }
+    html:not(.dark) .bg-darkBg\/90 {
+      background-color: rgba(255, 255, 255, 0.9) !important;
+    }
+    html:not(.dark) .bg-darkBg\/95 {
+      background-color: rgba(255, 255, 255, 0.95) !important;
+    }
+    html:not(.dark) .bg-darkBg\/60 {
+      background-color: rgba(241, 245, 249, 0.7) !important;
+    }
+    html:not(.dark) .bg-white\/5 {
+      background-color: rgba(0, 0, 0, 0.03) !important;
+    }
+    html:not(.dark) .hover\:bg-white\/5:hover {
+      background-color: rgba(0, 0, 0, 0.05) !important;
+    }
+    html:not(.dark) .hover\:bg-white\/\[0\.02\]:hover {
+      background-color: rgba(0, 0, 0, 0.015) !important;
+    }
+    html:not(.dark) input,
+    html:not(.dark) select {
+      background-color: #FFFFFF !important;
+      color: #1E293B !important;
+      border-color: #CBD5E1 !important;
+    }
+    html:not(.dark) .bg-\[\#111218\] {
+      background-color: #F1F5F9 !important;
+    }
+    html:not(.dark) .bg-\[\#050608\] {
+      background-color: #EDF2F7 !important;
+      border-color: #CBD5E1 !important;
+    }
+    html:not(.dark) .text-transparent.bg-clip-text {
+      color: #0F172A !important;
+      background: none !important;
+      -webkit-text-fill-color: #0F172A !important;
+    }
+    html:not(.dark) .custom-scrollbar::-webkit-scrollbar-track {
+      background: #F1F5F9;
+    }
+  </style>
+</head>
+<body class="bg-darkBg text-gray-100 min-h-screen selection:bg-gold-500 selection:text-darkBg custom-scrollbar">
+
+  <!-- TOP TICKER BAR -->
+  <div class="bg-[#08090C] border-b border-darkBorder py-2.5 text-xs overflow-hidden z-50 relative">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center z-10 relative">
+      <div class="flex items-center space-x-2 text-emerald-500 font-semibold animate-pulse mr-4 whitespace-nowrap">
+        <span class="h-2 w-2 rounded-full bg-emerald-500 inline-block"></span>
+        <span>KAPALIÇARŞI</span>
+      </div>
+      <div class="flex items-center space-x-4 pl-4 border-l border-darkBorder text-gray-400">
+        <a href="tel:4447511" class="hover:text-gold-500 transition-colors font-medium whitespace-nowrap">
+          <i class="fa-solid fa-phone mr-1.5 text-gold-500"></i> 444 75 11
+        </a>
+        <span class="text-gray-600">|</span>
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle" class="p-1 rounded text-gray-400 hover:text-gold-450 transition-all flex items-center justify-center" title="Temayı Değiştir">
+          <i id="theme-icon" class="fa-solid fa-sun text-sm"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN NAVIGATION -->
+  <header class="sticky top-0 bg-darkBg/90 backdrop-blur-xl border-b border-darkBorder/80 z-40">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center space-x-3.5 group">
+        <div class="relative">
+          <img src="docs/images/logo.svg" alt="Hakan Altın Logo" class="h-10 w-auto group-hover:scale-105 transition-transform duration-300 logo-img">
+        </div>
+       
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="hidden lg:flex items-center space-x-1.5 flex-1 justify-center max-w-xl mx-auto">
+        <a href="index.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-all">
+          Canlı Piyasalar
+        </a>
+        <a href="sarrafiye.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-all">
+          Sarrafiye & Ziynet
+        </a>
+        <a href="milyem.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-all">
+          Milyem Hesaplayıcı
+        </a>
+        <a href="terazi.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-gold-400 bg-gold-500/10 border border-gold-500/20">
+          <i class="fa-solid fa-scale-balanced mr-1.5"></i> Sanal Terazi
+        </a>
+        <a href="iletisim.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-all font-semibold">
+          İletişim
+        </a>
+      </nav>
+
+      <!-- Right Action CTAs -->
+      <div class="flex items-center space-x-3">
+        <a href="tel:4447511" class="hidden sm:flex px-4 py-2 rounded-lg text-xs font-bold text-white bg-darkCard border border-darkBorder items-center space-x-1.5 hover:bg-darkBorder">
+          <i class="fa-solid fa-phone text-gold-500"></i>
+          <span>Destek</span>
+        </a>
+        <a href="index.html" class="px-4 py-2 rounded-lg text-xs font-bold text-darkBg bg-gradient-to-r from-gold-300 to-gold-500 hover:from-gold-400 hover:to-gold-600 transition-all flex items-center space-x-1 shadow-md">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Piyasaya Dön</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WORKSPACE -->
+  <main class="max-w-5xl mx-auto px-4 py-12 space-y-12">
+    <!-- Header banner -->
+    <div class="space-y-3.5 text-center">
+      <span class="px-3 py-1 bg-gold-500/10 border border-gold-500/20 text-gold-400 rounded-full text-xs font-bold uppercase tracking-wider">
+        FİZİKİ SEPET DEĞERLEME
+      </span>
+      <h1 class="font-sans text-3xl sm:text-4xl font-extrabold text-white">Sanal Altın Kaplama Hassas Terazi</h1>
+      <p class="font-roboto text-sm text-gray-400 max-w-xl mx-auto leading-relaxed">
+        Elinizdeki sarrafiye ve ziynet altınlarını aşağıdaki tablalardan terazinin üstüne sürükleyin ya da tıklayın, terazinin fiziki kütlesini ve anlık Kapalıçarşı nakit değerini anında çıkartın.
+      </p>
+    </div>
+
+    <!-- Dual column interface: Left (physical items adding drawer), Right (the scale simulator) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Left Column: Add items deck -->
+      <div class="lg:col-span-6 bg-darkCard border border-darkBorder rounded-2xl p-6 space-y-6 shadow-xl">
+        <h3 class="font-sans text-base font-bold text-white pb-3 border-b border-darkBorder flex items-center space-x-2">
+          <i class="fa-solid fa-gem text-gold-400"></i>
+          <span>Elinizdeki Altınları Ekleyin</span>
+        </h3>
+
+        <!-- Adding buttons grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <!-- Item 1: Çeyrek Altın -->
+          <button onclick="addScaleItem('ceyrek', 1.751, 4012, 'Çeyrek Altın (Yeni)')" class="bg-darkBg hover:bg-darkBorder border border-darkBorder hover:border-gold-500 px-4 py-3 rounded-xl flex items-center justify-between transition-all group">
+            <div class="flex items-center space-x-3 text-left">
+              <div class="h-9 w-9 rounded-full bg-gold-400/10 border border-gold-400/20 text-gold-400 flex items-center justify-center font-bold text-[10px] group-hover:scale-105 transition-transform">Ç</div>
+              <div>
+                <span class="block text-xs font-bold text-white">Çeyrek Altın</span>
+                <span class="block text-[10px] text-gray-500 font-medium">1.75 Gram / Ziynet</span>
+              </div>
+            </div>
+            <i class="fa-solid fa-plus text-xs text-gold-400"></i>
+          </button>
+
+          <!-- Item 2: Yarım Altın -->
+          <button onclick="addScaleItem('yarim', 3.502, 8024, 'Yarım Altın (Yeni)')" class="bg-darkBg hover:bg-darkBorder border border-darkBorder hover:border-gold-500 px-4 py-3 rounded-xl flex items-center justify-between transition-all group">
+            <div class="flex items-center space-x-3 text-left">
+              <div class="h-9 w-9 rounded-full bg-gold-400/10 border border-gold-400/20 text-gold-400 flex items-center justify-center font-bold text-[10px] group-hover:scale-105 transition-transform">Y</div>
+              <div>
+                <span class="block text-xs font-bold text-white">Yarım Altın</span>
+                <span class="block text-[10px] text-gray-500 font-medium">3.50 Gram / Ziynet</span>
+              </div>
+            </div>
+            <i class="fa-solid fa-plus text-xs text-gold-400"></i>
+          </button>
+
+          <!-- Item 3: Tam Altın -->
+          <button onclick="addScaleItem('tam', 7.016, 16048, 'Tam Altın (Yeni)')" class="bg-darkBg hover:bg-darkBorder border border-darkBorder hover:border-gold-500 px-4 py-3 rounded-xl flex items-center justify-between transition-all group">
+            <div class="flex items-center space-x-3 text-left">
+              <div class="h-9 w-9 rounded-full bg-gold-400/10 border border-gold-400/20 text-gold-400 flex items-center justify-center font-bold text-[10px] group-hover:scale-105 transition-transform">T</div>
+              <div>
+                <span class="block text-xs font-bold text-white">Tam Altın</span>
+                <span class="block text-[10px] text-gray-500 font-medium">7.01 Gram / Ziynet</span>
+              </div>
+            </div>
+            <i class="fa-solid fa-plus text-xs text-gold-400"></i>
+          </button>
+
+          <!-- Item 4: Ata Cumhuriyet -->
+          <button onclick="addScaleItem('ata', 7.216, 16540, 'Ata Cumhuriyet Altını')" class="bg-darkBg hover:bg-darkBorder border border-darkBorder hover:border-gold-500 px-4 py-3 rounded-xl flex items-center justify-between transition-all group">
+            <div class="flex items-center space-x-3 text-left">
+              <div class="h-9 w-9 rounded-full bg-gold-400/10 border border-gold-400/20 text-gold-400 flex items-center justify-center font-bold text-[10px] group-hover:scale-105 transition-transform">A</div>
+              <div>
+                <span class="block text-xs font-bold text-white">Ata Altın</span>
+                <span class="block text-[10px] text-gray-500 font-medium">7.21 Gram / Sarrafiye</span>
+              </div>
+            </div>
+            <i class="fa-solid fa-plus text-xs text-gold-400"></i>
+          </button>
+
+          <!-- Item 5: Has Külçe 10g -->
+          <button onclick="addScaleItem('has10', 10.000, 24355, '10g Has Külçe (%99.5)')" class="bg-darkBg hover:bg-darkBorder border border-darkBorder hover:border-gold-500 px-4 py-3 rounded-xl flex items-center justify-between transition-all group">
+            <div class="flex items-center space-x-3 text-left">
+              <div class="h-9 w-9 rounded-xl bg-gold-500/10 border border-gold-500/20 text-gold-400 flex items-center justify-center font-bold text-xs group-hover:scale-105 transition-transform">10g</div>
+              <div>
+                <span class="block text-xs font-bold text-white">10 Gr. Has Külçe</span>
+                <span class="block text-[10px] text-gray-500 font-medium">10.0 Gram / 24 Ayar</span>
+              </div>
+            </div>
+            <i class="fa-solid fa-plus text-xs text-gold-400"></i>
+          </button>
+
+          <!-- Item 6: Has Külçe 50g -->
+          <button onclick="addScaleItem('has50', 50.000, 121775, '50g Has Külçe (%99.5)')" class="bg-darkBg hover:bg-darkBorder border border-darkBorder hover:border-gold-500 px-4 py-3 rounded-xl flex items-center justify-between transition-all group">
+            <div class="flex items-center space-x-3 text-left">
+              <div class="h-9 w-9 rounded-xl bg-gold-500/10 border border-gold-500/20 text-gold-400 flex items-center justify-center font-bold text-xs group-hover:scale-105 transition-transform">50g</div>
+              <div>
+                <span class="block text-xs font-bold text-white">50 Gr. Has Külçe</span>
+                <span class="block text-[10px] text-gray-500 font-medium">50.0 Gram / 24 Ayar</span>
+              </div>
+            </div>
+            <i class="fa-solid fa-plus text-xs text-gold-400"></i>
+          </button>
+        </div>
+
+        <div class="bg-darkBg border border-darkBorder rounded-xl p-4.5 text-center text-xs text-gray-400">
+          <i class="fa-solid fa-circle-question text-gold-500 mr-1"></i>
+          <span>Listede olmayan farklı bir kütleniz mi var? Buradan serbest gramaj ekleyin:</span>
+          
+          <div class="flex items-stretch space-x-3 mt-3">
+            <div class="relative flex-1">
+              <input type="number" id="manual-mass" value="25.5" class="w-full bg-darkBg text-white border border-darkBorder focus:border-gold-500 px-4 py-3 rounded-xl text-sm font-bold outline-none">
+              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-gold-400 font-bold">Gr.</span>
+            </div>
+            <button onclick="addManualScaleItem()" class="px-5 bg-gold-500 hover:bg-gold-600 text-darkBg font-extrabold rounded-xl text-xs transition-all uppercase tracking-wider">
+              Ekle
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Scale Simulator Layout -->
+      <div class="lg:col-span-6 space-y-6">
+        
+        <!-- Physical Simulator Card -->
+        <div class="bg-[#111218] border border-darkBorder rounded-2xl p-6 shadow-2xl relative flex flex-col items-center">
+          
+          <!-- Virtual metallic scale pan -->
+          <div class="w-72 h-3.5 bg-gradient-to-r from-gray-700 via-gray-400 to-gray-800 rounded-full shadow-lg relative mb-6">
+            <span class="absolute left-1/2 -translate-x-1/2 -top-1 font-sans text-[8px] text-gray-900 tracking-widest font-extrabold">HAKAN ALTIN SENSORS</span>
+          </div>
+
+          <!-- Digital Scale Display Deck -->
+          <div class="w-full bg-[#050608] border-2 border-darkBorder rounded-xl p-4 flex flex-col items-center justify-center shadow-inner relative overflow-hidden">
+            <!-- Flashing green matrix light screen -->
+            <div class="absolute inset-0 bg-gradient-to-t from-emerald-500/5 to-transparent pointer-events-none"></div>
+
+            <div class="flex justify-between items-center w-full text-[9px] text-emerald-500/60 font-mono tracking-widest uppercase font-extrabold mb-2.5">
+              <span>HAKAN PRECISION SCALE</span>
+              <span class="animate-pulse">🟢 STABLE</span>
+            </div>
+
+            <div class="flex items-baseline space-x-2 relative z-10">
+              <span id="screen-total-mass" class="text-5xl font-mono font-bold text-emerald-400 text-glow-green leading-none">0.000</span>
+              <span class="text-sm font-mono font-extrabold text-emerald-400/80">g</span>
+            </div>
+
+            <!-- TARE & CLEAR buttons in metallic theme -->
+            <div class="flex space-x-3 mt-4 w-full relative z-10 border-t border-darkBorder/40 pt-3">
+              <button onclick="tareScale()" class="flex-1 py-2 rounded-lg bg-darkCard border border-darkBorder text-gray-400 hover:text-white hover:bg-darkBorder transition-all font-mono text-xs font-bold uppercase tracking-wider">
+                TARE (Sıfırla)
+              </button>
+              <div class="bg-darkBg border border-darkBorder rounded-lg px-4 flex items-center justify-between flex-1">
+                <span class="text-[9px] text-gray-500 uppercase font-mono font-bold">Adet:</span>
+                <span id="screen-total-qty" class="text-xs text-white font-mono font-bold">0 Parça</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Calculated basket contents -->
+          <div class="w-full mt-6 space-y-4">
+            <div class="flex justify-between items-center border-b border-darkBorder pb-2">
+              <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider">Terazi Üstündeki Sepet</h4>
+              <button onclick="tareScale()" class="text-[10px] text-rose-400 hover:underline">Tümünü İndir</button>
+            </div>
+
+            <!-- Basket scroll area -->
+            <div class="space-y-2 max-h-48 overflow-y-auto pr-1.5 custom-scrollbar" id="scale-basket-wrapper">
+              <!-- Empty state default -->
+              <p id="basket-empty-msg" class="text-center py-6 text-xs text-gray-500 font-medium italic">
+                Terazinin üzerinde şu an hiç altın bulunmuyor.
+              </p>
+            </div>
+
+            <!-- Valuation Summary Box -->
+            <div class="bg-gradient-to-r from-gold-500/5 via-gold-500/10 to-transparent border border-gold-500/20 rounded-xl p-4.5 space-y-3.5">
+              <div class="flex justify-between items-center text-xs">
+                <span class="text-gray-400 uppercase font-bold tracking-wider">Toplam Hurda Ağırlığı</span>
+                <span id="summary-mass" class="text-white font-extrabold font-mono text-sm">0.00 Gram</span>
+              </div>
+              <div class="flex justify-between items-center text-xs">
+                <span class="text-gray-400 uppercase font-bold tracking-wider">Has Altın Karşılığı (Tahmini)</span>
+                <span id="summary-has" class="text-white font-extrabold font-mono text-sm">0.00 Gram</span>
+              </div>
+              <div class="border-t border-darkBorder/40 pt-3 flex justify-between items-center">
+                <span class="text-xs text-glow uppercase font-black text-gold-400 tracking-wider">HAKAN ALTIN TOPLAM DEĞERİ</span>
+                <span id="summary-money" class="text-xl font-mono font-black text-emerald-400">0,00 TL</span>
+              </div>
+              <span class="block text-[9px] text-gray-500 leading-normal">Fiyatlar Kapalıçarşı canlı piyasa (Has Alış: 2.435,50 TL/g) baz alınarak ex-ante hesaplanmıştır.</span>
+            </div>
+
+            <!-- WhatsApp Action button -->
+            <a id="terazi-wa-btn" href="#" target="_blank" class="w-full py-4 bg-[#25D366] hover:bg-[#20ba56] text-darkBg font-extrabold rounded-xl text-xs text-center flex items-center justify-center space-x-2 uppercase transition-all shadow-lg shadow-emerald-500/10">
+              <i class="fa-brands fa-whatsapp text-lg"></i>
+              <span>Terazideki Fiyatı WhatsApp'ta Sabitle</span>
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- PROFESSIONAL PREMIUM FOOTER -->
+  <footer class="bg-[#08090C] border-t border-darkBorder pt-8 pb-8 mt-24">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-center">
+      <p class="text-xs text-gray-500">&copy; 2026 Hakan Altın Kıymetli Madenler Tic. A.Ş. Tüm hakları saklıdır.</p>
+      <p class="text-xs text-gray-500">Bu web sitesindeki fiyatlar, grafikler ve bilgiler bilgilendirme amacıyla yayınlanmaktadır.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Live weights database
+    const liveHasBuy = 2435.50;
+    let basket = [];
+
+    function addScaleItem(key, mass, unitValue, name) {
+      // Find matching item or append
+      const existing = basket.find(i => i.key === key);
+      if (existing) {
+        existing.qty++;
+      } else {
+        basket.push({ key, name, mass, unitValue, qty: 1 });
+      }
+      playChime();
+      renderScale();
+    }
+
+    function addManualScaleItem() {
+      const massInput = document.getElementById('manual-mass');
+      const massVal = parseFloat(massInput.value) || 0;
+      if (massVal <= 0) return;
+      
+      const price = massVal * liveHasBuy; // Assuming Has gold standard
+      
+      basket.push({
+        key: 'custom-' + Date.now(),
+        name: `Özel Sarrafiye (${massVal.toFixed(2)}g)`,
+        mass: massVal,
+        unitValue: price,
+        qty: 1
+      });
+      playChime();
+      renderScale();
+    }
+
+    function removeBasketItem(key) {
+      basket = basket.filter(i => i.key !== key);
+      renderScale();
+    }
+
+    function tareScale() {
+      basket = [];
+      renderScale();
+    }
+
+    function playChime() {
+      // Small virtual beep using web audio API to give amazing game feel of real scale!
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        oscillator.type = 'sine';
+        oscillator.frequency.value = 1100; // High pitch chime
+        gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.1);
+
+        oscillator.start();
+        oscillator.stop(audioCtx.currentTime + 0.1);
+      } catch (e) {
+        // Fallback for browsers blocking audio
+      }
+    }
+
+    function renderScale() {
+      const basketWrapper = document.getElementById('scale-basket-wrapper');
+      const emptyMsg = document.getElementById('basket-empty-msg');
+      
+      // Calculate sums
+      let totalMass = 0;
+      let totalValue = 0;
+      let totalQty = 0;
+      let approximateHas = 0;
+
+      // Clear layout
+      basketWrapper.innerHTML = "";
+
+      if (basket.length === 0) {
+        basketWrapper.appendChild(emptyMsg);
+        document.getElementById('screen-total-mass').innerText = "0.000";
+        document.getElementById('screen-total-qty').innerText = "0 Parça";
+        document.getElementById('summary-mass').innerText = "0.00 Gram";
+        document.getElementById('summary-has').innerText = "0.00 Gram";
+        document.getElementById('summary-money').innerText = "0,00 TL";
+        return;
+      }
+
+      const numFormat = new Intl.NumberFormat('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const currencyFormat = new Intl.NumberFormat('tr-TR', { style: 'decimal', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      basket.forEach((item, index) => {
+        const itemMassSum = item.mass * item.qty;
+        const itemPriceSum = item.unitValue * item.qty;
+        
+        totalMass += itemMassSum;
+        totalValue += itemPriceSum;
+        totalQty += item.qty;
+
+        // Custom Milyem translation estimation (average standard carats in basket)
+        // For simple estimation, standard ziynets are 22 carat which is 91.6% purity
+        if (item.key.startsWith('has')) {
+          approximateHas += itemMassSum; // 24 Carats
+        } else {
+          approximateHas += itemMassSum * 0.916; // 22 Carats Standard
+        }
+
+        const pill = document.createElement('div');
+        pill.className = "flex justify-between items-center bg-darkBg border border-darkBorder/60 rounded-xl px-4 py-3 text-xs";
+        pill.innerHTML = `
+          <div>
+            <span class="block font-bold text-white">${item.name}</span>
+            <span class="text-[10px] text-gray-500 font-mono">${item.qty} adet / Toplam: ${numFormat.format(itemMassSum)}g</span>
+          </div>
+          <div class="flex items-center space-x-3.5">
+            <span class="font-extrabold text-white font-mono">${numFormat.format(itemPriceSum)} TL</span>
+            <button onclick="removeBasketItem('${item.key}')" class="text-rose-400 hover:text-rose-600 transition-colors text-xs p-1">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        `;
+        basketWrapper.appendChild(pill);
+      });
+
+      // Update indicators
+      document.getElementById('screen-total-mass').innerText = totalMass.toFixed(3);
+      document.getElementById('screen-total-qty').innerText = `${totalQty} Parça`;
+      document.getElementById('summary-mass').innerText = `${totalMass.toFixed(2)} Gram`;
+      document.getElementById('summary-has').innerText = `${approximateHas.toFixed(2)} Gram`;
+      document.getElementById('summary-money').innerText = `${currencyFormat.format(totalValue)} TL`;
+
+      // Update WhatsApp URL
+      const waMsg = encodeURIComponent(`Merhaba, www.hakanaltin.com Sanal Terazisinden altınlarımı tartıp liste hazırladım:\n\nToplam Ürün Sayısı: ${totalQty} adet\nToplam Gramaj: ${totalMass.toFixed(2)}g\nUyumlu Has Ağırlık: ${approximateHas.toFixed(2)}g\nGüncel Has Fiyatı: ${liveHasBuy} TL/g\nToplam Değerleme Tutarı: ${currencyFormat.format(totalValue)} TL.\n\nBu fiyatı sabitleyerek altın teslimat ve bozdurma işlemi başlatmak istiyorum.`);
+      document.getElementById('terazi-wa-btn').href = `https://wa.me/905320000000?text=${waMsg}`;
+    }
+
+    // Theme Switcher Initialization
+    function initThemeSwitcher() {
+      const toggleBtn = document.getElementById("theme-toggle");
+      const icon = document.getElementById("theme-icon");
+      
+      function updateIcon() {
+        const isDark = document.documentElement.classList.contains("dark");
+        if (isDark) {
+          if (icon) icon.className = "fa-solid fa-sun text-sm text-gold-400";
+          if (toggleBtn) toggleBtn.title = "Açık Temaya Geç";
+        } else {
+          if (icon) icon.className = "fa-solid fa-moon text-sm text-gray-500 hover:text-gold-500";
+          if (toggleBtn) toggleBtn.title = "Karanlık Temaya Geç";
+        }
+        // Update all logo images
+        document.querySelectorAll('.logo-img').forEach(img => {
+          img.src = isDark ? 'docs/images/logo.svg' : 'docs/images/logo-light.svg';
+        });
+      }
+      
+      updateIcon();
+      
+      function toggleTheme() {
+        if (document.documentElement.classList.contains("dark")) {
+          document.documentElement.classList.remove("dark");
+          localStorage.setItem("theme", "light");
+        } else {
+          document.documentElement.classList.add("dark");
+          localStorage.setItem("theme", "dark");
+        }
+        updateIcon();
+      }
+      
+      if (toggleBtn) toggleBtn.addEventListener("click", toggleTheme);
+    }
+
+    // Trigger on load
+    window.onload = function() {
+      initThemeSwitcher();
+    };
+  </script>
+</body>
+</html>
