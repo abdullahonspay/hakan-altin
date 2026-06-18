@@ -17,3 +17,7 @@ Projeyi doğrudan bir web sunucusunda ya da tarayıcıda açabilirsiniz. Ana gir
 ## Geliştirme
 
 Statik HTML, CSS ve JavaScript ile hazırlanmıştır.
+
+## GitHub Pages
+
+Bu depo için otomatik yayın workflow'u `.github/workflows/pages.yml` içinde tanımlıdır. GitHub tarafında `Settings > Pages` bölümünden kaynağı `GitHub Actions` olarak seçerseniz, `main` dalına yapılan her push sonrası site otomatik yayınlanır.
