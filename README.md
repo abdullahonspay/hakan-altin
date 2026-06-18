@@ -21,3 +21,16 @@ Statik HTML, CSS ve JavaScript ile hazırlanmıştır.
 ## GitHub Pages
 
 Bu depo için otomatik yayın workflow'u `.github/workflows/pages.yml` içinde tanımlıdır. GitHub tarafında `Settings > Pages` bölümünden kaynağı `GitHub Actions` olarak seçerseniz, `main` dalına yapılan her push sonrası site otomatik yayınlanır.
+
+Yayın adresi:
+
+https://abdullahonspay.github.io/hakan-altin/
+
+Doğrudan açılabilen sayfalar:
+
+- Ana sayfa: https://abdullahonspay.github.io/hakan-altin/
+- Alternatif ana görünüm: https://abdullahonspay.github.io/hakan-altin/index4.html
+- Altın rehberi: https://abdullahonspay.github.io/hakan-altin/altin-rehberi.html
+- Milyem hesaplama: https://abdullahonspay.github.io/hakan-altin/milyem.html
+- Sarrafiye sayfası: https://abdullahonspay.github.io/hakan-altin/sarrafiye.html
+- Terazi sayfası: https://abdullahonspay.github.io/hakan-altin/terazi.html
