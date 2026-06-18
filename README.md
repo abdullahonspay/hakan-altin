@@ -29,7 +29,10 @@ https://abdullahonspay.github.io/hakan-altin/
 Doğrudan açılabilen sayfalar:
 
 - Ana sayfa: https://abdullahonspay.github.io/hakan-altin/
-- Alternatif ana görünüm: https://abdullahonspay.github.io/hakan-altin/index4.html
+- Alternatif 1. görünüm: https://abdullahonspay.github.io/hakan-altin/index1.html
+- Alternatif 2. görünüm: https://abdullahonspay.github.io/hakan-altin/index2.html
+- Alternatif 3. görünüm: https://abdullahonspay.github.io/hakan-altin/index3.html
+- Alternatif 4. görünüm: https://abdullahonspay.github.io/hakan-altin/index4.html
 - Altın rehberi: https://abdullahonspay.github.io/hakan-altin/altin-rehberi.html
 - Milyem hesaplama: https://abdullahonspay.github.io/hakan-altin/milyem.html
 - Sarrafiye sayfası: https://abdullahonspay.github.io/hakan-altin/sarrafiye.html
