@@ -58,6 +58,11 @@
     }
   </script>
   <style>
+    /* Radius scale normalization */
+    .rounded-3xl { border-radius: 1rem !important; }
+    .rounded-2xl { border-radius: 0.875rem !important; }
+    .rounded-xl  { border-radius: 0.75rem !important; }
+    .rounded-lg  { border-radius: 0.625rem !important; }
     body {
       font-family: 'Inter', sans-serif;
     }
@@ -390,7 +395,7 @@
         <div class="relative grid grid-cols-2 gap-4">
           
           <!-- Gram Card -->
-          <div class="bg-white rounded-3xl border border-gold-600/50 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
+          <div class="bg-white rounded-3xl border border-gold-600/20 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
             <div class="text-gray-400 text-xs sm:text-sm font-medium uppercase tracking-wide">
               Gram Altın
             </div>
@@ -406,7 +411,7 @@
           </div>
 
           <!-- 22 Ayar Card -->
-          <div class="bg-white rounded-3xl border border-gold-600/50 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
+          <div class="bg-white rounded-3xl border border-gold-600/20 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
             <div class="text-gray-400 text-xs sm:text-sm font-medium uppercase tracking-wide">
               22 Ayar Altın
             </div>
@@ -422,7 +427,7 @@
           </div>
 
           <!-- Çeyrek Card -->
-          <div class="bg-white rounded-3xl border border-gold-600/50 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
+          <div class="bg-white rounded-3xl border border-gold-600/20 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
             <div class="text-gray-400 text-xs sm:text-sm font-medium uppercase tracking-wide">
               Çeyrek
             </div>
@@ -438,7 +443,7 @@
           </div>
 
           <!-- Yarım Card -->
-          <div class="bg-white rounded-3xl border border-gold-600/50 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
+          <div class="bg-white rounded-3xl border border-gold-600/20 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
             <div class="text-gray-400 text-xs sm:text-sm font-medium uppercase tracking-wide">
               Yarım
             </div>
@@ -454,7 +459,7 @@
           </div>
 
           <!-- Tam Altın Card -->
-          <div class="bg-white rounded-3xl border border-gold-600/50 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
+          <div class="bg-white rounded-3xl border border-gold-600/20 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
             <div class="text-gray-400 text-xs sm:text-sm font-medium uppercase tracking-wide">
               Tam Altın
             </div>
@@ -470,7 +475,7 @@
           </div>
 
           <!-- Ata Altın Card -->
-          <div class="bg-white rounded-3xl border border-gold-600/50 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
+          <div class="bg-white rounded-3xl border border-gold-600/20 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
             <div class="text-gray-400 text-xs sm:text-sm font-medium uppercase tracking-wide">
               Ata Altın
             </div>
@@ -542,7 +547,7 @@
       </div>
 
       <!-- Live rows content wrapper -->
-      <div class="divide-y divide-gold-600/50 dark:divide-gray-600/50" id="market-rows-container">
+      <div class="divide-y divide-gold-600/20 dark:divide-gray-600/50" id="market-rows-container">
         <!-- JS will populate these custom-crafted premium list items -->
       </div>
     </div>

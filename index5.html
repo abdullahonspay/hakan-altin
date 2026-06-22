@@ -66,6 +66,17 @@
     body {
       font-family: 'Inter', sans-serif;
     }
+
+    html.dark body {
+      background-color: #0D0E12 !important;
+      background-image:
+        linear-gradient(120deg, rgba(212, 175, 55, 0.05), rgba(212, 175, 55, 0) 42%),
+        radial-gradient(rgba(212, 175, 55, 0.12) 0.9px, transparent 0.9px),
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      background-size: 100% 100%, 24px 24px, 96px 96px, 96px 96px;
+      background-position: 0 0, -12px -12px, 0 0, 0 0;
+    }
     .text-glow {
       text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
     }
@@ -110,6 +121,13 @@
     html:not(.dark) body {
       background-color: #F8FAFC !important;
       color: #1E293B !important;
+      background-image:
+        linear-gradient(120deg, rgba(122, 85, 8, 0.04), rgba(122, 85, 8, 0) 42%),
+        radial-gradient(rgba(122, 85, 8, 0.11) 0.85px, transparent 0.85px),
+        linear-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+      background-size: 100% 100%, 24px 24px, 92px 92px, 92px 92px;
+      background-position: 0 0, -12px -12px, 0 0, 0 0;
     }
     html:not(.dark) .bg-darkBg {
       background-color: #F8FAFC !important;
@@ -233,6 +251,96 @@
     }
     html:not(.dark) .hover\:text-gold-500:hover {
       color: #7A5508 !important;
+    }
+
+    /* Hero Detail Panel Animation */
+    #hero-cards-grid.opacity-0 {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #hero-cards-grid.translate-x-full {
+      transform: translateX(100%);
+    }
+
+    #hero-detail-panel.translate-x-full {
+      transform: translateX(100%);
+    }
+
+    #hero-detail-panel.opacity-0 {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Pulse Flash Animation */
+    @keyframes pulse-green {
+      0% { background-color: rgba(255, 253, 240, 1); }
+      50% { background-color: rgba(34, 197, 94, 0.3); }
+      100% { background-color: rgba(255, 253, 240, 1); }
+    }
+
+    @keyframes pulse-red {
+      0% { background-color: rgba(255, 253, 240, 1); }
+      50% { background-color: rgba(239, 68, 68, 0.3); }
+      100% { background-color: rgba(255, 253, 240, 1); }
+    }
+
+    @keyframes pulse-gray {
+      0% { background-color: rgba(255, 253, 240, 1); }
+      50% { background-color: rgba(107, 114, 128, 0.3); }
+      100% { background-color: rgba(255, 253, 240, 1); }
+    }
+
+    .hero-list-row.pulse-flash {
+      animation: pulse-green 600ms ease-in-out;
+    }
+
+    .hero-list-row.pulse-flash.red {
+      animation: pulse-red 600ms ease-in-out;
+    }
+
+    .hero-list-row.pulse-flash.gray {
+      animation: pulse-gray 600ms ease-in-out;
+    }
+
+    .hero-card.pulse-flash {
+      animation: pulse-green 600ms ease-in-out;
+    }
+
+    .hero-card.pulse-flash.red {
+      animation: pulse-red 600ms ease-in-out;
+    }
+
+    .hero-card.pulse-flash.gray {
+      animation: pulse-gray 600ms ease-in-out;
+    }
+
+    /* Time Period Tab Buttons */
+    .chart-period-btn {
+      color: #9ca3af;
+      background-color: transparent;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 0.875rem;
+      transition: all 200ms ease;
+      cursor: pointer;
+    }
+
+    .chart-period-btn:hover {
+      color: #6b7280;
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    .chart-period-btn.active {
+      color: white;
+      background-color: #1f2937;
+      font-weight: 600;
+    }
+
+    #hero-detail-panel {
+      pointer-events: auto;
     }
   </style>
 </head>
@@ -385,61 +493,61 @@
           </div>
 
           <div class="flex-1 min-h-0 max-h-[340px] overflow-y-auto custom-scrollbar pr-1 space-y-2.5">
-            <div class="grid grid-cols-12 gap-2 items-center rounded-xl border border-[#dcdcdc] px-3 sm:px-4 py-3">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center rounded-xl border border-[#dcdcdc] px-3 sm:px-4 py-3 hover:bg-gold-50 transition-colors" data-product="Has Altın" data-buy="6.565" data-sell="6.596" data-change="+1,45%">
               <div class="col-span-5 text-white text-sm font-semibold">Has Altın</div>
               <div class="col-span-2 text-right text-gray-300 text-xs">6.565</div>
               <div class="col-span-3 text-right text-white text-sm font-bold">6.596</div>
               <div class="col-span-2 text-right text-emerald-400 text-xs font-bold">+1,45%</div>
             </div>
-            <div class="grid grid-cols-12 gap-2 items-center rounded-xl border border-[#dcdcdc] px-3 sm:px-4 py-3">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center rounded-xl border border-[#dcdcdc] px-3 sm:px-4 py-3 hover:bg-gold-50 transition-colors" data-product="22 Ayar" data-buy="6.018" data-sell="6.043" data-change="+0,45%">
               <div class="col-span-5 text-white text-sm font-semibold">22 Ayar</div>
               <div class="col-span-2 text-right text-gray-300 text-xs">6.018</div>
               <div class="col-span-3 text-right text-white text-sm font-bold">6.043</div>
               <div class="col-span-2 text-right text-emerald-400 text-xs font-bold">+0,45%</div>
             </div>
-            <div class="grid grid-cols-12 gap-2 items-center rounded-xl border  border-[#dcdcdc] px-3 sm:px-4 py-3">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center rounded-xl border  border-[#dcdcdc] px-3 sm:px-4 py-3 hover:bg-gold-50 transition-colors" data-product="Çeyrek" data-buy="10.640" data-sell="10.782" data-change="+0,90%">
               <div class="col-span-5 text-white text-sm font-semibold">Çeyrek</div>
               <div class="col-span-2 text-right text-gray-300 text-xs">10.640</div>
               <div class="col-span-3 text-right text-white text-sm font-bold">10.782</div>
               <div class="col-span-2 text-right text-emerald-400 text-xs font-bold">+0,90%</div>
             </div>
-            <div class="grid grid-cols-12 gap-2 items-center rounded-xl border  border-[#dcdcdc] px-3 sm:px-4 py-3">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center rounded-xl border  border-[#dcdcdc] px-3 sm:px-4 py-3 hover:bg-gold-50 transition-colors" data-product="Yarım" data-buy="21.180" data-sell="21.560" data-change="+1,00%">
               <div class="col-span-5 text-white text-sm font-semibold">Yarım</div>
               <div class="col-span-2 text-right text-gray-300 text-xs">21.180</div>
               <div class="col-span-3 text-right text-white text-sm font-bold">21.560</div>
               <div class="col-span-2 text-right text-emerald-400 text-xs font-bold">+1,00%</div>
             </div>
-            <div class="grid grid-cols-12 gap-2 items-center rounded-xl border  border-[#dcdcdc] px-3 sm:px-4 py-3">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center rounded-xl border  border-[#dcdcdc] px-3 sm:px-4 py-3 hover:bg-gold-50 transition-colors" data-product="Tam Altın" data-buy="42.700" data-sell="43.120" data-change="-0,20%">
               <div class="col-span-5 text-white text-sm font-semibold">Tam Altın</div>
               <div class="col-span-2 text-right text-gray-300 text-xs">42.700</div>
               <div class="col-span-3 text-right text-white text-sm font-bold">43.120</div>
               <div class="col-span-2 text-right text-rose-400 text-xs font-bold">-0,20%</div>
             </div>
-            <div class="grid grid-cols-12 gap-2 items-center rounded-xl border  border-[#dcdcdc] px-3 sm:px-4 py-3">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center rounded-xl border  border-[#dcdcdc] px-3 sm:px-4 py-3 hover:bg-gold-50 transition-colors" data-product="Ata Altın" data-buy="44.050" data-sell="44.540" data-change="-0,12%">
               <div class="col-span-5 text-white text-sm font-semibold">Ata Altın</div>
               <div class="col-span-2 text-right text-gray-300 text-xs">44.050</div>
               <div class="col-span-3 text-right text-white text-sm font-bold">44.540</div>
               <div class="col-span-2 text-right text-rose-400 text-xs font-bold">-0,12%</div>
             </div>
-            <div class="grid grid-cols-12 gap-2 items-center rounded-xl border  border-[#dcdcdc] px-3 sm:px-4 py-3">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center rounded-xl border  border-[#dcdcdc] px-3 sm:px-4 py-3 hover:bg-gold-50 transition-colors" data-product="Gremse" data-buy="106.900" data-sell="108.300" data-change="+0,31%">
               <div class="col-span-5 text-white text-sm font-semibold">Gremse</div>
               <div class="col-span-2 text-right text-gray-300 text-xs">106.900</div>
               <div class="col-span-3 text-right text-white text-sm font-bold">108.300</div>
               <div class="col-span-2 text-right text-emerald-400 text-xs font-bold">+0,31%</div>
             </div>
-            <div class="grid grid-cols-12 gap-2 items-center rounded-xl border  border-[#dcdcdc] px-3 sm:px-4 py-3">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center rounded-xl border  border-[#dcdcdc] px-3 sm:px-4 py-3 hover:bg-gold-50 transition-colors" data-product="ONS Altın" data-buy="2.334,5 $" data-sell="2.342,1 $" data-change="-0,22%">
               <div class="col-span-5 text-white text-sm font-semibold">ONS Altın</div>
               <div class="col-span-2 text-right text-gray-300 text-xs">2.334,5 $</div>
               <div class="col-span-3 text-right text-white text-sm font-bold">2.342,1 $</div>
               <div class="col-span-2 text-right text-rose-400 text-xs font-bold">-0,22%</div>
             </div>
-            <div class="grid grid-cols-12 gap-2 items-center rounded-xl border  border-[#dcdcdc] px-3 sm:px-4 py-3">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center rounded-xl border  border-[#dcdcdc] px-3 sm:px-4 py-3 hover:bg-gold-50 transition-colors" data-product="USD/TRY" data-buy="32,2280" data-sell="32,2450" data-change="+0,08%">
               <div class="col-span-5 text-white text-sm font-semibold">USD/TRY</div>
               <div class="col-span-2 text-right text-gray-300 text-xs">32,2280</div>
               <div class="col-span-3 text-right text-white text-sm font-bold">32,2450</div>
               <div class="col-span-2 text-right text-emerald-400 text-xs font-bold">+0,08%</div>
             </div>
-            <div class="grid grid-cols-12 gap-2 items-center rounded-xl border  border-[#dcdcdc] px-3 sm:px-4 py-3">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center rounded-xl border  border-[#dcdcdc] px-3 sm:px-4 py-3 hover:bg-gold-50 transition-colors" data-product="EUR/TRY" data-buy="35,0980" data-sell="35,1240" data-change="+0,15%">
               <div class="col-span-5 text-white text-sm font-semibold">EUR/TRY</div>
               <div class="col-span-2 text-right text-gray-300 text-xs">35,0980</div>
               <div class="col-span-3 text-right text-white text-sm font-bold">35,1240</div>
@@ -451,13 +559,54 @@
 
       <!-- Quick Pricing Widget (Right Column) -->
       <div class="lg:col-span-6 relative h-full">
-        <!-- Shiny Border Shadow -->
-   
-        
-        <div class="relative grid grid-cols-2 gap-4 h-full content-start">
-          
-          <!-- Gram Card -->
-          <div class="bg-white rounded-3xl border border-gold-600/20 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
+         <!-- Detail Panel (Slide-In) -->
+         <div id="hero-detail-panel" class="absolute inset-0 bg-white rounded-3xl border border-gold-600/20 p-6 transform transition-all duration-500 translate-x-full opacity-0 pointer-events-none overflow-hidden flex flex-col">
+           <!-- Transparent Chart Background -->
+           <svg id="hero-detail-chart" class="absolute inset-0 w-full h-full opacity-20 rounded-3xl" style="filter: drop-shadow(0 0 1px rgba(0,0,0,0.08)); shape-rendering: crispEdges;" preserveAspectRatio="xMidYMid slice"></svg>
+           
+           <div class="relative z-10 flex flex-col h-full justify-between">
+             <!-- Top Section: Name, Price, Change -->
+             <div class="space-y-3">
+               <!-- Close Button + Currency Name -->
+               <div class="flex items-center justify-between">
+                 <h3 id="hero-detail-name" class="text-gray-900 text-lg sm:text-xl font-bold">Ürün Adı</h3>
+                 <button onclick="closeHeroDetail()" class="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
+                   <i class="fa-solid fa-times text-sm"></i>
+                 </button>
+               </div>
+               
+               <!-- Price (Large) -->
+               <div>
+                 <p id="hero-detail-sell" class="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight">0,00 ₺</p>
+               </div>
+               
+               <!-- Change Status (Up/Down with %) -->
+               <div id="hero-detail-change-container" class="flex items-center gap-2">
+                 <div class="flex items-center gap-1">
+                   <i id="hero-detail-change-icon" class="fa-solid fa-caret-up text-emerald-500 text-xl"></i>
+                   <p id="hero-detail-change" class="text-lg font-bold text-emerald-500">+0,00%</p>
+                 </div>
+               </div>
+             </div>
+
+             <!-- Middle Section: Chart -->
+             <div class="flex-1 flex items-center justify-center my-4 min-h-[150px]">
+               <!-- Chart will be drawn here by SVG -->
+             </div>
+
+             <!-- Bottom Section: Time Period Buttons -->
+             <div class="flex gap-2 bg-gray-100 p-1 rounded-lg justify-center">
+               <button class="chart-period-btn active px-4 py-2 rounded text-xs sm:text-sm font-semibold transition-all duration-300" data-period="1d">1G</button>
+               <button class="chart-period-btn px-4 py-2 rounded text-xs sm:text-sm font-semibold transition-all duration-300" data-period="1w">1H</button>
+               <button class="chart-period-btn px-4 py-2 rounded text-xs sm:text-sm font-semibold transition-all duration-300" data-period="1m">1A</button>
+               <button class="chart-period-btn px-4 py-2 rounded text-xs sm:text-sm font-semibold transition-all duration-300" data-period="1y">1Y</button>
+             </div>
+           </div>
+         </div>
+         
+         <!-- Original Grid (Visible by default) -->
+         <div id="hero-cards-grid" class="relative grid grid-cols-2 gap-4 h-full content-start transition-all duration-500 opacity-100">
+          <div class="hero-card cursor-pointer bg-white rounded-3xl border border-gold-600/20 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015]" data-product="Has Altın" data-buy="6.565" data-sell="6.596" data-change="+1,45%">
             <div class="text-gray-400 text-xs sm:text-sm font-medium uppercase tracking-wide">
               Gram Altın
             </div>
@@ -473,7 +622,7 @@
           </div>
 
           <!-- 22 Ayar Card -->
-          <div class="bg-white rounded-3xl border border-gold-600/20 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
+          <div class="hero-card cursor-pointer bg-white rounded-3xl border border-gold-600/20 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015]" data-product="22 Ayar" data-buy="6.018" data-sell="6.043" data-change="+0,45%">
             <div class="text-gray-400 text-xs sm:text-sm font-medium uppercase tracking-wide">
               22 Ayar Altın
             </div>
@@ -489,7 +638,7 @@
           </div>
 
           <!-- Çeyrek Card -->
-          <div class="bg-white rounded-3xl border border-gold-600/20 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
+          <div class="hero-card cursor-pointer bg-white rounded-3xl border border-gold-600/20 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015]" data-product="Çeyrek" data-buy="10.640" data-sell="10.782" data-change="+0,90%">
             <div class="text-gray-400 text-xs sm:text-sm font-medium uppercase tracking-wide">
               Çeyrek
             </div>
@@ -505,7 +654,7 @@
           </div>
 
           <!-- Yarım Card -->
-          <div class="bg-white rounded-3xl border border-gold-600/20 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
+          <div class="hero-card cursor-pointer bg-white rounded-3xl border border-gold-600/20 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015]" data-product="Yarım" data-buy="21.180" data-sell="21.560" data-change="+1,00%">
             <div class="text-gray-400 text-xs sm:text-sm font-medium uppercase tracking-wide">
               Yarım
             </div>
@@ -521,7 +670,7 @@
           </div>
 
           <!-- Tam Altın Card -->
-          <div class="bg-white rounded-3xl border border-gold-600/20 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
+          <div class="hero-card cursor-pointer bg-white rounded-3xl border border-gold-600/20 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015]" data-product="Tam Altın" data-buy="42.700" data-sell="43.120" data-change="-0,20%">
             <div class="text-gray-400 text-xs sm:text-sm font-medium uppercase tracking-wide">
               Tam Altın
             </div>
@@ -537,7 +686,7 @@
           </div>
 
           <!-- Ata Altın Card -->
-          <div class="bg-white rounded-3xl border border-gold-600/20 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015] l">
+          <div class="hero-card cursor-pointer bg-white rounded-3xl border border-gold-600/20 p-4 sm:p-5 transition-all duration-300 hover:scale-[1.015]" data-product="Ata Altın" data-buy="44.050" data-sell="44.540" data-change="-0,12%">
             <div class="text-gray-400 text-xs sm:text-sm font-medium uppercase tracking-wide">
               Ata Altın
             </div>
@@ -552,78 +701,13 @@
             </div>
           </div>
 
-
+        </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- LIVE MARKET BOARDS SECTION -->
-  <section class="max-w-7xl mx-auto px-4 py-8 relative" id="canli-piyasa">
-    
-    <!-- Section Title & Tabs Controls Header -->
-    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-8 pb-6 border-b border-darkBorder">
-      <div>
-        <h2 class="font-sans text-2xl sm:text-3xl font-bold text-white flex items-center space-x-2">
-          <span class="flex h-3 w-3 relative">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
-          </span>
-          <span>Canlı Fiyat Panosu</span>
-        </h2>
-        <p class="text-xs text-gray-400 mt-1">Anlık kapalıçarşı ve uluslararası serbest piyasa alış & satış fiyatları.</p>
-      </div>
-
-      <!-- Controls inside market header: Search & Tab filters -->
-      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
-        <!-- Quick search box inside table -->
-        <div class="relative flex-1 sm:w-60">
-          <input type="text" id="market-search" oninput="filterMarketTable()" placeholder="Tabloda ara (has, çeyrek, dolar...)" class="w-full bg-darkCard text-white text-xs border border-darkBorder focus:border-gold-500 rounded-xl pl-9 pr-4 py-3 placeholder-gray-500 outline-none transition-all">
-          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 text-xs"></i>
-        </div>
-
-        <!-- Desktop tabs structure -->
-        <div class="grid grid-cols-3 bg-darkCard border border-darkBorder p-1 rounded-xl">
-          <button id="tab-madenler" onclick="switchMarketTab('madenler')" class="px-4 py-2.5 rounded-lg text-xs font-bold transition-all bg-gold-500/10 text-gold-400 border border-gold-500/20">
-            Kıymetli Madenler
-          </button>
-          <button id="tab-sarrafiye" onclick="switchMarketTab('sarrafiye')" class="px-4 py-2.5 rounded-lg text-xs font-bold transition-all text-gray-400 hover:text-white">
-            Ziynet & Sarrafiye
-          </button>
-          <button id="tab-pariteler" onclick="switchMarketTab('pariteler')" class="px-4 py-2.5 rounded-lg text-xs font-bold transition-all text-gray-400 hover:text-white">
-            Döviz & Parite
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Live Market Grid/Table Container -->
-    <div class="bg-darkCard border border-darkBorder/80 rounded-2xl overflow-hidden shadow-2xl">
-      <!-- Grid table headers: Perfect for mobile display too (We avoid rigid tables, using modular grid lists) -->
-      <div class="hidden md:grid grid-cols-12 gap-4 px-6 py-4 border-b border-darkBorder bg-[#111218] text-xs font-bold uppercase tracking-wider text-gray-400">
-        <div class="col-span-4 flex items-center">Birim / Ürün Açıklaması</div>
-        <div class="col-span-2 text-right">Müşteri Satış (Biz Alırız)</div>
-        <div class="col-span-2 text-right">Müşteri Alış (Biz Satarız)</div>
-        <div class="col-span-2 text-center">Günlük Değişim %</div>
-        <div class="col-span-2 text-center">Mini Grafik</div>
-      </div>
-
-      <!-- Live rows content wrapper -->
-      <div class="divide-y divide-gold-600/20 dark:divide-gray-600/50" id="market-rows-container">
-        <!-- JS will populate these custom-crafted premium list items -->
-      </div>
-    </div>
-
-    <div class="mt-4 flex items-center justify-between text-xs text-gray-500 px-2 lg:px-0">
-      <p class="flex items-center">
-        <i class="fa-solid fa-circle-info mr-1.5 text-gold-500"></i>
-        <span>Canlı fiyatlarımız piyasa volatilitesine göre milisaniyeler içerisinde yenilenir.</span>
-      </p>
-      <span class="font-medium">Son Güncelleme: <span id="last-updated" class="text-gray-400 font-bold">Şimdi</span></span>
-    </div>
-
-  </section>
-
+ 
   <!-- QUICK B2B TOOLS SHOWCASE SECTION -->
   <section class="max-w-7xl mx-auto px-4 py-16">
     <div class="mb-12 text-center max-w-2xl mx-auto space-y-3">
@@ -743,6 +827,73 @@
 
     </div>
   </section>
+
+   <!-- LIVE MARKET BOARDS SECTION -->
+  <section class="max-w-7xl mx-auto px-4 py-8 relative" id="canli-piyasa">
+    
+    <!-- Section Title & Tabs Controls Header -->
+    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-8 pb-6 border-b border-darkBorder">
+      <div>
+        <h2 class="font-sans text-2xl sm:text-3xl font-bold text-white flex items-center space-x-2">
+          <span class="flex h-3 w-3 relative">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+          </span>
+          <span>Canlı Fiyat Panosu</span>
+        </h2>
+        <p class="text-xs text-gray-400 mt-1">Anlık kapalıçarşı ve uluslararası serbest piyasa alış & satış fiyatları.</p>
+      </div>
+
+      <!-- Controls inside market header: Search & Tab filters -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
+        <!-- Quick search box inside table -->
+        <div class="relative flex-1 sm:w-60">
+          <input type="text" id="market-search" oninput="filterMarketTable()" placeholder="Tabloda ara (has, çeyrek, dolar...)" class="w-full bg-darkCard text-white text-xs border border-darkBorder focus:border-gold-500 rounded-xl pl-9 pr-4 py-3 placeholder-gray-500 outline-none transition-all">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 text-xs"></i>
+        </div>
+
+        <!-- Desktop tabs structure -->
+        <div class="grid grid-cols-3 bg-darkCard border border-darkBorder p-1 rounded-xl">
+          <button id="tab-madenler" onclick="switchMarketTab('madenler')" class="px-4 py-2.5 rounded-lg text-xs font-bold transition-all bg-gold-500/10 text-gold-400 border border-gold-500/20">
+            Kıymetli Madenler
+          </button>
+          <button id="tab-sarrafiye" onclick="switchMarketTab('sarrafiye')" class="px-4 py-2.5 rounded-lg text-xs font-bold transition-all text-gray-400 hover:text-white">
+            Ziynet & Sarrafiye
+          </button>
+          <button id="tab-pariteler" onclick="switchMarketTab('pariteler')" class="px-4 py-2.5 rounded-lg text-xs font-bold transition-all text-gray-400 hover:text-white">
+            Döviz & Parite
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Market Grid/Table Container -->
+    <div class="bg-darkCard border border-darkBorder/80 rounded-2xl overflow-hidden shadow-2xl">
+      <!-- Grid table headers: Perfect for mobile display too (We avoid rigid tables, using modular grid lists) -->
+      <div class="hidden md:grid grid-cols-12 gap-4 px-6 py-4 border-b border-darkBorder bg-[#111218] text-xs font-bold uppercase tracking-wider text-gray-400">
+        <div class="col-span-4 flex items-center">Birim / Ürün Açıklaması</div>
+        <div class="col-span-2 text-right">Müşteri Satış (Biz Alırız)</div>
+        <div class="col-span-2 text-right">Müşteri Alış (Biz Satarız)</div>
+        <div class="col-span-2 text-center">Günlük Değişim %</div>
+        <div class="col-span-2 text-center">Mini Grafik</div>
+      </div>
+
+      <!-- Live rows content wrapper -->
+      <div class="divide-y divide-gold-600/20 dark:divide-gray-600/50" id="market-rows-container">
+        <!-- JS will populate these custom-crafted premium list items -->
+      </div>
+    </div>
+
+    <div class="mt-4 flex items-center justify-between text-xs text-gray-500 px-2 lg:px-0">
+      <p class="flex items-center">
+        <i class="fa-solid fa-circle-info mr-1.5 text-gold-500"></i>
+        <span>Canlı fiyatlarımız piyasa volatilitesine göre milisaniyeler içerisinde yenilenir.</span>
+      </p>
+      <span class="font-medium">Son Güncelleme: <span id="last-updated" class="text-gray-400 font-bold">Şimdi</span></span>
+    </div>
+
+  </section>
+
 
   <!-- MOBILE APP DOWNLOAD BANNER -->
   <section class="max-w-7xl mx-auto px-4 py-10">
@@ -1220,6 +1371,277 @@
       
       if (toggleBtn) toggleBtn.addEventListener("click", toggleTheme);
       if (mobileToggleBtn) mobileToggleBtn.addEventListener("click", toggleTheme);
+    }
+
+    // HERO DETAIL PANEL - Slide-In Animation on Row Click
+    function initHeroDetailPanel() {
+      const listRows = document.querySelectorAll('.hero-list-row');
+      const cardRows = document.querySelectorAll('.hero-card');
+      const detailPanel = document.getElementById('hero-detail-panel');
+      const cardsGrid = document.getElementById('hero-cards-grid');
+
+      if (!detailPanel || !cardsGrid) return;
+
+      const openDetailPanel = function() {
+        const productName = this.getAttribute('data-product');
+        const buyPrice = this.getAttribute('data-buy');
+        const sellPrice = this.getAttribute('data-sell');
+        const changePercent = this.getAttribute('data-change');
+
+        // Add pulse flash animation to clicked element
+        this.classList.add('pulse-flash');
+        if (changePercent.startsWith('-')) {
+          this.classList.add('red');
+        } else if (changePercent === '0' || !changePercent.startsWith('+')) {
+          if (!changePercent.startsWith('+') && !changePercent.startsWith('-')) {
+            this.classList.add('gray');
+          }
+        }
+
+        // Remove animation classes after animation completes (600ms)
+        setTimeout(() => {
+          this.classList.remove('pulse-flash', 'red', 'gray');
+        }, 600);
+
+        // Update detail panel content
+        document.getElementById('hero-detail-name').textContent = productName;
+        document.getElementById('hero-detail-sell').textContent = sellPrice + ' ₺';
+        document.getElementById('hero-detail-change').textContent = changePercent;
+
+        // Update change icon and color
+        const isUp = changePercent.startsWith('+');
+        const changeIcon = document.getElementById('hero-detail-change-icon');
+        const changeEl = document.getElementById('hero-detail-change');
+        const changeContainer = document.getElementById('hero-detail-change-container');
+        
+        if (isUp) {
+          changeIcon.className = 'fa-solid fa-caret-up text-emerald-500 text-xl';
+          changeEl.className = 'text-lg font-bold text-emerald-500';
+          changeContainer.className = 'flex items-center gap-2';
+        } else if (changePercent.startsWith('-')) {
+          changeIcon.className = 'fa-solid fa-caret-down text-rose-500 text-xl';
+          changeEl.className = 'text-lg font-bold text-rose-500';
+          changeContainer.className = 'flex items-center gap-2';
+        } else {
+          changeIcon.className = 'fa-solid fa-minus text-gray-500 text-xl';
+          changeEl.className = 'text-lg font-bold text-gray-500';
+          changeContainer.className = 'flex items-center gap-2';
+        }
+
+        // Generate chart with color based on change (default 1D period)
+        generateHeroChart(changePercent, '1d', sellPrice);
+
+        // Setup period tabs
+        setupChartPeriodTabs(changePercent, sellPrice);
+
+        // Trigger slide-in animation
+        cardsGrid.classList.add('opacity-0', 'pointer-events-none', 'translate-x-full');
+        detailPanel.classList.remove('opacity-0', 'pointer-events-none', 'translate-x-full');
+      };
+
+      listRows.forEach(row => {
+        row.addEventListener('click', openDetailPanel);
+      });
+
+      cardRows.forEach(card => {
+        card.addEventListener('click', openDetailPanel);
+      });
+    }
+
+    function closeHeroDetail() {
+      const detailPanel = document.getElementById('hero-detail-panel');
+      const cardsGrid = document.getElementById('hero-cards-grid');
+
+      if (!detailPanel || !cardsGrid) return;
+
+      detailPanel.classList.add('opacity-0', 'pointer-events-none', 'translate-x-full');
+      cardsGrid.classList.remove('opacity-0', 'pointer-events-none', 'translate-x-full');
+      
+      // Reset chart color to gold
+      generateHeroChart();
+    }
+
+    function generateHeroChart(changePercent = '', period = '1d', baseSellPrice = '0') {
+      const svg = document.getElementById('hero-detail-chart');
+      if (!svg) return;
+
+      // Determine color based on change: green (+), red (-), gray (0)
+      let lineColor = '#22c55e'; // Default green
+      let fillColor = 'rgba(34, 197, 94, 0.08)'; // Very light green fill
+      
+      if (changePercent) {
+        if (changePercent.startsWith('+')) {
+          lineColor = '#22c55e'; // Bright emerald green
+          fillColor = 'rgba(34, 197, 94, 0.08)';
+        } else if (changePercent.startsWith('-')) {
+          lineColor = '#ef4444'; // Bright red
+          fillColor = 'rgba(239, 68, 68, 0.08)';
+        } else {
+          lineColor = '#6b7280'; // Gray
+          fillColor = 'rgba(107, 114, 128, 0.08)';
+        }
+      }
+
+      const width = svg.clientWidth || 400;
+      const height = svg.clientHeight || 300;
+      const padding = 40;
+      const chartWidth = width - padding * 2;
+      const chartHeight = height - padding * 2;
+      
+      // Determine data points and volatility based on period
+      let dataPoints, volatilityMultiplier;
+      switch(period) {
+        case '1d':
+          dataPoints = 60;
+          volatilityMultiplier = 2.0;
+          break;
+        case '1w':
+          dataPoints = 80;
+          volatilityMultiplier = 1.0;
+          break;
+        case '1m':
+          dataPoints = 100;
+          volatilityMultiplier = 0.5;
+          break;
+        case '1y':
+          dataPoints = 120;
+          volatilityMultiplier = 0.2;
+          break;
+        default:
+          dataPoints = 60;
+          volatilityMultiplier = 2.0;
+      }
+
+      // Generate smooth data points
+      const points = [];
+      const baseY = chartHeight * 0.4;
+      const baseSellNum = parseFloat(baseSellPrice.replace(/[^\d.-]/g, '')) || 1;
+      
+      for (let i = 0; i < dataPoints; i++) {
+        const x = (i / (dataPoints - 1)) * chartWidth + padding;
+        const noiseValue = (Math.sin(i * 0.2 + Math.random()) * 15 + Math.cos(i * 0.15) * 10 + (Math.random() - 0.5) * 20) * volatilityMultiplier;
+        const y = padding + baseY - noiseValue;
+        points.push([x, y]);
+      }
+
+      // Generate path with Catmull-Rom spline for ultra-smooth curves
+      let pathData = `M ${points[0][0]},${points[0][1]}`;
+      for (let i = 1; i < points.length - 2; i++) {
+        const p0 = points[i - 1];
+        const p1 = points[i];
+        const p2 = points[i + 1];
+        const p3 = points[i + 2];
+        
+        // Catmull-Rom control points
+        const cp1x = p1[0] + (p2[0] - p0[0]) / 6;
+        const cp1y = p1[1] + (p2[1] - p0[1]) / 6;
+        const cp2x = p2[0] - (p3[0] - p1[0]) / 6;
+        const cp2y = p2[1] - (p3[1] - p1[1]) / 6;
+        
+        pathData += ` C ${cp1x},${cp1y} ${cp2x},${cp2y} ${p2[0]},${p2[1]}`;
+      }
+
+      // Calculate min/max for display
+      const yValues = points.map(p => p[1]);
+      const minY = Math.min(...yValues);
+      const maxY = Math.max(...yValues);
+      const minPrice = (baseSellNum - (minY - padding) / (chartHeight / 100)).toFixed(2);
+      const maxPrice = (baseSellNum - (maxY - padding) / (chartHeight / 100)).toFixed(2);
+
+      // Optional: Store min/max in data attributes if needed for future use
+      const detailPanel = document.getElementById('hero-detail-panel');
+      if (detailPanel) {
+        detailPanel.setAttribute('data-min-price', minPrice);
+        detailPanel.setAttribute('data-max-price', maxPrice);
+      }
+
+      // Create simple, clean SVG
+      const gradientId = 'grad-' + Date.now();
+      
+      svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+      svg.innerHTML = `
+        <defs>
+          <linearGradient id="${gradientId}" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:${lineColor};stop-opacity:0.15" />
+            <stop offset="100%" style="stop-color:${lineColor};stop-opacity:0.01" />
+          </linearGradient>
+        </defs>
+
+        <!-- Area fill under curve - light gradient -->
+        <path d="${pathData} L ${points[points.length - 1][0]},${height - padding} L ${padding},${height - padding} Z" 
+              fill="url(#${gradientId})" 
+              opacity="1"
+              shape-rendering="geometricPrecision" />
+
+        <!-- Main chart line - clean and bold -->
+        <path d="${pathData}" 
+              fill="none" 
+              stroke="${lineColor}" 
+              stroke-width="3.5" 
+              stroke-linecap="round" 
+              stroke-linejoin="round"
+              opacity="0.9"
+              shape-rendering="crispEdges" />
+      `;
+    }
+
+    // Setup chart period tabs
+    function setupChartPeriodTabs(changePercent, sellPrice) {
+      const periodBtns = document.querySelectorAll('.chart-period-btn');
+      
+      periodBtns.forEach(btn => {
+        // Remove existing listeners by cloning
+        const newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+      });
+
+      // Re-select after cloning
+      const newPeriodBtns = document.querySelectorAll('.chart-period-btn');
+      newPeriodBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          // Remove active from all buttons
+          newPeriodBtns.forEach(b => b.classList.remove('active'));
+          // Add active to clicked button
+          this.classList.add('active');
+          
+          // Regenerate chart with new period
+          const period = this.getAttribute('data-period');
+          generateHeroChart(changePercent, period, sellPrice);
+        });
+      });
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      initHeroDetailPanel();
+      startPriceUpdates();
+    });
+
+    // Simulated Price Updates with Flash Animation
+    function startPriceUpdates() {
+      setInterval(() => {
+        const allRows = document.querySelectorAll('.hero-list-row, .hero-card');
+        
+        // Randomly pick 1-3 rows to update
+        const randomCount = Math.floor(Math.random() * 3) + 1;
+        for (let i = 0; i < randomCount; i++) {
+          const randomRow = allRows[Math.floor(Math.random() * allRows.length)];
+          const changePercent = randomRow.getAttribute('data-change');
+          
+          // Trigger flash animation based on current change direction
+          randomRow.classList.add('pulse-flash');
+          
+          if (changePercent.startsWith('-')) {
+            randomRow.classList.add('red');
+          }
+          // Green is default for positive changes
+          
+          // Remove animation after 600ms
+          setTimeout(() => {
+            randomRow.classList.remove('pulse-flash', 'red');
+          }, 600);
+        }
+      }, 3500); // Update every 3.5 seconds
     }
 
   </script>

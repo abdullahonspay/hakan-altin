@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 
   <script>
     tailwind.config = {
@@ -56,6 +56,11 @@
   </script>
 
   <style>
+    /* Radius scale normalization */
+    .rounded-3xl { border-radius: 1rem !important; }
+    .rounded-2xl { border-radius: 0.875rem !important; }
+    .rounded-xl  { border-radius: 0.75rem !important; }
+    .rounded-lg  { border-radius: 0.625rem !important; }
     body {
       font-family: 'Inter', sans-serif;
     }
@@ -89,6 +94,18 @@
       background-color: #F1F5F9 !important;
     }
 
+    html:not(.dark) .bg-darkBg {
+      background-color: #F8FAFC !important;
+    }
+
+    html:not(.dark) .bg-darkBg\/90 {
+      background-color: rgba(255, 255, 255, 0.9) !important;
+    }
+
+    html:not(.dark) .bg-darkBg\/95 {
+      background-color: rgba(255, 255, 255, 0.95) !important;
+    }
+
     html:not(.dark) .border-darkBorder, 
     html:not(.dark) .border-darkBorder\/80, 
     html:not(.dark) .border-darkBorder\/60 {
@@ -116,16 +133,100 @@
       color: #F8FAFC !important;
     }
 
+    .market-surface {
+      background: linear-gradient(160deg, rgba(21, 23, 30, 0.94), rgba(21, 23, 30, 0.82));
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+    }
+
+    .metric-card {
+      background: rgba(8, 10, 15, 0.52);
+      border: 1px solid rgba(35, 39, 49, 0.95);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .price-tile {
+      background: linear-gradient(165deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .period-btn {
+      border: 1px solid rgba(35, 39, 49, 0.95);
+      background: rgba(8, 10, 15, 0.5);
+      color: #9ca3af;
+      border-radius: 10px;
+      padding: 9px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 180ms ease;
+    }
+
+    .period-btn:hover {
+      border-color: rgba(212, 175, 55, 0.45);
+      color: #f3f4f6;
+      transform: translateY(-1px);
+    }
+
+    .period-btn.active {
+      background: rgba(212, 175, 55, 0.14);
+      border-color: rgba(212, 175, 55, 0.65);
+      color: #f7d985;
+    }
+
     .chart-container {
       position: relative;
-      height: 400px;
+      height: 430px;
       width: 100%;
-      margin: 2rem 0;
+      margin: 0;
+    }
+
+    html:not(.dark) .market-surface {
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.96));
+      border-color: rgba(212, 175, 55, 0.25);
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+    }
+
+    html:not(.dark) .metric-card,
+    html:not(.dark) .price-tile {
+      background: #ffffff;
+      border-color: #e2e8f0;
+    }
+
+    html:not(.dark) .period-btn {
+      background: #ffffff;
+      border-color: #dbe4f0;
+      color: #64748b;
+    }
+
+    html:not(.dark) .period-btn:hover {
+      color: #1e293b;
+    }
+
+    html:not(.dark) .period-btn.active {
+      background: rgba(212, 175, 55, 0.14);
+      border-color: rgba(184, 143, 36, 0.55);
+      color: #8a6515;
+    }
+
+    html:not(.dark) .instrument-card {
+      background: #ffffff;
+      border-color: #dbe4f0;
+    }
+
+    html:not(.dark) .instrument-card:hover {
+      background: #f5f8fb;
+    }
+
+    html:not(.dark) .instrument-card i {
+      opacity: 0.7;
     }
 
     @media (max-width: 768px) {
       .chart-container {
-        height: 300px;
+        height: 320px;
       }
     }
   </style>
@@ -167,126 +268,237 @@
   <!-- MAIN NAVIGATION -->
   <header id="main-header" class="sticky top-0 bg-darkBg/90 backdrop-blur-xl border-b border-darkBorder/80 z-40 transition-all duration-300">
     <div id="main-header-inner" class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <a href="index3-1.html" class="flex items-center space-x-3.5 group">
-        <i class="fa-solid fa-arrow-left text-gold-500 group-hover:scale-110 transition-transform"></i>
-        <span class="font-semibold text-white hidden sm:block">Piyasalara Dön</span>
+      <!-- Logo -->
+      <a href="/" class="flex items-center space-x-3.5 group">
+        <div class="relative">
+          <img src="docs/images/logo.svg" alt="Hakan Altın Logo" class="h-10 w-auto group-hover:scale-105 transition-transform duration-300 logo-img" />
+        </div>
       </a>
 
-      <h1 id="detail-title" class="text-xl font-bold text-white hidden sm:block">Ürün Detayı</h1>
-
-      <div class="flex items-center space-x-3">
-        <a href="tel:4447511" class="px-3 py-2 rounded-lg text-xs font-bold text-white bg-darkCard border border-darkBorder hidden md:flex items-center space-x-2 hover:bg-darkBorder transition-all">
-          <i class="fa-solid fa-phone text-gold-500"></i>
-          <span>Destek</span>
+      <!-- Navarre Desktop -->
+      <nav class="hidden lg:flex items-center space-x-1.5">
+        <a href="index.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-gold-400 bg-gold-500/10 border border-gold-500/20">
+          <i class="fa-solid fa-chart-line mr-1.5"></i> Canlı Piyasalar
         </a>
-        <button id="mobile-theme-toggle" class="p-2 rounded-lg bg-darkCard border border-darkBorder text-gray-300 hover:text-gold-500 transition-all">
-          <i id="mobile-theme-icon" class="fa-solid fa-moon text-sm"></i>
+        <a href="sarrafiye.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-all">
+          Sarrafiye & Ziynet
+        </a>
+        <a href="milyem.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-all">
+          <i class="fa-solid fa-calculator mr-1.5 text-gold-500/80"></i> Milyem Hesaplayıcı
+        </a>
+        <a href="terazi.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-all">
+          <i class="fa-solid fa-scale-balanced mr-1.5 text-gold-500/80"></i> Sanal Terazi
+        </a>
+      </nav>
+
+      <!-- Right Actions -->
+      <div class="hidden lg:flex items-center space-x-3">
+        <a href="tel:4447511" class="px-4 py-2 rounded-lg text-xs font-bold text-white bg-darkCard border border-darkBorder flex items-center space-x-2 hover:bg-darkBorder transition-all">
+          <span class="flex h-2 w-2 relative">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-gold-500"></span>
+          </span>
+          <span>Destek Hattı</span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button class="lg:hidden h-10 w-10 flex items-center justify-center border border-darkBorder rounded-lg text-gray-300 hover:text-white hover:bg-darkCard transition-all" onclick="toggleMobileMenu()">
+        <i class="fa-solid fa-bars text-lg" id="menu-icon"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu panel -->
+    <div class="hidden lg:hidden border-t border-darkBorder bg-darkBg/95 backdrop-blur-2xl py-4 space-y-1.5 px-4" id="mobile-menu">
+      <a href="index.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gold-500/10 text-gold-400 border border-gold-500/20 font-semibold text-sm">
+        <i class="fa-solid fa-chart-line text-lg w-6"></i>
+        <span>Canlı Piyasalar</span>
+      </a>
+      <a href="sarrafiye.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
+        <i class="fa-solid fa-gem text-lg w-6 text-gray-400"></i>
+        <span>Sarrafiye & Ziynet</span>
+      </a>
+      <a href="milyem.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
+        <i class="fa-solid fa-calculator text-lg w-6 text-gray-400"></i>
+        <span>Milyem Hesaplayıcı</span>
+      </a>
+      <a href="terazi.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
+        <i class="fa-solid fa-scale-balanced text-lg w-6 text-gray-400"></i>
+        <span>Sanal Terazi</span>
+      </a>
+      <a href="gecmis.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
+        <i class="fa-solid fa-calendar-days text-lg w-6 text-gray-400"></i>
+        <span>Geçmiş Veriler</span>
+      </a>
+      <a href="iletisim.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
+        <i class="fa-solid fa-headset text-lg w-6 text-gray-400"></i>
+        <span>İletişim & Konum</span>
+      </a>
+      <div class="pt-4 border-t border-darkBorder flex flex-col space-y-2">
+        <button id="mobile-theme-toggle" class="w-full py-3 rounded-xl text-center bg-darkCard border border-darkBorder font-bold text-sm text-gray-300 flex justify-center items-center space-x-2">
+          <i id="mobile-theme-icon" class="fa-solid fa-moon text-gold-500"></i>
+          <span id="mobile-theme-text">Karanlık Tema</span>
         </button>
+        <a href="tel:4447511" class="w-full py-3 rounded-xl text-center bg-darkCard border border-darkBorder font-bold text-sm text-white flex justify-center items-center space-x-2">
+          <i class="fa-solid fa-phone text-gold-500"></i>
+          <span>Destek: 444 75 11</span>
+        </a>
       </div>
     </div>
   </header>
 
   <!-- MAIN CONTENT -->
-  <main class="max-w-6xl mx-auto px-4 py-12">
-    
-    <!-- Product Header -->
-    <div class="bg-darkCard border border-darkBorder rounded-2xl p-8 mb-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-        
-        <!-- Left: Product Info -->
-        <div class="space-y-6">
+  <main class="max-w-7xl mx-auto px-4 py-10 space-y-7">
+
+    <section class="market-surface rounded-3xl p-4 sm:p-5">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-darkBorder/60">
+        <div class="flex items-center gap-3">
           <div>
-            <p class="text-gray-400 text-sm uppercase tracking-wide mb-2">Ürün Adı</p>
-            <h1 id="product-name" class="text-4xl font-bold text-white">-</h1>
+            <h2 id="product-name" class="text-2xl sm:text-3xl font-extrabold text-white leading-tight">-</h2>
           </div>
-
-          <div class="grid grid-cols-2 gap-4">
-            <div class="bg-darkBg border border-darkBorder/50 rounded-xl p-4">
-              <p class="text-gray-400 text-xs uppercase font-semibold mb-2">Alış Fiyatı</p>
-              <p id="buy-price" class="text-2xl font-bold text-blue-400">-</p>
-            </div>
-
-            <div class="bg-darkBg border border-darkBorder/50 rounded-xl p-4">
-              <p class="text-gray-400 text-xs uppercase font-semibold mb-2">Satış Fiyatı</p>
-              <p id="sell-price" class="text-2xl font-bold text-emerald-400">-</p>
-            </div>
-          </div>
-
-          <div class="bg-gradient-to-br from-gold-500/10 to-gold-500/5 border border-gold-500/30 rounded-xl p-6">
-            <p class="text-gray-400 text-xs uppercase font-semibold mb-3">24 Saatlik Değişim</p>
-            <div class="flex items-center gap-3">
-              <i id="change-icon" class="fa-solid fa-caret-up text-3xl text-emerald-500"></i>
-              <div>
-                <p id="change-percent" class="text-3xl font-bold text-emerald-500">+0%</p>
-                <p class="text-gray-400 text-sm">son 24 saatte</p>
-              </div>
-            </div>
-          </div>
+          <span id="change-badge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/40">
+            <i id="change-icon" class="fa-solid fa-caret-up text-emerald-400 text-sm"></i>
+            <span id="change-percent" class="font-semibold text-emerald-400 text-sm">+0%</span>
+          </span>
         </div>
 
-        <!-- Right: Quick Stats -->
-        <div class="space-y-4">
-          <div class="bg-gradient-to-br from-blue-500/10 to-blue-500/5 border border-blue-500/30 rounded-xl p-4">
-            <div class="flex justify-between items-center">
-              <span class="text-gray-300">Gün İçi En Düşük</span>
-              <span id="day-low" class="font-bold text-blue-400">-</span>
-            </div>
+        <div class="flex gap-3">
+          <div class="price-tile">
+            <p class="text-[10px] uppercase tracking-[0.12em] text-gray-400 mb-1">Alış</p>
+            <p id="buy-price" class="text-lg sm:text-xl font-bold text-blue-400">-</p>
           </div>
-
-          <div class="bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 border border-emerald-500/30 rounded-xl p-4">
-            <div class="flex justify-between items-center">
-              <span class="text-gray-300">Gün İçi En Yüksek</span>
-              <span id="day-high" class="font-bold text-emerald-400">-</span>
-            </div>
-          </div>
-
-          <div class="bg-gradient-to-br from-amber-500/10 to-amber-500/5 border border-amber-500/30 rounded-xl p-4">
-            <div class="flex justify-between items-center">
-              <span class="text-gray-300">Ortalama</span>
-              <span id="day-avg" class="font-bold text-amber-400">-</span>
-            </div>
-          </div>
-
-          <div class="bg-gradient-to-br from-purple-500/10 to-purple-500/5 border border-purple-500/30 rounded-xl p-4">
-            <div class="flex justify-between items-center">
-              <span class="text-gray-300">Fark (Satış-Alış)</span>
-              <span id="price-spread" class="font-bold text-purple-400">-</span>
-            </div>
+          <div class="price-tile">
+            <p class="text-[10px] uppercase tracking-[0.12em] text-gray-400 mb-1">Satış</p>
+            <p id="sell-price" class="text-lg sm:text-xl font-bold text-emerald-400">-</p>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Time Period Selector -->
-    <div class="flex gap-3 mb-6 flex-wrap">
-      <button class="period-btn active px-5 py-2 bg-gold-500 text-darkBg rounded-lg font-semibold text-sm transition-all" data-period="1d">1 Gün</button>
-      <button class="period-btn px-5 py-2 bg-darkCard border border-darkBorder text-gray-300 rounded-lg font-semibold text-sm hover:border-gold-500 transition-all" data-period="1w">1 Hafta</button>
-      <button class="period-btn px-5 py-2 bg-darkCard border border-darkBorder text-gray-300 rounded-lg font-semibold text-sm hover:border-gold-500 transition-all" data-period="1m">1 Ay</button>
-      <button class="period-btn px-5 py-2 bg-darkCard border border-darkBorder text-gray-300 rounded-lg font-semibold text-sm hover:border-gold-500 transition-all" data-period="1y">1 Yıl</button>
-    </div>
+      <div class="flex gap-2 mt-3">
+        <div class="text-center">
+          <p class="text-[9px] uppercase text-gray-500">En Düşük</p>
+          <p id="day-low" class="mt-1 text-xs font-semibold text-blue-400">-</p>
+        </div>
+        <div class="text-center">
+          <p class="text-[9px] uppercase text-gray-500">En Yüksek</p>
+          <p id="day-high" class="mt-1 text-xs font-semibold text-emerald-400">-</p>
+        </div>
+        <div class="text-center">
+          <p class="text-[9px] uppercase text-gray-500">Ort.</p>
+          <p id="day-avg" class="mt-1 text-xs font-semibold text-amber-400">-</p>
+        </div>
+        <div class="text-center">
+          <p class="text-[9px] uppercase text-gray-500">Spread</p>
+          <p id="price-spread" class="mt-1 text-xs font-semibold text-fuchsia-400">-</p>
+        </div>
+      </div>
+    </section>
 
-    <!-- Chart -->
-    <div class="bg-darkCard border border-darkBorder rounded-2xl p-6 md:p-8 mb-8">
-      <div class="chart-container">
-        <canvas id="detail-chart"></canvas>
+    <section class="bg-darkCard border border-darkBorder rounded-3xl p-5 sm:p-7">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-5 border-b border-darkBorder/70">
+        <div>
+          <h3 class="text-lg sm:text-xl font-bold text-white">Fiyat Grafiği</h3>
+          <p class="text-sm text-gray-400">TradingView tarzı mum grafik, dönem bazlı görünüm</p>
+        </div>
+        <div class="flex items-center gap-2 flex-wrap">
+          <button class="period-btn active" data-period="1d">1 Gün</button>
+          <button class="period-btn" data-period="1w">1 Hafta</button>
+          <button class="period-btn" data-period="1m">1 Ay</button>
+          <button class="period-btn" data-period="1y">1 Yıl</button>
+        </div>
       </div>
-    </div>
 
-    <!-- Analytics -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-      <div class="bg-darkCard border border-darkBorder rounded-xl p-6 text-center">
-        <p class="text-gray-400 text-sm mb-2">Oynaklık</p>
-        <p id="volatility" class="text-3xl font-bold text-gold-500">%2.3</p>
+      <div class="chart-container mt-6">
+        <div id="detail-chart" class="w-full h-full"></div>
       </div>
-      <div class="bg-darkCard border border-darkBorder rounded-xl p-6 text-center">
-        <p class="text-gray-400 text-sm mb-2">İşlem Hacimleri</p>
-        <p class="text-3xl font-bold text-emerald-500">Yüksek</p>
+    </section>
+
+    <!-- METRICS SECTION -->
+    <section class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <article class="bg-darkCard border border-darkBorder rounded-lg p-4">
+        <p class="text-xs uppercase text-gray-500">Oynaklık</p>
+        <p id="volatility" class="mt-2 text-lg font-bold text-amber-400">%2.3</p>
+      </article>
+      <article class="bg-darkCard border border-darkBorder rounded-lg p-4">
+        <p class="text-xs uppercase text-gray-500">Piyasa Derinliği</p>
+        <p class="mt-2 text-lg font-bold text-blue-400">Güçlü</p>
+      </article>
+      <article class="bg-darkCard border border-darkBorder rounded-lg p-4">
+        <p class="text-xs uppercase text-gray-500">Likidite</p>
+        <p class="mt-2 text-lg font-bold text-emerald-400">Yüksek</p>
+      </article>
+      <article class="bg-darkCard border border-darkBorder rounded-lg p-4">
+        <p class="text-xs uppercase text-gray-500">Son Güncelleme</p>
+        <p id="last-update" class="mt-2 text-lg font-bold text-purple-400">17:02:35</p>
+      </article>
+    </section>
+
+    <!-- OTHER INSTRUMENTS QUICK ACCESS -->
+    <section class="space-y-3">
+      <h3 class="text-sm font-bold text-gray-300 uppercase tracking-wide">Diğer Enstrümanlar</h3>
+      
+      <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-8 gap-2">
+        <!-- Has Altın -->
+        <button onclick="navigateToDetail('Has Altın', '6.565', '6.596', '+1,45%')" class="instrument-card flex flex-col items-center justify-center p-2 rounded-md bg-blue-500/10 border border-blue-500/20 hover:border-blue-400 hover:bg-blue-500/15 transition-all duration-200">
+          <p class="text-xs font-medium text-gray-300">Has Altın</p>
+          <p class="text-xs text-blue-400 font-bold mt-0.5">6.596 ₺</p>
+        </button>
+
+        <!-- 22 Ayar -->
+        <button onclick="navigateToDetail('22 Ayar', '6.018', '6.043', '+0,45%')" class="instrument-card flex flex-col items-center justify-center p-2 rounded-md bg-amber-500/10 border border-amber-500/20 hover:border-amber-400 hover:bg-amber-500/15 transition-all duration-200">
+          <p class="text-xs font-medium text-gray-300">22 Ayar</p>
+          <p class="text-xs text-amber-400 font-bold mt-0.5">6.043 ₺</p>
+        </button>
+
+        <!-- Çeyrek -->
+        <button onclick="navigateToDetail('Çeyrek', '10.640', '10.782', '+0,90%')" class="instrument-card flex flex-col items-center justify-center p-2 rounded-md bg-yellow-500/10 border border-yellow-500/20 hover:border-yellow-400 hover:bg-yellow-500/15 transition-all duration-200">
+          <p class="text-xs font-medium text-gray-300">Çeyrek</p>
+          <p class="text-xs text-yellow-400 font-bold mt-0.5">10.78 ₺</p>
+        </button>
+
+        <!-- Yarım -->
+        <button onclick="navigateToDetail('Yarım', '21.180', '21.560', '+1,00%')" class="instrument-card flex flex-col items-center justify-center p-2 rounded-md bg-orange-500/10 border border-orange-500/20 hover:border-orange-400 hover:bg-orange-500/15 transition-all duration-200">
+          <p class="text-xs font-medium text-gray-300">Yarım</p>
+          <p class="text-xs text-orange-400 font-bold mt-0.5">21.56 ₺</p>
+        </button>
+
+        <!-- Tam Altın -->
+        <button onclick="navigateToDetail('Tam Altın', '42.700', '43.120', '-0,20%')" class="instrument-card flex flex-col items-center justify-center p-2 rounded-md bg-red-500/10 border border-red-500/20 hover:border-red-400 hover:bg-red-500/15 transition-all duration-200">
+          <p class="text-xs font-medium text-gray-300">Tam Altın</p>
+          <p class="text-xs text-red-400 font-bold mt-0.5">43.12 ₺</p>
+        </button>
+
+        <!-- Ata Altın -->
+        <button onclick="navigateToDetail('Ata Altın', '44.050', '44.540', '-0,12%')" class="instrument-card flex flex-col items-center justify-center p-2 rounded-md bg-purple-500/10 border border-purple-500/20 hover:border-purple-400 hover:bg-purple-500/15 transition-all duration-200">
+          <p class="text-xs font-medium text-gray-300">Ata Altın</p>
+          <p class="text-xs text-purple-400 font-bold mt-0.5">44.54 ₺</p>
+        </button>
+
+        <!-- Gremse -->
+        <button onclick="navigateToDetail('Gremse', '106.900', '108.300', '+0,31%')" class="instrument-card flex flex-col items-center justify-center p-2 rounded-md bg-pink-500/10 border border-pink-500/20 hover:border-pink-400 hover:bg-pink-500/15 transition-all duration-200">
+          <p class="text-xs font-medium text-gray-300">Gremse</p>
+          <p class="text-xs text-pink-400 font-bold mt-0.5">108.3 ₺</p>
+        </button>
+
+        <!-- ONS Altın -->
+        <button onclick="navigateToDetail('ONS Altın', '2.334,5 $', '2.342,1 $', '-0,22%')" class="instrument-card flex flex-col items-center justify-center p-2 rounded-md bg-green-500/10 border border-green-500/20 hover:border-green-400 hover:bg-green-500/15 transition-all duration-200">
+          <p class="text-xs font-medium text-gray-300">ONS Altın</p>
+          <p class="text-xs text-green-400 font-bold mt-0.5">2.342 $</p>
+        </button>
+
+        <!-- USD/TRY -->
+        <button onclick="navigateToDetail('USD/TRY', '32,2280', '32,2450', '+0,08%')" class="instrument-card flex flex-col items-center justify-center p-2 rounded-md bg-cyan-500/10 border border-cyan-500/20 hover:border-cyan-400 hover:bg-cyan-500/15 transition-all duration-200">
+          <p class="text-xs font-medium text-gray-300">USD/TRY</p>
+          <p class="text-xs text-cyan-400 font-bold mt-0.5">32,25</p>
+        </button>
+
+        <!-- EUR/TRY -->
+        <button onclick="navigateToDetail('EUR/TRY', '35,0980', '35,1240', '+0,15%')" class="instrument-card flex flex-col items-center justify-center p-2 rounded-md bg-indigo-500/10 border border-indigo-500/20 hover:border-indigo-400 hover:bg-indigo-500/15 transition-all duration-200">
+          <p class="text-xs font-medium text-gray-300">EUR/TRY</p>
+          <p class="text-xs text-indigo-400 font-bold mt-0.5">35,12</p>
+        </button>
       </div>
-      <div class="bg-darkCard border border-darkBorder rounded-xl p-6 text-center">
-        <p class="text-gray-400 text-sm mb-2">Güncellenme</p>
-        <p id="last-update" class="text-lg font-bold text-gray-300">--:--:--</p>
-      </div>
-    </div>
+    </section>
   </main>
 
   <!-- PROFESSIONAL PREMIUM FOOTER -->
@@ -358,6 +570,8 @@
 
   <script>
     let chartInstance = null;
+    let candleSeries = null;
+    let resizeBound = false;
     let currentPeriod = '1d';
 
     function getProductData() {
@@ -370,178 +584,280 @@
       };
     }
 
-    function updateProductUI(data) {
-      document.getElementById('product-name').textContent = data.product;
-      document.getElementById('detail-title').textContent = data.product;
-      document.getElementById('buy-price').textContent = data.buy + ' ₺';
-      document.getElementById('sell-price').textContent = data.sell + ' ₺';
-      document.getElementById('change-percent').textContent = data.change;
+    function detectCurrency(rawValue) {
+      return String(rawValue || '').includes('$') ? '$' : '₺';
+    }
 
-      const changeNum = parseFloat(data.change);
-      const changeIcon = document.getElementById('change-icon');
-      const changePercent = document.getElementById('change-percent');
+    function parseLocalizedPrice(rawValue) {
+      const text = String(rawValue || '')
+        .replace(/\s/g, '')
+        .replace('₺', '')
+        .replace('$', '');
 
-      if (changeNum > 0) {
-        changeIcon.className = 'fa-solid fa-caret-up text-3xl text-emerald-500';
-        changePercent.className = 'text-3xl font-bold text-emerald-500';
-      } else if (changeNum < 0) {
-        changeIcon.className = 'fa-solid fa-caret-down text-3xl text-rose-500';
-        changePercent.className = 'text-3xl font-bold text-rose-500';
-      } else {
-        changeIcon.className = 'fa-solid fa-minus text-3xl text-gray-500';
-        changePercent.className = 'text-3xl font-bold text-gray-500';
+      if (!text) return 0;
+
+      if (text.includes('.') && text.includes(',')) {
+        return parseFloat(text.replace(/\./g, '').replace(',', '.')) || 0;
       }
 
-      const buyNum = parseFloat(data.buy);
-      const sellNum = parseFloat(data.sell);
-      const avgNum = (buyNum + sellNum) / 2;
-      const spread = (sellNum - buyNum).toFixed(2);
+      if (text.includes(',')) {
+        return parseFloat(text.replace(',', '.')) || 0;
+      }
 
-      document.getElementById('day-low').textContent = (buyNum * 0.98).toFixed(2) + ' ₺';
-      document.getElementById('day-high').textContent = (sellNum * 1.02).toFixed(2) + ' ₺';
-      document.getElementById('day-avg').textContent = avgNum.toFixed(2) + ' ₺';
-      document.getElementById('price-spread').textContent = spread + ' ₺';
+      return parseFloat(text) || 0;
+    }
+
+    function formatPrice(value, currency) {
+      const num = Number.isFinite(value) ? value : 0;
+      const formatted = num.toLocaleString('tr-TR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+      return formatted + ' ' + currency;
+    }
+
+    function updateProductUI(data) {
+      const currency = detectCurrency(data.sell || data.buy);
+      const buyNum = parseLocalizedPrice(data.buy);
+      const sellNum = parseLocalizedPrice(data.sell);
+      const changeNum = parseLocalizedPrice(data.change);
+      const avgNum = (buyNum + sellNum) / 2;
+      const spread = sellNum - buyNum;
+
+      document.getElementById('product-name').textContent = data.product;
+      const detailTitle = document.getElementById('detail-title');
+      if (detailTitle) detailTitle.textContent = data.product;
+      document.getElementById('buy-price').textContent = formatPrice(buyNum, currency);
+      document.getElementById('sell-price').textContent = formatPrice(sellNum, currency);
+      document.getElementById('change-percent').textContent = data.change;
+      const changeIcon = document.getElementById('change-icon');
+      const changePercent = document.getElementById('change-percent');
+      const changeBadge = document.getElementById('change-badge');
+
+      if (changeNum > 0) {
+        changeIcon.className = 'fa-solid fa-caret-up text-emerald-400 text-sm';
+        changePercent.className = 'font-semibold text-emerald-400 text-sm';
+        changeBadge.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/40';
+      } else if (changeNum < 0) {
+        changeIcon.className = 'fa-solid fa-caret-down text-rose-400 text-sm';
+        changePercent.className = 'font-semibold text-rose-400 text-sm';
+        changeBadge.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-rose-500/15 border border-rose-500/40';
+      } else {
+        changeIcon.className = 'fa-solid fa-minus text-gray-400 text-sm';
+        changePercent.className = 'font-semibold text-gray-400 text-sm';
+        changeBadge.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gray-500/10 border border-gray-500/30';
+      }
+
+      document.getElementById('day-low').textContent = formatPrice(buyNum * 0.985, currency);
+      document.getElementById('day-high').textContent = formatPrice(sellNum * 1.015, currency);
+      document.getElementById('day-avg').textContent = formatPrice(avgNum, currency);
+      document.getElementById('price-spread').textContent = formatPrice(spread, currency);
+
+      const volatilityValue = Math.min(4.8, Math.max(0.4, Math.abs(changeNum) * 1.6));
+      document.getElementById('volatility').textContent = '%' + volatilityValue.toFixed(1);
 
       const now = new Date();
       document.getElementById('last-update').textContent = now.toLocaleTimeString('tr-TR');
     }
 
-    function generateChartData(period, changePercent, basePrice) {
-      const changeNum = parseFloat(changePercent);
-      const color = changeNum > 0 ? '#22c55e' : changeNum < 0 ? '#ef4444' : '#6b7280';
-
+    function generateCandleData(period, changePercent, basePrice) {
+      const changeNum = parseLocalizedPrice(changePercent);
       const periods = {
-        '1d': { points: 48, volatility: 2.5, label: '24 Saatlik' },
-        '1w': { points: 56, volatility: 1.5, label: '1 Haftalık' },
-        '1m': { points: 30, volatility: 1.0, label: '1 Aylık' },
-        '1y': { points: 52, volatility: 0.5, label: '1 Yıllık' }
+        '1d': { points: 96, stepSec: 15 * 60, volatility: 0.0055 },
+        '1w': { points: 84, stepSec: 2 * 60 * 60, volatility: 0.009 },
+        '1m': { points: 60, stepSec: 12 * 60 * 60, volatility: 0.013 },
+        '1y': { points: 52, stepSec: 7 * 24 * 60 * 60, volatility: 0.03 }
       };
 
-      const config = periods[period];
-      const data = [];
-      const labels = [];
+      const config = periods[period] || periods['1d'];
+      const trendDrift = (changeNum / 100) / config.points;
+      const nowSec = Math.floor(Date.now() / 1000);
+      const startSec = nowSec - (config.points * config.stepSec);
+
+      const candles = [];
+      let lastClose = basePrice;
 
       for (let i = 0; i < config.points; i++) {
-        const randomVariation = (Math.random() - 0.5) * config.volatility;
-        const value = basePrice * (1 + (changeNum / 100) * (i / config.points) + randomVariation / 100);
-        data.push(value);
-        
-        const date = new Date();
-        date.setHours(date.getHours() - (config.points - i));
-        labels.push(date.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }));
+        const time = startSec + (i * config.stepSec);
+        const open = lastClose;
+        const randomMove = (Math.random() - 0.5) * config.volatility;
+        const close = open * (1 + trendDrift + randomMove);
+        const wickUp = Math.random() * config.volatility * 0.8;
+        const wickDown = Math.random() * config.volatility * 0.8;
+        const high = Math.max(open, close) * (1 + wickUp);
+        const low = Math.min(open, close) * (1 - wickDown);
+
+        candles.push({
+          time,
+          open: Number(open.toFixed(2)),
+          high: Number(high.toFixed(2)),
+          low: Number(low.toFixed(2)),
+          close: Number(close.toFixed(2))
+        });
+
+        lastClose = close;
       }
 
-      return { data, labels, color, label: config.label };
+      return candles;
     }
 
     function initChart(period) {
       const productData = getProductData();
-      const basePrice = parseFloat(productData.sell);
-      const chartData = generateChartData(period, productData.change, basePrice);
+      const basePrice = parseLocalizedPrice(productData.sell) || 1;
+      const isDark = document.documentElement.classList.contains('dark');
 
-      const ctx = document.getElementById('detail-chart').getContext('2d');
+      const container = document.getElementById('detail-chart');
+      if (!container) return;
+
+      const containerWidth = container.clientWidth || container.parentElement.clientWidth || 800;
+      const containerHeight = container.clientHeight || container.parentElement.clientHeight || 430;
 
       if (chartInstance) {
-        chartInstance.destroy();
+        chartInstance.remove();
+        chartInstance = null;
+        candleSeries = null;
       }
 
-      chartInstance = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: chartData.labels,
-          datasets: [{
-            label: chartData.label + ' Fiyat',
-            data: chartData.data,
-            borderColor: chartData.color,
-            backgroundColor: chartData.color + '20',
-            borderWidth: 3,
-            fill: true,
-            tension: 0.4,
-            pointRadius: 0,
-            pointHoverRadius: 6,
-            pointBackgroundColor: chartData.color,
-            pointBorderColor: '#fff',
-            pointBorderWidth: 2,
-          }]
+      chartInstance = LightweightCharts.createChart(container, {
+        width: containerWidth,
+        height: containerHeight,
+        layout: {
+          background: { color: 'transparent' },
+          textColor: isDark ? '#94a3b8' : '#64748b',
+          fontFamily: 'Inter, sans-serif'
         },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          interaction: {
-            mode: 'index',
-            intersect: false,
-          },
-          plugins: {
-            legend: {
-              display: true,
-              labels: {
-                color: '#d1d5db',
-                font: { family: 'Inter', size: 12, weight: '600' },
-                padding: 20,
-              }
-            },
-            tooltip: {
-              backgroundColor: 'rgba(15, 23, 42, 0.8)',
-              titleColor: '#fff',
-              bodyColor: '#e5e7eb',
-              borderColor: chartData.color,
-              borderWidth: 1,
-              padding: 12,
-              displayColors: true,
-              callbacks: {
-                label: function(context) {
-                  return context.parsed.y.toFixed(2) + ' ₺';
-                }
-              }
-            }
-          },
-          scales: {
-            x: {
-              display: true,
-              grid: { color: 'rgba(255, 255, 255, 0.05)' },
-              ticks: { color: '#9ca3af', maxTicksLimit: 8 }
-            },
-            y: {
-              display: true,
-              grid: { color: 'rgba(255, 255, 255, 0.05)' },
-              ticks: { color: '#9ca3af' }
-            }
-          }
+        grid: {
+          vertLines: { color: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(15,23,42,0.08)' },
+          horzLines: { color: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(15,23,42,0.08)' }
+        },
+        rightPriceScale: {
+          borderVisible: false
+        },
+        timeScale: {
+          borderVisible: false,
+          timeVisible: period === '1d' || period === '1w'
+        },
+        crosshair: {
+          mode: 0
         }
       });
+
+      // Lightweight Charts v4+ API - Bar grafik (mum benzeri)
+      const candleOptions = {
+        upColor: '#22c55e',
+        downColor: '#ef4444',
+        borderVisible: true,
+        borderUpColor: '#22c55e',
+        borderDownColor: '#ef4444',
+      };
+
+      // BarSeries = mum grafiğe benzer (OHLC bar gösterir)
+      candleSeries = chartInstance.addSeries(LightweightCharts.BarSeries, candleOptions);
+      candleSeries.setData(generateCandleData(period, productData.change, basePrice));
+      chartInstance.timeScale().fitContent();
+
+      if (!resizeBound) {
+        window.addEventListener('resize', function() {
+          if (!chartInstance) return;
+          const chartEl = document.getElementById('detail-chart');
+          if (!chartEl) return;
+          chartInstance.applyOptions({
+            width: chartEl.clientWidth,
+            height: chartEl.clientHeight || 320
+          });
+        });
+        resizeBound = true;
+      }
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const icon = document.getElementById('menu-icon');
+      if (!menu || !icon) return;
+
+      menu.classList.toggle('hidden');
+      if (menu.classList.contains('hidden')) {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      } else {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      }
+    }
+
+    function initShrinkHeader() {
+      const header = document.getElementById('main-header');
+      const inner = document.getElementById('main-header-inner');
+      if (!header || !inner) return;
+
+      const logo = header.querySelector('.logo-img');
+      const navLinks = header.querySelectorAll('nav a');
+
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 40) {
+          inner.classList.replace('py-4', 'py-2');
+          if (logo) logo.classList.replace('h-10', 'h-7');
+          navLinks.forEach(a => {
+            a.classList.replace('text-sm', 'text-xs');
+            a.classList.replace('px-4', 'px-3');
+          });
+        } else {
+          inner.classList.replace('py-2', 'py-4');
+          if (logo) logo.classList.replace('h-7', 'h-10');
+          navLinks.forEach(a => {
+            a.classList.replace('text-xs', 'text-sm');
+            a.classList.replace('px-3', 'px-4');
+          });
+        }
+      }, { passive: true });
     }
 
     function toggleTheme() {
       const html = document.documentElement;
       const isDark = html.classList.contains('dark');
+      const mobileThemeText = document.getElementById('mobile-theme-text');
       
       if (isDark) {
         html.classList.remove('dark');
         localStorage.setItem('theme', 'light');
         document.getElementById('theme-icon').className = 'fa-solid fa-moon text-sm';
         document.getElementById('mobile-theme-icon').className = 'fa-solid fa-moon text-sm';
+        if (mobileThemeText) mobileThemeText.innerText = 'Karanlık Tema';
       } else {
         html.classList.add('dark');
         localStorage.setItem('theme', 'dark');
         document.getElementById('theme-icon').className = 'fa-solid fa-sun text-sm';
         document.getElementById('mobile-theme-icon').className = 'fa-solid fa-sun text-sm';
+        if (mobileThemeText) mobileThemeText.innerText = 'Açık Tema';
       }
+
+      document.querySelectorAll('.logo-img').forEach(img => {
+        img.src = html.classList.contains('dark') ? 'docs/images/logo.svg' : 'docs/images/logo-light.svg';
+      });
+
+      initChart(currentPeriod);
+    }
+
+    function navigateToDetail(product, buy, sell, change) {
+      const params = new URLSearchParams({
+        product: product,
+        buy: buy,
+        sell: sell,
+        change: change
+      });
+      window.location.href = `detail-product.html?${params.toString()}`;
     }
 
     document.addEventListener('DOMContentLoaded', function() {
       const productData = getProductData();
       updateProductUI(productData);
       initChart(currentPeriod);
+      initShrinkHeader();
 
       document.querySelectorAll('.period-btn').forEach(btn => {
         btn.addEventListener('click', function() {
-          document.querySelectorAll('.period-btn').forEach(b => {
-            b.classList.remove('bg-gold-500', 'text-darkBg');
-            b.classList.add('bg-darkCard', 'border', 'border-darkBorder', 'text-gray-300');
-          });
-          
-          this.classList.remove('bg-darkCard', 'border', 'border-darkBorder', 'text-gray-300');
-          this.classList.add('bg-gold-500', 'text-darkBg');
+          document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
           
           currentPeriod = this.getAttribute('data-period');
           initChart(currentPeriod);
