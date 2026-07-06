@@ -29,6 +29,7 @@ jobs:
         run: |
           mkdir -p _site
           cp *.html _site/
+          cp -r v2 _site/
           cp grafik.webp _site/
           cp -r docs _site/
 
