@@ -22,6 +22,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome for Premium Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="navbar.css">
   <!-- Google Fonts: Google Sans Flex with Inter fallback -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -334,87 +335,88 @@
 <body class="bg-darkBg text-gray-100 min-h-screen selection:bg-gold-500 selection:text-darkBg custom-scrollbar">
 
   <!-- MAIN NAVIGATION -->
-  <header id="main-header" class="sticky top-0 bg-darkBg/90 backdrop-blur-xl border-b border-darkBorder/80 z-40 transition-all duration-300">
-    <div id="main-header-inner" class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <!-- Logo -->
-      <a href="/" class="flex items-center space-x-3.5 group">
-        <div class="relative">
-          <img src="../docs/images/logo.svg" alt="Hakan Altın Logo" class="h-12 sm:h-14 w-auto group-hover:scale-105 transition-transform duration-300 logo-img" />
+  <header id="main-header" class="sticky top-0  z-40 transition-all duration-300 overflow-visible">
+    <div id="main-header-inner" class="max-w-7xl mx-auto  py-1 lg:py-2">
+      <div class="navbar-desktop-shell navbar-surface navbar-row">
+        <nav class="navbar-side navbar-left">
+          <a href="canli-piyasalar.html" class="navbar-link navbar-link-active">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Canlı Piyasalar</span>
+          </a>
+          <a href="sarrafiye.html" class="navbar-link navbar-link-muted">
+            <i class="fa-solid fa-gem text-gold-500/80"></i>
+            <span>Sarrafiye & Ziynet</span>
+          </a>
+        </nav>
+
+        <a href="/" class="navbar-logo group" aria-label="Hakan Altın ana sayfa">
+          <img src="../docs/images/logo.svg" alt="Hakan Altın Logo" class="logo-img" />
+        </a>
+
+        <div class="navbar-side navbar-right">
+          <a href="milyem.html" class="navbar-link navbar-link-muted">
+            <i class="fa-solid fa-calculator text-gold-500/80"></i>
+            <span>Milyem Hesaplayıcı</span>
+          </a>
+          <a href="terazi.html" class="navbar-link navbar-link-muted">
+            <i class="fa-solid fa-scale-balanced text-gold-500/80"></i>
+            <span>Sanal Terazi</span>
+          </a>
+          <a href="tel:4447511" class="navbar-cta">
+            <span class="flex h-2 w-2 relative">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-gold-500"></span>
+            </span>
+            <span>Destek Hattı</span>
+          </a>
         </div>
-       
-      </a>
-
-      <!-- Navarre Desktop -->
-      <nav class="hidden lg:flex items-center space-x-1.5">
-        <a href="canli-piyasalar.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-gold-400 bg-gold-500/10 border border-gold-500/20">
-          <i class="fa-solid fa-chart-line mr-1.5"></i> Canlı Piyasalar
-        </a>
-        <a href="sarrafiye.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-all">
-          Sarrafiye & Ziynet
-        </a>
-        <a href="milyem.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-all">
-          <i class="fa-solid fa-calculator mr-1.5 text-gold-500/80"></i> Milyem Hesaplayıcı
-        </a>
-        <a href="terazi.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-all">
-          <i class="fa-solid fa-scale-balanced mr-1.5 text-gold-500/80"></i> Sanal Terazi
-        </a>
-        
-      </nav>
-
-      <!-- Right Actions -->
-      <div class="hidden lg:flex items-center space-x-3">
-        <a href="tel:4447511" class="px-4 py-2 rounded-lg text-xs font-bold text-white bg-darkCard border border-darkBorder flex items-center space-x-2 hover:bg-darkBorder transition-all">
-          <span class="flex h-2 w-2 relative">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-gold-500"></span>
-          </span>
-          <span>Destek Hattı</span>
-        </a>
-       
       </div>
 
-      <!-- Mobile Menu Button -->
-      <button class="lg:hidden h-10 w-10 flex items-center justify-center border border-darkBorder rounded-lg text-gray-300 hover:text-white hover:bg-darkCard transition-all" onclick="toggleMobileMenu()">
-        <i class="fa-solid fa-bars text-lg" id="menu-icon"></i>
-      </button>
-    </div>
-
-    <!-- Mobile Menu panel -->
-    <div class="hidden lg:hidden border-t border-darkBorder bg-darkBg/95 backdrop-blur-2xl py-4 space-y-1.5 px-4" id="mobile-menu">
-      <a href="canli-piyasalar.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gold-500/10 text-gold-400 border border-gold-500/20 font-semibold text-sm">
-        <i class="fa-solid fa-chart-line text-lg w-6"></i>
-        <span>Canlı Piyasalar</span>
-      </a>
-      <a href="sarrafiye.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
-        <i class="fa-solid fa-gem text-lg w-6 text-gray-400"></i>
-        <span>Sarrafiye & Ziynet</span>
-      </a>
-      <a href="milyem.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
-        <i class="fa-solid fa-calculator text-lg w-6 text-gray-400"></i>
-        <span>Milyem Hesaplayıcı</span>
-      </a>
-      <a href="terazi.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
-        <i class="fa-solid fa-scale-balanced text-lg w-6 text-gray-400"></i>
-        <span>Sanal Terazi</span>
-      </a>
-      <a href="gecmis.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
-        <i class="fa-solid fa-calendar-days text-lg w-6 text-gray-400"></i>
-        <span>Geçmiş Veriler</span>
-      </a>
-      <a href="iletisim.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
-        <i class="fa-solid fa-headset text-lg w-6 text-gray-400"></i>
-        <span>İletişim & Konum</span>
-      </a>
-      <div class="pt-4 border-t border-darkBorder flex flex-col space-y-2">
-        <button id="mobile-theme-toggle" class="w-full py-3 rounded-xl text-center bg-darkCard border border-darkBorder font-bold text-sm text-gray-300 flex justify-center items-center space-x-2">
-          <i id="mobile-theme-icon" class="fa-solid fa-moon text-gold-500"></i>
-          <span id="mobile-theme-text">Karanlık Tema</span>
-        </button>
-        <a href="tel:4447511" class="w-full py-3 rounded-xl text-center bg-darkCard border border-darkBorder font-bold text-sm text-white flex justify-center items-center space-x-2">
-          <i class="fa-solid fa-phone text-gold-500"></i>
-          <span>Destek: 444 75 11</span>
+      <div class="navbar-mobile-shell navbar-surface py-3 px-3">
+        <div></div>
+        <a href="/" class="navbar-logo navbar-mobile-logo group" aria-label="Hakan Altın ana sayfa">
+          <img src="../docs/images/logo.svg" alt="Hakan Altın Logo" class="logo-img" />
         </a>
-       
+        <button class="justify-self-end h-10 w-10 flex items-center justify-center border border-darkBorder rounded-lg text-gray-300 hover:text-white hover:bg-darkCard transition-all" onclick="toggleMobileMenu()">
+          <i class="fa-solid fa-bars text-lg" id="menu-icon"></i>
+        </button>
+      </div>
+
+      <div class="hidden lg:hidden border-t border-darkBorder bg-darkBg/95 backdrop-blur-2xl py-4 space-y-1.5 px-4" id="mobile-menu">
+        <a href="canli-piyasalar.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gold-500/10 text-gold-400 border border-gold-500/20 font-semibold text-sm">
+          <i class="fa-solid fa-chart-line text-lg w-6"></i>
+          <span>Canlı Piyasalar</span>
+        </a>
+        <a href="sarrafiye.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
+          <i class="fa-solid fa-gem text-lg w-6 text-gray-400"></i>
+          <span>Sarrafiye & Ziynet</span>
+        </a>
+        <a href="milyem.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
+          <i class="fa-solid fa-calculator text-lg w-6 text-gray-400"></i>
+          <span>Milyem Hesaplayıcı</span>
+        </a>
+        <a href="terazi.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
+          <i class="fa-solid fa-scale-balanced text-lg w-6 text-gray-400"></i>
+          <span>Sanal Terazi</span>
+        </a>
+        <a href="gecmis.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
+          <i class="fa-solid fa-calendar-days text-lg w-6 text-gray-400"></i>
+          <span>Geçmiş Veriler</span>
+        </a>
+        <a href="iletisim.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
+          <i class="fa-solid fa-headset text-lg w-6 text-gray-400"></i>
+          <span>İletişim & Konum</span>
+        </a>
+        <div class="pt-4 border-t border-darkBorder flex flex-col space-y-2">
+          <button id="mobile-theme-toggle" class="w-full py-3 rounded-xl text-center bg-darkCard border border-darkBorder font-bold text-sm text-gray-300 flex justify-center items-center space-x-2">
+            <i id="mobile-theme-icon" class="fa-solid fa-moon text-gold-500"></i>
+            <span id="mobile-theme-text">Karanlık Tema</span>
+          </button>
+          <a href="tel:4447511" class="w-full py-3 rounded-xl text-center bg-darkCard border border-darkBorder font-bold text-sm text-white flex justify-center items-center space-x-2">
+            <i class="fa-solid fa-phone text-gold-500"></i>
+            <span>Destek: 444 75 11</span>
+          </a>
+        </div>
       </div>
     </div>
   </header>
