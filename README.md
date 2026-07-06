@@ -38,3 +38,8 @@ Doğrudan açılabilen sayfalar:
 - Milyem hesaplama: https://abdullahonspay.github.io/hakan-altin/milyem.html
 - Sarrafiye sayfası: https://abdullahonspay.github.io/hakan-altin/sarrafiye.html
 - Terazi sayfası: https://abdullahonspay.github.io/hakan-altin/terazi.html
+
+v2
+
+- Revize 1 : https://abdullahonspay.github.io/hakan-altin/v2/index.html
+- Revize 2 : https://abdullahonspay.github.io/hakan-altin/v2/index2.html
