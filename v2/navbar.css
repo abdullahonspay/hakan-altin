@@ -369,8 +369,12 @@ html:not(.dark) .navbar-mobile-shell .border-darkBorder {
     }
 
     #main-header.is-scrolled .navbar-logo {
-      margin-bottom: -1rem;
-    margin-top: -2rem;
+      margin-bottom: -1.2rem;
+    margin-top: -1.8rem;
+    }
+
+     #main-header.is-scrolled .navbar-logo:after {
+      clip-path: polygon(1% 0, 99% 0, 50% 30%);
     }
 
       #main-header.is-scrolled .navbar-row {

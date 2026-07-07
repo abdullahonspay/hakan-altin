@@ -438,15 +438,6 @@
         </div>
       </div>
 
-      <div class="navbar-mobile-shell navbar-surface py-3 px-3">
-        <div></div>
-        <a href="/" class="navbar-logo navbar-mobile-logo group" aria-label="Hakan Altın ana sayfa">
-          <img src="../docs/images/logo.svg" alt="Hakan Altın Logo" class="logo-img" />
-        </a>
-        <button class="justify-self-end h-10 w-10 flex items-center justify-center border border-darkBorder rounded-lg text-gray-300 hover:text-white hover:bg-darkCard transition-all" onclick="toggleMobileMenu()">
-          <i class="fa-solid fa-bars text-lg" id="menu-icon"></i>
-        </button>
-      </div>
 
       <div class="hidden lg:hidden border-t border-darkBorder bg-darkBg/95 backdrop-blur-2xl py-4 space-y-1.5 px-4" id="mobile-menu">
         <a href="canli-piyasalar.html" class="flex items-center px-4 py-3 rounded-xl bg-gold-500/10 text-gold-400 border border-gold-500/20 font-semibold text-sm">
@@ -926,29 +917,14 @@
 
     function initShrinkHeader() {
       const header = document.getElementById('main-header');
-      const inner = document.getElementById('main-header-inner');
-      if (!header || !inner) return;
+      if (!header) return;
 
-      const logo = header.querySelector('.logo-img');
-      const navLinks = header.querySelectorAll('nav a');
+      const toggleShrink = () => {
+        header.classList.toggle('is-scrolled', window.scrollY > 40);
+      };
 
-      window.addEventListener('scroll', function() {
-        if (window.scrollY > 40) {
-          inner.classList.replace('py-4', 'py-2');
-          if (logo) logo.classList.replace('h-10', 'h-7');
-          navLinks.forEach(a => {
-            a.classList.replace('text-sm', 'text-xs');
-            a.classList.replace('px-4', 'px-3');
-          });
-        } else {
-          inner.classList.replace('py-2', 'py-4');
-          if (logo) logo.classList.replace('h-7', 'h-10');
-          navLinks.forEach(a => {
-            a.classList.replace('text-xs', 'text-sm');
-            a.classList.replace('px-3', 'px-4');
-          });
-        }
-      }, { passive: true });
+      toggleShrink();
+      window.addEventListener('scroll', toggleShrink, { passive: true });
     }
 
     function toggleTheme() {

@@ -202,15 +202,7 @@
         </div>
       </div>
 
-      <div class="navbar-mobile-shell navbar-surface py-3 px-3">
-        <div></div>
-        <a href="/" class="navbar-logo navbar-mobile-logo group" aria-label="Hakan Altın ana sayfa">
-          <img src="../docs/images/logo.svg" alt="Hakan Altın Logo" class="logo-img" />
-        </a>
-        <button class="justify-self-end h-10 w-10 flex items-center justify-center border border-darkBorder rounded-lg text-gray-300 hover:text-white hover:bg-darkCard transition-all" onclick="toggleMobileMenu()">
-          <i class="fa-solid fa-bars text-lg" id="menu-icon"></i>
-        </button>
-      </div>
+   
 
       <div class="hidden lg:hidden border-t border-darkBorder bg-darkBg/95 backdrop-blur-2xl py-4 space-y-1.5 px-4" id="mobile-menu">
         <a href="canli-piyasalar.html" class="flex items-center px-4 py-3 rounded-xl bg-gold-500/10 text-gold-400 border border-gold-500/20 font-semibold text-sm">
@@ -260,7 +252,7 @@
       </a>
     </div>
 
-    <section id="markets-grid" class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch rounded-lg bg-gray-200 p-1">
+    <section id="markets-grid" class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch rounded-lg bg-gray-100/50 p-1">
       <div class="lg:col-span-6 h-full">
         <div class="bg-white border border-gold-600/20 rounded-lg p-4 sm:p-6 h-full flex flex-col">
           <div class="px-3 sm:px-4 py-3 text-[11px] sm:text-xs font-bold uppercase tracking-wide text-gray-400 grid grid-cols-12 gap-2">
@@ -492,6 +484,19 @@
         if (mobileToggleBtn) mobileToggleBtn.addEventListener('click', toggleTheme);
       }
 
+      function initShrinkHeader() {
+        const header = document.getElementById('main-header');
+        if (!header) return;
+
+        const toggleShrink = function() {
+          header.classList.toggle('is-scrolled', window.scrollY > 40);
+        };
+
+        toggleShrink();
+        window.addEventListener('scroll', toggleShrink, { passive: true });
+      }
+
+      initShrinkHeader();
       initThemeSwitcher();
 
       function setFullscreenButtonState(isFullscreen) {

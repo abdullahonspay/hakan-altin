@@ -1656,27 +1656,14 @@
     // Shrink header on scroll
     function initShrinkHeader() {
       const header = document.getElementById('main-header');
-      const inner = document.getElementById('main-header-inner');
-      const logo = header.querySelector('.logo-img');
-      const navLinks = header.querySelectorAll('nav a');
+      if (!header) return;
 
-      window.addEventListener('scroll', function() {
-        if (window.scrollY > 40) {
-          inner.classList.replace('py-4', 'py-2');
-          if (logo) { logo.classList.replace('h-10', 'h-7'); }
-          navLinks.forEach(a => {
-            a.classList.replace('text-sm', 'text-xs');
-            a.classList.replace('px-4', 'px-3');
-          });
-        } else {
-          inner.classList.replace('py-2', 'py-4');
-          if (logo) { logo.classList.replace('h-7', 'h-10'); }
-          navLinks.forEach(a => {
-            a.classList.replace('text-xs', 'text-sm');
-            a.classList.replace('px-3', 'px-4');
-          });
-        }
-      }, { passive: true });
+      const toggleShrink = () => {
+        header.classList.toggle('is-scrolled', window.scrollY > 40);
+      };
+
+      toggleShrink();
+      window.addEventListener('scroll', toggleShrink, { passive: true });
     }
 
     // Theme Switcher Initialization
