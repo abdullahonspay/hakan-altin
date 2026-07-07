@@ -321,11 +321,47 @@
       box-shadow: 0 10px 24px rgba(15, 23, 42, 0.18);
     }
 
+    .hero-drop-placeholder {
+      border: 2px dashed rgba(212, 175, 55, 0.7) !important;
+      border-radius: 0.625rem;
+      background: rgba(212, 175, 55, 0.08) !important;
+      min-height: 70px;
+      box-sizing: border-box;
+    }
+
+    #hero-list-container .hero-drop-placeholder {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 0.5rem;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      margin: 0;
+    }
+
+    #hero-cards-grid .hero-drop-placeholder {
+      height: 100%;
+      min-height: 128px;
+      padding: 1rem;
+    }
+
+    .hero-drop-zone-active {
+      outline: 2px dashed rgba(212, 175, 55, 0.7);
+      outline-offset: -3px;
+      border-radius: 0.75rem;
+      background: rgba(212, 175, 55, 0.06);
+    }
+
     body.hero-dragging,
     body.hero-dragging * {
       -webkit-user-select: none !important;
       user-select: none !important;
       -webkit-touch-callout: none;
+    }
+
+    body.hero-dragging #hero-cards-grid .hero-card {
+      transition: none !important;
+      transform: none !important;
+      will-change: transform;
     }
 
     /* Time Period Tab Buttons */
@@ -391,15 +427,7 @@
         </div>
       </div>
 
-      <div class="navbar-mobile-shell navbar-surface py-3 px-3">
-        <div></div>
-        <a href="/" class="navbar-logo navbar-mobile-logo group" aria-label="Hakan Altın ana sayfa">
-          <img src="../docs/images/logo.svg" alt="Hakan Altın Logo" class="logo-img" />
-        </a>
-        <button class="justify-self-end h-10 w-10 flex items-center justify-center border border-darkBorder rounded-lg text-gray-300 hover:text-white hover:bg-darkCard transition-all" onclick="toggleMobileMenu()">
-          <i class="fa-solid fa-bars text-lg" id="menu-icon"></i>
-        </button>
-      </div>
+  
 
       <div class="hidden lg:hidden border-t border-darkBorder bg-darkBg/95 backdrop-blur-2xl py-4 space-y-1.5 px-4" id="mobile-menu">
         <a href="canli-piyasalar.html" class="flex items-center px-4 py-3 rounded-xl bg-gold-500/10 text-gold-400 border border-gold-500/20 font-semibold text-sm">
@@ -1491,19 +1519,33 @@
 
       if (!leftList || !rightList || typeof Sortable === 'undefined') return;
 
+      const useFallback = window.matchMedia('(pointer: coarse)').matches;
+      const clearDropZoneHighlights = () => {
+        leftList.classList.remove('hero-drop-zone-active');
+        rightList.classList.remove('hero-drop-zone-active');
+      };
+
       const commonOptions = {
         group: 'hero-products',
-        animation: 170,
+        animation: 140,
         draggable: '.hero-list-row, .hero-card',
-        ghostClass: 'hero-drag-ghost',
+        ghostClass: 'hero-drop-placeholder',
         chosenClass: 'hero-drag-chosen',
-        forceFallback: true,
+        dragClass: 'hero-drag-ghost',
+        forceFallback: useFallback,
         fallbackOnBody: true,
         swapThreshold: 0.65,
         onStart: () => {
           document.body.classList.add('hero-dragging');
         },
+        onMove: (evt) => {
+          clearDropZoneHighlights();
+          if (evt.to) {
+            evt.to.classList.add('hero-drop-zone-active');
+          }
+        },
         onEnd: () => {
+          clearDropZoneHighlights();
           document.body.classList.remove('hero-dragging');
           heroDragJustHappened = true;
           setTimeout(() => {
