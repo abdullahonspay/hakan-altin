@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="tr" class="scroll-smooth dark">
+<html lang="tr" class="scroll-smooth">
 <head>
   <script>
-    if (localStorage.getItem('theme') === 'light' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-      document.documentElement.classList.remove('dark');
-    } else {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
       document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
     }
     document.addEventListener('DOMContentLoaded', function() {
       const isDark = document.documentElement.classList.contains('dark');
@@ -19,6 +20,7 @@
   <title>Canlı Piyasalar Ekranı | Hakan Altın</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="navbar.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -174,18 +176,71 @@
   </style>
 </head>
 <body class="bg-darkBg text-gray-100 min-h-screen">
-  <header id="main-header" class="sticky top-0 bg-darkBg/90 backdrop-blur-xl border-b border-darkBorder/80 z-40">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <a href="index.html" class="flex items-center space-x-3.5 group">
-        <img src="../docs/images/logo.svg" alt="Hakan Altın Logo" class="h-12 sm:h-14 w-auto group-hover:scale-105 transition-transform duration-300 logo-img" />
-      </a>
-      <div class="flex items-center gap-2">
-        <a href="index.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-all">
-          <i class="fa-solid fa-house mr-1.5 text-gold-500"></i>Ana Sayfa
+  <header id="main-header" class="sticky top-0 z-40 transition-all duration-300 overflow-visible">
+    <div id="main-header-inner" class="max-w-7xl mx-auto py-1 lg:py-2">
+      <div class="navbar-desktop-shell navbar-surface navbar-row">
+        <nav class="navbar-side navbar-left">
+          <a href="canli-piyasalar.html" class="navbar-link navbar-link-active">
+            <span>Canlı Piyasalar</span>
+          </a>
+          <a href="sarrafiye.html" class="navbar-link navbar-link-muted">
+            <span>Sarrafiye & Ziynet</span>
+          </a>
+        </nav>
+
+        <a href="/" class="navbar-logo group" aria-label="Hakan Altın ana sayfa">
+          <img src="../docs/images/logo.svg" alt="Hakan Altın Logo" class="logo-img" />
         </a>
-        <button id="theme-toggle" class="h-10 w-10 rounded-lg border border-darkBorder text-gray-300 hover:text-white hover:bg-darkCard transition-all" aria-label="Tema Değiştir">
-          <i id="theme-icon" class="fa-solid fa-moon text-gold-500"></i>
+
+        <div class="navbar-side navbar-right">
+          <a href="milyem.html" class="navbar-link navbar-link-muted">
+            <span>Milyem Hesaplayıcı</span>
+          </a>
+          <a href="terazi.html" class="navbar-link navbar-link-muted">
+            <span>Sanal Terazi</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="navbar-mobile-shell navbar-surface py-3 px-3">
+        <div></div>
+        <a href="/" class="navbar-logo navbar-mobile-logo group" aria-label="Hakan Altın ana sayfa">
+          <img src="../docs/images/logo.svg" alt="Hakan Altın Logo" class="logo-img" />
+        </a>
+        <button class="justify-self-end h-10 w-10 flex items-center justify-center border border-darkBorder rounded-lg text-gray-300 hover:text-white hover:bg-darkCard transition-all" onclick="toggleMobileMenu()">
+          <i class="fa-solid fa-bars text-lg" id="menu-icon"></i>
         </button>
+      </div>
+
+      <div class="hidden lg:hidden border-t border-darkBorder bg-darkBg/95 backdrop-blur-2xl py-4 space-y-1.5 px-4" id="mobile-menu">
+        <a href="canli-piyasalar.html" class="flex items-center px-4 py-3 rounded-xl bg-gold-500/10 text-gold-400 border border-gold-500/20 font-semibold text-sm">
+          <span>Canlı Piyasalar</span>
+        </a>
+        <a href="sarrafiye.html" class="flex items-center px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
+          <span>Sarrafiye & Ziynet</span>
+        </a>
+        <a href="milyem.html" class="flex items-center px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
+          <span>Milyem Hesaplayıcı</span>
+        </a>
+        <a href="terazi.html" class="flex items-center px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
+          <span>Sanal Terazi</span>
+        </a>
+        <a href="gecmis.html" class="flex items-center px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
+          <span>Geçmiş Veriler</span>
+        </a>
+        <a href="iletisim.html" class="flex items-center px-4 py-3 rounded-xl text-gray-300 hover:bg-darkCard hover:text-white transition-all font-semibold text-sm">
+          <span>İletişim & Konum</span>
+        </a>
+        <div class="pt-4 border-t border-darkBorder flex flex-col space-y-2">
+          <button id="mobile-theme-toggle" class="w-full py-3 rounded-xl text-center bg-darkCard border border-darkBorder font-bold text-sm text-gray-300 flex justify-center items-center space-x-2">
+            <i id="mobile-theme-icon" class="fa-solid fa-moon text-gold-500"></i>
+            <span id="mobile-theme-text">Karanlık Tema</span>
+          </button>
+          <a href="tel:4447511" class="w-full py-3 rounded-xl text-center bg-darkCard border border-darkBorder font-bold text-sm text-white flex justify-center items-center space-x-2">
+            <i class="fa-solid fa-phone text-gold-500"></i>
+            <span>Destek: 444 75 11</span>
+          </a>
+        </div>
       </div>
     </div>
   </header>
@@ -378,28 +433,66 @@
 
   <script>
     (function() {
-      const themeToggle = document.getElementById('theme-toggle');
-      const themeIcon = document.getElementById('theme-icon');
       const fullscreenToggle = document.getElementById('fullscreen-toggle');
 
-      function syncThemeButton() {
-        const dark = document.documentElement.classList.contains('dark');
-        themeIcon.className = dark ? 'fa-solid fa-moon text-gold-500' : 'fa-solid fa-sun text-gold-500';
+      window.toggleMobileMenu = function() {
+        const menu = document.getElementById('mobile-menu');
+        const icon = document.getElementById('menu-icon');
+        if (!menu || !icon) return;
+
+        if (menu.classList.contains('hidden')) {
+          menu.classList.remove('hidden');
+          icon.className = 'fa-solid fa-xmark text-lg';
+        } else {
+          menu.classList.add('hidden');
+          icon.className = 'fa-solid fa-bars text-lg';
+        }
+      };
+
+      function initThemeSwitcher() {
+        const toggleBtn = document.getElementById('theme-toggle');
+        const icon = document.getElementById('theme-icon');
+        const mobileToggleBtn = document.getElementById('mobile-theme-toggle');
+        const mobileIcon = document.getElementById('mobile-theme-icon');
+        const mobileText = document.getElementById('mobile-theme-text');
+
+        function updateIcon() {
+          const isDark = document.documentElement.classList.contains('dark');
+          if (isDark) {
+            if (icon) icon.className = 'fa-solid fa-sun text-sm text-gold-400';
+            if (toggleBtn) toggleBtn.title = 'Açık Temaya Geç';
+            if (mobileIcon) mobileIcon.className = 'fa-solid fa-sun text-gold-500';
+            if (mobileText) mobileText.innerText = 'Açık Tema';
+          } else {
+            if (icon) icon.className = 'fa-solid fa-moon text-sm text-gray-500 hover:text-gold-500';
+            if (toggleBtn) toggleBtn.title = 'Karanlık Temaya Geç';
+            if (mobileIcon) mobileIcon.className = 'fa-solid fa-moon text-gray-400';
+            if (mobileText) mobileText.innerText = 'Karanlık Tema';
+          }
+
+          document.querySelectorAll('.logo-img').forEach(function(img) {
+            img.src = isDark ? '../docs/images/logo.svg' : '../docs/images/logo-light.svg';
+          });
+        }
+
+        function toggleTheme() {
+          if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+          } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+          }
+          updateIcon();
+        }
+
+        updateIcon();
+
+        if (toggleBtn) toggleBtn.addEventListener('click', toggleTheme);
+        if (mobileToggleBtn) mobileToggleBtn.addEventListener('click', toggleTheme);
       }
 
-      themeToggle.addEventListener('click', function() {
-        document.documentElement.classList.toggle('dark');
-        localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-
-        const isDark = document.documentElement.classList.contains('dark');
-        document.querySelectorAll('.logo-img').forEach(function(img) {
-          img.src = isDark ? '../docs/images/logo.svg' : '../docs/images/logo-light.svg';
-        });
-
-        syncThemeButton();
-      });
-
-      syncThemeButton();
+      initThemeSwitcher();
 
       function setFullscreenButtonState(isFullscreen) {
         if (isFullscreen) {

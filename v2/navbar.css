@@ -358,3 +358,21 @@ html:not(.dark) .navbar-mobile-shell {
 html:not(.dark) .navbar-mobile-shell .border-darkBorder {
   border-color: rgba(148, 163, 184, 0.18);
 }
+
+
+   #main-header .logo-img {
+      transition: all 220ms ease;
+    }
+
+    #main-header.is-scrolled .navbar-desktop-shell .logo-img {
+      height: 3.2rem;
+    }
+
+    #main-header.is-scrolled .navbar-logo {
+      margin-bottom: -1rem;
+    margin-top: -2rem;
+    }
+
+      #main-header.is-scrolled .navbar-row {
+      padding: 0.4rem 1rem;
+    }
