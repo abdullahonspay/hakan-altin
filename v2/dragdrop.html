@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="tr" class="scroll-smooth dark">
+<html lang="tr" class="scroll-smooth">
 <head>
   <script>
-    if (localStorage.getItem('theme') === 'light' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-      document.documentElement.classList.remove('dark');
-    } else {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
       document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
     }
     // Update logo images early to prevent flashing
     document.addEventListener("DOMContentLoaded", function() {
