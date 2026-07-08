@@ -12,10 +12,10 @@
 
 .navbar-surface {
   position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(148, 163, 184, 0.14);
   border-radius: 8px;
-  background: linear-gradient(180deg, rgba(20, 22, 29, 0.88), rgba(13, 14, 18, 0.96));
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.24);
+  background: linear-gradient(180deg, rgba(26, 31, 43, 0.9), rgba(17, 21, 31, 0.96));
+  box-shadow: 0 18px 50px rgba(2, 6, 23, 0.28);
   backdrop-filter: blur(18px);
 }
 
