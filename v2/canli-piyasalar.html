@@ -132,15 +132,56 @@
     }
 
     @keyframes flash-up {
-      0% { background-color: rgba(255, 253, 240, 1); }
+      0% { background-color: transparent; }
       50% { background-color: rgba(34, 197, 94, 0.18); }
-      100% { background-color: rgba(255, 253, 240, 1); }
+      100% { background-color: transparent; }
     }
 
     @keyframes flash-down {
-      0% { background-color: rgba(255, 253, 240, 1); }
+      0% { background-color: transparent; }
       50% { background-color: rgba(239, 68, 68, 0.18); }
-      100% { background-color: rgba(255, 253, 240, 1); }
+      100% { background-color: transparent; }
+    }
+
+    html.dark #markets-grid {
+      background-color: rgba(15, 23, 42, 0.48) !important;
+    }
+
+    html.dark #markets-grid .bg-white {
+      background-color: #121823 !important;
+      border-color: rgba(212, 175, 55, 0.22) !important;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 10px 28px rgba(2, 6, 23, 0.24);
+    }
+
+    html.dark #markets-grid .text-gray-900 {
+      color: #f8fafc !important;
+    }
+
+    html.dark #markets-grid .text-gray-400 {
+      color: #94a3b8 !important;
+    }
+
+    html.dark #market-list .market-row {
+      background-color: rgba(30, 41, 59, 0.3);
+      border-color: rgba(71, 85, 105, 0.34) !important;
+      transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+    }
+
+    html.dark #market-list .market-row:nth-child(even) {
+      background-color: rgba(51, 65, 85, 0.22);
+    }
+
+    html.dark #market-list .market-row:hover {
+      background-color: rgba(212, 175, 55, 0.1);
+      border-color: rgba(212, 175, 55, 0.32) !important;
+    }
+
+    html.dark #market-list .market-row .text-white {
+      color: #f8fafc !important;
+    }
+
+    html.dark #market-list .market-row .text-gray-300 {
+      color: #cbd5e1 !important;
     }
 
     body.presentation-mode #main-header {
@@ -200,6 +241,15 @@
           <a href="terazi.html" class="navbar-link navbar-link-muted">
             <span>Sanal Terazi</span>
           </a>
+          <button
+            id="theme-toggle"
+            type="button"
+            class="hidden lg:inline-flex ml-auto h-9 w-9 items-center justify-center rounded-full border border-darkBorder/70 bg-white/5 text-gray-300 transition-all hover:text-gold-400 hover:border-gold-500/40"
+            title="Karanlık Temaya Geç"
+            aria-label="Tema değiştir"
+          >
+            <i id="theme-icon" class="fa-solid fa-moon text-sm text-gray-500 hover:text-gold-500"></i>
+          </button>
         </div>
       </div>
 

@@ -380,3 +380,7 @@ html:not(.dark) .navbar-mobile-shell .border-darkBorder {
       #main-header.is-scrolled .navbar-row {
       padding: 0.4rem 1rem;
     }
+
+      html.dark .navbar-logo{
+      background: #1b1f29;
+    }
