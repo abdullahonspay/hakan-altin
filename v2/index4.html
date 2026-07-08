@@ -14,9 +14,6 @@
       document.querySelectorAll('.logo-img').forEach(img => {
         img.src = isDark ? '../docs/images/logo.svg' : '../docs/images/logo-light.svg';
       });
-      document.querySelectorAll('.mobile-logo-img').forEach(img => {
-        img.src = isDark ? '../docs/images/logo-mobil.svg' : '../docs/images/logo-light-mobil.svg';
-      });
     });
   </script>
   <meta charset="UTF-8">
@@ -438,115 +435,6 @@
 
     html.dark .navbar-logo{
       background: #1b1f29;
-    }
-
-    .mobile-bottom-nav {
-      position: fixed;
-      left: 12px;
-      right: 12px;
-      bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
-      z-index: 60;
-      display: none;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      align-items: end;
-      padding: 2px 10px;
-      border-radius: 20px;
-      border: 1px solid rgba(148, 163, 184, 0.2);
-      background: linear-gradient(180deg, rgba(17, 21, 31, 0.96), rgba(10, 12, 18, 0.98));
-      box-shadow: 0 14px 40px rgba(2, 6, 23, 0.42);
-      backdrop-filter: blur(16px);
-    }
-
-    .mobile-bottom-item {
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      color: #cbd5e1;
-      min-height: 54px;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      transition: color 180ms ease, transform 180ms ease;
-    }
-
-    .mobile-bottom-item i {
-      font-size: 15px;
-      color: #94a3b8;
-      transition: color 180ms ease;
-    }
-
-    .mobile-bottom-item.active,
-    .mobile-bottom-item:hover {
-      color: #f8fafc;
-      transform: translateY(-1px);
-    }
-
-    .mobile-bottom-item.active i,
-    .mobile-bottom-item:hover i {
-      color: #d4af37;
-    }
-
-    .mobile-bottom-logo {
-   
-      margin-top: -24px;
-      border-radius: 14px;
-  
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .mobile-bottom-logo img {
-      width: 72px;
-      height: 72px;
-      object-fit: contain;
-    }
-
-    html:not(.dark) .mobile-bottom-nav {
-      border-color: rgba(148, 163, 184, 0.22);
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(248, 250, 252, 0.99));
-      box-shadow: 0 12px 34px rgba(15, 23, 42, 0.16);
-    }
-
-    html:not(.dark) .mobile-bottom-item {
-      color: #475569;
-    }
-
-    html:not(.dark) .mobile-bottom-item i {
-      color: #64748b;
-    }
-
-    html:not(.dark) .mobile-bottom-item.active,
-    html:not(.dark) .mobile-bottom-item:hover {
-      color: #0f172a;
-    }
-
-    html:not(.dark) .mobile-bottom-item.active i,
-    html:not(.dark) .mobile-bottom-item:hover i {
-      color: #7a5508;
-    }
-
-    
-
-    @media (max-width: 1023px) {
-      #main-header {
-        display: none;
-      }
-
-      .mobile-bottom-nav {
-        display: grid;
-      }
-
-      body {
-        padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 96px);
-      }
-
-      .quick-call-cta {
-        display: none !important;
-      }
     }
 
   </style>
@@ -1389,30 +1277,6 @@
     </div>
   </footer>
 
-  <nav class="mobile-bottom-nav lg:hidden" aria-label="Mobil alt gezinme">
-    <a href="canli-piyasalar.html" class="mobile-bottom-item">
-      <i class="fa-solid fa-chart-line"></i>
-      <span>Canlı</span>
-    </a>
-    <a href="sarrafiye.html" class="mobile-bottom-item">
-      <i class="fa-solid fa-gem"></i>
-      <span>Sarrafiye</span>
-    </a>
-    <a href="/v2" class="mobile-bottom-item active" aria-current="page">
-      <span class="mobile-bottom-logo">
-        <img src="../docs/images/logo-mobil.svg" alt="Hakan Altın" class="mobile-logo-img" />
-      </span>
-    </a>
-    <a href="#canli-piyasa" class="mobile-bottom-item">
-      <i class="fa-solid fa-table-columns"></i>
-      <span>Piyasa</span>
-    </a>
-    <button id="bottom-theme-toggle" type="button" class="mobile-bottom-item" aria-label="Tema değiştir">
-      <i id="bottom-theme-icon" class="fa-solid fa-moon"></i>
-      <span id="bottom-theme-text">Tema</span>
-    </button>
-  </nav>
-
   <a
     href="tel:4447511"
     class="quick-call-cta group right-4 z-50 bg-gold-500 text-darkBg shadow-[0_12px_28px_rgba(0,0,0,0.28)] hover:bg-gold-400 active:scale-[0.98] transition-all"
@@ -1722,9 +1586,6 @@
       const mobileToggleBtn = document.getElementById("mobile-theme-toggle");
       const mobileIcon = document.getElementById("mobile-theme-icon");
       const mobileText = document.getElementById("mobile-theme-text");
-      const bottomToggleBtn = document.getElementById("bottom-theme-toggle");
-      const bottomIcon = document.getElementById("bottom-theme-icon");
-      const bottomText = document.getElementById("bottom-theme-text");
       
       function updateIcon() {
         const isDark = document.documentElement.classList.contains("dark");
@@ -1733,22 +1594,15 @@
           if (toggleBtn) toggleBtn.title = "Açık Temaya Geç";
           if (mobileIcon) mobileIcon.className = "fa-solid fa-sun text-gold-500";
           if (mobileText) mobileText.innerText = "Açık Tema";
-          if (bottomIcon) bottomIcon.className = "fa-solid fa-sun";
-          if (bottomText) bottomText.innerText = "Açık";
         } else {
           if (icon) icon.className = "fa-solid fa-moon text-sm text-gray-500 hover:text-gold-500";
           if (toggleBtn) toggleBtn.title = "Karanlık Temaya Geç";
           if (mobileIcon) mobileIcon.className = "fa-solid fa-moon text-gray-400";
           if (mobileText) mobileText.innerText = "Karanlık Tema";
-          if (bottomIcon) bottomIcon.className = "fa-solid fa-moon";
-          if (bottomText) bottomText.innerText = "Koyu";
         }
         // Update all logo images
         document.querySelectorAll('.logo-img').forEach(img => {
           img.src = isDark ? '../docs/images/logo.svg' : '../docs/images/logo-light.svg';
-        });
-        document.querySelectorAll('.mobile-logo-img').forEach(img => {
-          img.src = isDark ? '../docs/images/logo-mobil.svg' : '../docs/images/logo-light-mobil.svg';
         });
       }
       
@@ -1767,7 +1621,6 @@
       
       if (toggleBtn) toggleBtn.addEventListener("click", toggleTheme);
       if (mobileToggleBtn) mobileToggleBtn.addEventListener("click", toggleTheme);
-      if (bottomToggleBtn) bottomToggleBtn.addEventListener("click", toggleTheme);
     }
 
     // HERO DETAIL PANEL - Slide-In Animation on Row Click
