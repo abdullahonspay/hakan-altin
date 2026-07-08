@@ -450,7 +450,7 @@
       grid-template-columns: repeat(5, minmax(0, 1fr));
       align-items: end;
       padding: 2px 10px;
-      border-radius: 20px;
+      border-radius: 10px;
       border: 1px solid rgba(148, 163, 184, 0.2);
       background: linear-gradient(180deg, rgba(17, 21, 31, 0.96), rgba(10, 12, 18, 0.98));
       box-shadow: 0 14px 40px rgba(2, 6, 23, 0.42);
@@ -487,6 +487,10 @@
     .mobile-bottom-item.active i,
     .mobile-bottom-item:hover i {
       color: #d4af37;
+    }
+
+    .mobile-bottom-item.menu-trigger i {
+      font-size: 16px;
     }
 
     .mobile-bottom-logo {
@@ -527,6 +531,114 @@
     html:not(.dark) .mobile-bottom-item.active i,
     html:not(.dark) .mobile-bottom-item:hover i {
       color: #7a5508;
+    }
+
+    .mobile-quick-panel {
+      position: fixed;
+      right: 14px;
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 84px);
+      z-index: 65;
+      width: min(86vw, 270px);
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: linear-gradient(180deg, rgba(17, 21, 31, 0.98), rgba(10, 12, 18, 0.99));
+      box-shadow: 0 18px 38px rgba(2, 6, 23, 0.45);
+      backdrop-filter: blur(14px);
+      padding: 8px;
+      opacity: 0;
+      transform: translateY(10px) scale(0.98);
+      pointer-events: none;
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .mobile-quick-panel.open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .mobile-quick-title {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #94a3b8;
+      padding: 6px 8px;
+    }
+
+    .mobile-quick-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .mobile-quick-action {
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      padding: 10px 8px;
+      color: #e2e8f0;
+      background: rgba(30, 41, 59, 0.32);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 82px;
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+      transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+    }
+
+    .mobile-quick-action i {
+      color: #d4af37;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    .mobile-quick-action strong {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #94a3b8;
+    }
+
+    .mobile-quick-action:hover {
+      background-color: rgba(212, 175, 55, 0.1);
+      border-color: rgba(212, 175, 55, 0.25);
+      color: #f8fafc;
+      transform: translateY(-1px);
+    }
+
+    .mobile-quick-action:hover strong {
+      color: #f8fafc;
+    }
+
+    html:not(.dark) .mobile-quick-panel {
+      border-color: rgba(148, 163, 184, 0.24);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.99));
+      box-shadow: 0 14px 28px rgba(15, 23, 42, 0.18);
+    }
+
+    html:not(.dark) .mobile-quick-title {
+      color: #64748b;
+    }
+
+    html:not(.dark) .mobile-quick-action {
+      color: #334155;
+      border-color: rgba(148, 163, 184, 0.22);
+      background: rgba(241, 245, 249, 0.88);
+    }
+
+    html:not(.dark) .mobile-quick-action:hover {
+      background-color: rgba(122, 85, 8, 0.08);
+      border-color: rgba(122, 85, 8, 0.22);
+      color: #0f172a;
+    }
+
+    html:not(.dark) .mobile-quick-action strong {
+      color: #64748b;
     }
 
     
@@ -633,7 +745,7 @@
     
     <div class="h-full max-w-7xl mx-auto p-1 grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch rounded-lg bg-gray-100/40 dark:bg-slate-900/50">
       <!-- Quick Intent / Guide List (Left Column) -->
-      <div class="lg:col-span-6 h-full">
+      <div class="lg:col-span-6 h-full min-h-[40dvh]">
         <div class="bg-white backdrop-blur-sm border border-gold-600/20 rounded-lg p-4 sm:p-6 h-full flex flex-col relative">
          
           <div class="rounded-t-lg z-10 absolute top-[0] left-0 w-full bg-white h-[40px] px-6 sm:px-8 py-3 text-[11px] sm:text-xs font-bold uppercase tracking-wide text-gray-400 grid grid-cols-12 gap-2 shadow-md">
@@ -1402,16 +1514,43 @@
       <span class="mobile-bottom-logo">
         <img src="../docs/images/logo-mobil.svg" alt="Hakan Altın" class="mobile-logo-img" />
       </span>
+      <span>Ana Sayfa</span>
     </a>
     <a href="#canli-piyasa" class="mobile-bottom-item">
       <i class="fa-solid fa-table-columns"></i>
       <span>Piyasa</span>
     </a>
-    <button id="bottom-theme-toggle" type="button" class="mobile-bottom-item" aria-label="Tema değiştir">
-      <i id="bottom-theme-icon" class="fa-solid fa-moon"></i>
-      <span id="bottom-theme-text">Tema</span>
+    <button id="bottom-menu-toggle" type="button" class="mobile-bottom-item menu-trigger" aria-label="Hızlı menü" aria-expanded="false" aria-controls="mobile-quick-panel">
+      <i class="fa-solid fa-table-cells-large"></i>
+      <span>Menü</span>
     </button>
   </nav>
+
+  <div id="mobile-quick-panel" class="mobile-quick-panel lg:hidden" role="dialog" aria-label="Hızlı seçenekler">
+    <div class="mobile-quick-title">Hızlı Seçenekler</div>
+    <div class="mobile-quick-grid">
+      <button id="quick-theme-toggle" type="button" class="mobile-quick-action" aria-label="Tema değiştir">
+        <i id="quick-theme-icon" class="fa-solid fa-moon"></i>
+        <span>Tema</span>
+        <strong id="quick-theme-text">Koyu</strong>
+      </button>
+      <a href="tel:4447511" class="mobile-quick-action">
+        <i class="fa-solid fa-phone"></i>
+        <span>Hemen Ara</span>
+        <strong>444 75 11</strong>
+      </a>
+      <a href="milyem.html" class="mobile-quick-action">
+        <i class="fa-solid fa-calculator"></i>
+        <span>Milyem</span>
+        <strong>Hesapla</strong>
+      </a>
+      <a href="iletisim.html" class="mobile-quick-action">
+        <i class="fa-solid fa-location-dot"></i>
+        <span>Konum</span>
+        <strong>Yol Tarifi</strong>
+      </a>
+    </div>
+  </div>
 
   <a
     href="tel:4447511"
@@ -1698,6 +1837,7 @@
       renderMarketTable();
       runMilyemHome();
       initThemeSwitcher();
+      initBottomQuickPanel();
       initShrinkHeader();
       updateHeroListRowArrows();
     };
@@ -1722,9 +1862,9 @@
       const mobileToggleBtn = document.getElementById("mobile-theme-toggle");
       const mobileIcon = document.getElementById("mobile-theme-icon");
       const mobileText = document.getElementById("mobile-theme-text");
-      const bottomToggleBtn = document.getElementById("bottom-theme-toggle");
-      const bottomIcon = document.getElementById("bottom-theme-icon");
-      const bottomText = document.getElementById("bottom-theme-text");
+      const quickToggleBtn = document.getElementById("quick-theme-toggle");
+      const quickIcon = document.getElementById("quick-theme-icon");
+      const quickText = document.getElementById("quick-theme-text");
       
       function updateIcon() {
         const isDark = document.documentElement.classList.contains("dark");
@@ -1733,15 +1873,15 @@
           if (toggleBtn) toggleBtn.title = "Açık Temaya Geç";
           if (mobileIcon) mobileIcon.className = "fa-solid fa-sun text-gold-500";
           if (mobileText) mobileText.innerText = "Açık Tema";
-          if (bottomIcon) bottomIcon.className = "fa-solid fa-sun";
-          if (bottomText) bottomText.innerText = "Açık";
+          if (quickIcon) quickIcon.className = "fa-solid fa-sun";
+          if (quickText) quickText.innerText = "Açık";
         } else {
           if (icon) icon.className = "fa-solid fa-moon text-sm text-gray-500 hover:text-gold-500";
           if (toggleBtn) toggleBtn.title = "Karanlık Temaya Geç";
           if (mobileIcon) mobileIcon.className = "fa-solid fa-moon text-gray-400";
           if (mobileText) mobileText.innerText = "Karanlık Tema";
-          if (bottomIcon) bottomIcon.className = "fa-solid fa-moon";
-          if (bottomText) bottomText.innerText = "Koyu";
+          if (quickIcon) quickIcon.className = "fa-solid fa-moon";
+          if (quickText) quickText.innerText = "Koyu";
         }
         // Update all logo images
         document.querySelectorAll('.logo-img').forEach(img => {
@@ -1767,7 +1907,49 @@
       
       if (toggleBtn) toggleBtn.addEventListener("click", toggleTheme);
       if (mobileToggleBtn) mobileToggleBtn.addEventListener("click", toggleTheme);
-      if (bottomToggleBtn) bottomToggleBtn.addEventListener("click", toggleTheme);
+      if (quickToggleBtn) quickToggleBtn.addEventListener("click", toggleTheme);
+    }
+
+    function initBottomQuickPanel() {
+      const trigger = document.getElementById('bottom-menu-toggle');
+      const panel = document.getElementById('mobile-quick-panel');
+      if (!trigger || !panel) return;
+
+      const closePanel = () => {
+        panel.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      };
+
+      const togglePanel = () => {
+        const willOpen = !panel.classList.contains('open');
+        panel.classList.toggle('open', willOpen);
+        trigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      };
+
+      trigger.addEventListener('click', (event) => {
+        event.stopPropagation();
+        togglePanel();
+      });
+
+      panel.addEventListener('click', (event) => {
+        event.stopPropagation();
+      });
+
+      panel.querySelectorAll('a, button').forEach((item) => {
+        item.addEventListener('click', () => {
+          closePanel();
+        });
+      });
+
+      document.addEventListener('click', () => {
+        closePanel();
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          closePanel();
+        }
+      });
     }
 
     // HERO DETAIL PANEL - Slide-In Animation on Row Click
