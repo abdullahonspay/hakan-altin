@@ -337,6 +337,16 @@
     position: relative;
 }
 
+.hero-list-row::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;   /* aşağı indir */
+    height: 1px;
+    background: #dcdcdc;
+    width: 100%;
+}
   </style>
 </head>
 <body class="bg-darkBg text-gray-100 min-h-screen selection:bg-gold-500 selection:text-darkBg custom-scrollbar">
@@ -422,108 +432,108 @@
             <div class="col-span-2 text-right">% Değ.</div>
           </div>
 
-          <div class="flex-1 min-h-0 max-h-[100%] w-full left-0 top-0 absolute overflow-y-auto custom-scrollbar px-0 pt-10">
-            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-4 my-1 transition-colors odd:bg-gray-100/50" data-product="Has Altın" data-buy="6.565" data-sell="6.596" data-change="+1,45%">
+          <div class="flex-1 min-h-0 max-h-[100%] w-full left-0 top-0 absolute overflow-y-auto custom-scrollbar px-3  pt-10">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-3 my-3 transition-colors odd:bg-gray-100/50" data-product="Has Altın" data-buy="6.565" data-sell="6.596" data-change="+1,45%">
               <div class="col-span-6 text-white text-sm font-semibold uppercase">Has Altın</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">6.565</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">6.596</div>
               <div class="col-span-2 text-right text-emerald-400 text-xs font-bold">+1,45%</div>
             </div>
-            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-4 my-1 transition-colors odd:bg-gray-100/50" data-product="22 Ayar" data-buy="6.018" data-sell="6.043" data-change="+0,45%">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-3 my-3 transition-colors odd:bg-gray-100/50" data-product="22 Ayar" data-buy="6.018" data-sell="6.043" data-change="+0,45%">
               <div class="col-span-6 text-white text-sm font-semibold uppercase">22 Ayar</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">6.018</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">6.043</div>
               <div class="col-span-2 text-right text-emerald-400 text-xs font-bold">+0,45%</div>
             </div>
-            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-4 my-1 transition-colors odd:bg-gray-100/50" data-product="Çeyrek" data-buy="10.640" data-sell="10.782" data-change="+0,90%">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-3 my-3 transition-colors odd:bg-gray-100/50" data-product="Çeyrek" data-buy="10.640" data-sell="10.782" data-change="+0,90%">
               <div class="col-span-6 text-white text-sm font-semibold uppercase">Çeyrek</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">10.640</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">10.782</div>
               <div class="col-span-2 text-right text-emerald-400 text-xs font-bold">+0,90%</div>
             </div>
-            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-4 my-1 transition-colors odd:bg-gray-100/50" data-product="Yarım" data-buy="21.180" data-sell="21.560" data-change="+1,00%">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-3 my-3 transition-colors odd:bg-gray-100/50" data-product="Yarım" data-buy="21.180" data-sell="21.560" data-change="+1,00%">
               <div class="col-span-6 text-white text-sm font-semibold uppercase">Yarım</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">21.180</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">21.560</div>
               <div class="col-span-2 text-right text-emerald-400 text-xs font-bold">+1,00%</div>
             </div>
-            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-4 my-1 transition-colors odd:bg-gray-100/50" data-product="Tam Altın" data-buy="42.700" data-sell="43.120" data-change="-0,20%">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-3 my-3 transition-colors odd:bg-gray-100/50" data-product="Tam Altın" data-buy="42.700" data-sell="43.120" data-change="-0,20%">
               <div class="col-span-6 text-white text-sm font-semibold uppercase">Tam Altın</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">42.700</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">43.120</div>
               <div class="col-span-2 text-right text-rose-400 text-xs font-bold">-0,20%</div>
             </div>
-            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-4 my-1 transition-colors odd:bg-gray-100/50" data-product="Ata Altın" data-buy="44.050" data-sell="44.540" data-change="-0,12%">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-3 my-3 transition-colors odd:bg-gray-100/50" data-product="Ata Altın" data-buy="44.050" data-sell="44.540" data-change="-0,12%">
               <div class="col-span-6 text-white text-sm font-semibold uppercase">Ata Altın</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">44.050</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">44.540</div>
               <div class="col-span-2 text-right text-rose-400 text-xs font-bold">-0,12%</div>
             </div>
-            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-4 my-1 transition-colors odd:bg-gray-100/50" data-product="Gremse" data-buy="106.900" data-sell="108.300" data-change="+0,31%">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-3 my-3 transition-colors odd:bg-gray-100/50" data-product="Gremse" data-buy="106.900" data-sell="108.300" data-change="+0,31%">
               <div class="col-span-6 text-white text-sm font-semibold uppercase">Gremse</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">106.900</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">108.300</div>
               <div class="col-span-2 text-right text-emerald-400 text-xs font-bold">+0,31%</div>
             </div>
-            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-4 my-1 transition-colors odd:bg-gray-100/50" data-product="ONS Altın" data-buy="2.334,5 $" data-sell="2.342,1 $" data-change="-0,22%">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-3 my-3 transition-colors odd:bg-gray-100/50" data-product="ONS Altın" data-buy="2.334,5 $" data-sell="2.342,1 $" data-change="-0,22%">
               <div class="col-span-6 text-white text-sm font-semibold uppercase">ONS Altın</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">2.334,5 $</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">2.342,1 $</div>
               <div class="col-span-2 text-right text-rose-400 text-xs font-bold">-0,22%</div>
             </div>
-            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-4 my-1 transition-colors odd:bg-gray-100/50" data-product="USD/TRY" data-buy="32,2280" data-sell="32,2450" data-change="+0,08%">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-3 my-3 transition-colors odd:bg-gray-100/50" data-product="USD/TRY" data-buy="32,2280" data-sell="32,2450" data-change="+0,08%">
               <div class="col-span-6 text-white text-sm font-semibold uppercase">USD/TRY</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">32,2280</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">32,2450</div>
               <div class="col-span-2 text-right text-emerald-400 text-xs font-bold">+0,08%</div>
             </div>
-            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-4 my-1 transition-colors odd:bg-gray-100/50" data-product="EUR/TRY" data-buy="35,0980" data-sell="35,1240" data-change="+0,15%">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-3 my-3 transition-colors odd:bg-gray-100/50" data-product="EUR/TRY" data-buy="35,0980" data-sell="35,1240" data-change="+0,15%">
               <div class="col-span-6 text-white text-sm font-semibold uppercase">EUR/TRY</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">35,0980</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">35,1240</div>
               <div class="col-span-2 text-right text-emerald-400 text-xs font-bold">+0,15%</div>
-            </div> <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-4 my-1 transition-colors odd:bg-gray-100/50" data-product="Gremse" data-buy="106.900" data-sell="108.300" data-change="+0,31%">
+            </div> <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-3 my-3 transition-colors odd:bg-gray-100/50" data-product="Gremse" data-buy="106.900" data-sell="108.300" data-change="+0,31%">
               <div class="col-span-6 text-white text-sm font-semibold uppercase">Gremse</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">106.900</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">108.300</div>
               <div class="col-span-2 text-right text-emerald-400 text-xs font-bold">+0,31%</div>
             </div>
-            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-4 my-1 transition-colors odd:bg-gray-100/50" data-product="ONS Altın" data-buy="2.334,5 $" data-sell="2.342,1 $" data-change="-0,22%">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-3 my-3 transition-colors odd:bg-gray-100/50" data-product="ONS Altın" data-buy="2.334,5 $" data-sell="2.342,1 $" data-change="-0,22%">
               <div class="col-span-6 text-white text-sm font-semibold uppercase">ONS Altın</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">2.334,5 $</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">2.342,1 $</div>
               <div class="col-span-2 text-right text-rose-400 text-xs font-bold">-0,22%</div>
             </div>
-            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-4 my-1 transition-colors odd:bg-gray-100/50" data-product="USD/TRY" data-buy="32,2280" data-sell="32,2450" data-change="+0,08%">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-3 my-3 transition-colors odd:bg-gray-100/50" data-product="USD/TRY" data-buy="32,2280" data-sell="32,2450" data-change="+0,08%">
               <div class="col-span-6 text-white text-sm font-semibold uppercase">USD/TRY</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">32,2280</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">32,2450</div>
               <div class="col-span-2 text-right text-emerald-400 text-xs font-bold">+0,08%</div>
             </div>
-            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-4 my-1 transition-colors odd:bg-gray-100/50" data-product="EUR/TRY" data-buy="35,0980" data-sell="35,1240" data-change="+0,15%">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-3 my-3 transition-colors odd:bg-gray-100/50" data-product="EUR/TRY" data-buy="35,0980" data-sell="35,1240" data-change="+0,15%">
               <div class="col-span-6 text-white text-sm font-semibold uppercase">EUR/TRY</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">35,0980</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">35,1240</div>
               <div class="col-span-2 text-right text-emerald-400 text-xs font-bold">+0,15%</div>
-            </div> <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-4 my-1 transition-colors odd:bg-gray-100/50" data-product="Gremse" data-buy="106.900" data-sell="108.300" data-change="+0,31%">
+            </div> <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-3 my-3 transition-colors odd:bg-gray-100/50" data-product="Gremse" data-buy="106.900" data-sell="108.300" data-change="+0,31%">
               <div class="col-span-6 text-white text-sm font-semibold uppercase">Gremse</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">106.900</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">108.300</div>
               <div class="col-span-2 text-right text-emerald-400 text-xs font-bold">+0,31%</div>
             </div>
-            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-4 my-1 transition-colors odd:bg-gray-100/50" data-product="ONS Altın" data-buy="2.334,5 $" data-sell="2.342,1 $" data-change="-0,22%">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-3 my-3 transition-colors odd:bg-gray-100/50" data-product="ONS Altın" data-buy="2.334,5 $" data-sell="2.342,1 $" data-change="-0,22%">
               <div class="col-span-6 text-white text-sm font-semibold uppercase">ONS Altın</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">2.334,5 $</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">2.342,1 $</div>
               <div class="col-span-2 text-right text-rose-400 text-xs font-bold">-0,22%</div>
             </div>
-            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-4 my-1 transition-colors odd:bg-gray-100/50" data-product="USD/TRY" data-buy="32,2280" data-sell="32,2450" data-change="+0,08%">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-3 my-3 transition-colors odd:bg-gray-100/50" data-product="USD/TRY" data-buy="32,2280" data-sell="32,2450" data-change="+0,08%">
               <div class="col-span-6 text-white text-sm font-semibold uppercase">USD/TRY</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">32,2280</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">32,2450</div>
               <div class="col-span-2 text-right text-emerald-400 text-xs font-bold">+0,08%</div>
             </div>
-            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-4 my-1 transition-colors odd:bg-gray-100/50" data-product="EUR/TRY" data-buy="35,0980" data-sell="35,1240" data-change="+0,15%">
+            <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-3 my-3 transition-colors odd:bg-gray-100/50" data-product="EUR/TRY" data-buy="35,0980" data-sell="35,1240" data-change="+0,15%">
               <div class="col-span-6 text-white text-sm font-semibold uppercase">EUR/TRY</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">35,0980</div>
               <div class="col-span-2 text-left text-white text-sm font-normal">35,1240</div>
