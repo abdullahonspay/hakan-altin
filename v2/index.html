@@ -661,7 +661,15 @@
       }
     }
 
-  </style>
+
+.hero-card .text-gray-600, .hero-card .text-gray-700\/80, .gri-renk {
+    color: #22262dde !important;
+}
+
+ .hero-list-row  .text-sm{
+   font-size: 15px !important;
+}
+</style>
 </head>
 <body class="bg-darkBg text-gray-100 min-h-screen selection:bg-gold-500 selection:text-darkBg custom-scrollbar">
 
@@ -2204,7 +2212,7 @@
 
         const originalLabel = (titleEl.getAttribute('data-label') || titleEl.textContent || '').replace(/^([▲▼•])\s*/, '').trim();
         titleEl.setAttribute('data-label', originalLabel);
-        titleEl.innerHTML = `<span class="pr-1 ${arrowColor}">${arrow}</span>${originalLabel}`;
+        titleEl.innerHTML = `<span class="pr-1 ${arrowColor}">${arrow}</span><span class="gri-renk">${originalLabel}</span>`;
       });
     }
 
