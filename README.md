@@ -1,5 +1,7 @@
 # Hakan Altın
 
+![Hakan Altın Logo](docs/images/logo.svg)
+
 Canlı Kapalıçarşı fiyatları, altın hesaplama araçları ve detaylı piyasa görünümü sunan statik web sitesi.
 
 ## İçerik
@@ -42,5 +44,6 @@ Doğrudan açılabilen sayfalar:
 v2
 
 - Revize 1 : https://abdullahonspay.github.io/hakan-altin/v2/index.html
+- Revize 1 Renkli Görünüm : https://abdullahonspay.github.io/hakan-altin/v2/index-color.html
 - Revize 1 (Sürükle Bırak) : https://abdullahonspay.github.io/hakan-altin/v2/dragdrop.html
 - Revize 2 : https://abdullahonspay.github.io/hakan-altin/v2/index2.html
