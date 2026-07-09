@@ -412,6 +412,51 @@
     position: relative;
 }
 
+    .hero-transfer-star {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border: 0;
+      border-radius: 9999px;
+      background: transparent;
+      color: #94a3b8;
+      cursor: pointer;
+      transition: color 160ms ease, transform 160ms ease;
+      z-index: 2;
+    }
+
+    .hero-transfer-star:hover {
+      color: #d4af37;
+      transform: scale(1.05);
+    }
+
+    .hero-transfer-star-left {
+      position: absolute;
+      left: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .hero-transfer-star-left:hover {
+      transform: translateY(-50%) scale(1.05);
+    }
+
+    .hero-list-row.has-transfer-star > .col-span-6,
+    .hero-list-row.has-transfer-star > .col-span-5 {
+      padding-left: 18px;
+    }
+
+    .hero-transfer-star-right {
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+
+    .hero-transfer-star.active {
+      color: #d4af37;
+    }
+
     html.dark .section-hero .bg-white.backdrop-blur-sm {
       background-color: #0f1219 !important;
       border-color: rgba(212, 175, 55, 0.22) !important;
@@ -2032,6 +2077,143 @@
       });
     }
 
+    // HERO LEFT/RIGHT STAR TRANSFER
+    function normalizeProductKey(value) {
+      return (value || '').trim().toLocaleLowerCase('tr-TR');
+    }
+
+    function getHeroRowsByProduct(productKey) {
+      return Array.from(document.querySelectorAll('.hero-list-row')).filter((row) => {
+        return normalizeProductKey(row.getAttribute('data-product')) === productKey;
+      });
+    }
+
+    function getHeroCardsByProduct(productKey) {
+      return Array.from(document.querySelectorAll('.hero-card')).filter((card) => {
+        return normalizeProductKey(card.getAttribute('data-product')) === productKey;
+      });
+    }
+
+    function ensureLeftStar(row, productKey) {
+      if (row.querySelector('.hero-transfer-star-left')) return;
+
+      row.classList.add('has-transfer-star');
+
+      const starBtn = document.createElement('button');
+      starBtn.type = 'button';
+      starBtn.className = 'hero-transfer-star hero-transfer-star-left';
+      starBtn.dataset.transferDir = 'to-right';
+      starBtn.dataset.productKey = productKey;
+      starBtn.setAttribute('aria-label', 'Sağ listeye ekle');
+      starBtn.title = 'Sağ listeye ekle';
+      starBtn.innerHTML = '<i class="fa-regular fa-star text-xs"></i>';
+
+      starBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        moveHeroProductToRight(productKey);
+      });
+
+      row.appendChild(starBtn);
+    }
+
+    function ensureRightStar(card, productKey) {
+      if (card.querySelector('.hero-transfer-star-right')) return;
+
+      const topBar = card.firstElementChild;
+      if (!topBar) return;
+
+      const labelEl = topBar.firstElementChild;
+      if (!labelEl) return;
+
+      labelEl.classList.add('inline-flex', 'items-center');
+
+      const starBtn = document.createElement('button');
+      starBtn.type = 'button';
+      starBtn.className = 'hero-transfer-star hero-transfer-star-right active';
+      starBtn.dataset.transferDir = 'to-left';
+      starBtn.dataset.productKey = productKey;
+      starBtn.setAttribute('aria-label', 'Sol listeye taşı');
+      starBtn.title = 'Sol listeye taşı';
+      starBtn.innerHTML = '<i class="fa-solid fa-star text-sm"></i>';
+
+      starBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        moveHeroProductToLeft(productKey);
+      });
+
+      labelEl.prepend(starBtn);
+    }
+
+    function setHeroTransferStarState(productKey) {
+      document.querySelectorAll('.hero-transfer-star[data-product-key="' + productKey + '"]').forEach((btn) => {
+        const icon = btn.querySelector('i');
+        if (!icon) return;
+
+        if (btn.dataset.transferDir === 'to-left') {
+          btn.classList.add('active');
+          icon.className = 'fa-solid fa-star text-sm';
+        } else {
+          btn.classList.remove('active');
+          icon.className = 'fa-regular fa-star text-sm';
+        }
+      });
+    }
+
+    function moveHeroProductToLeft(productKey) {
+      const cards = getHeroCardsByProduct(productKey);
+      const rows = getHeroRowsByProduct(productKey);
+
+      cards.forEach((card) => {
+        card.style.display = 'none';
+      });
+
+      rows.forEach((row) => {
+        row.style.display = '';
+      });
+
+      setHeroTransferStarState(productKey);
+    }
+
+    function moveHeroProductToRight(productKey) {
+      const cards = getHeroCardsByProduct(productKey);
+      const rows = getHeroRowsByProduct(productKey);
+
+      if (!cards.length) return;
+
+      rows.forEach((row) => {
+        row.style.display = 'none';
+      });
+
+      cards.forEach((card) => {
+        card.style.display = '';
+      });
+
+      setHeroTransferStarState(productKey);
+    }
+
+    function initHeroTransferStars() {
+      const cards = Array.from(document.querySelectorAll('.hero-card'));
+      const rows = Array.from(document.querySelectorAll('.hero-list-row'));
+      const cardProductKeys = new Set(cards.map((card) => normalizeProductKey(card.getAttribute('data-product'))));
+
+      cards.forEach((card) => {
+        const productKey = normalizeProductKey(card.getAttribute('data-product'));
+        ensureRightStar(card, productKey);
+      });
+
+      rows.forEach((row) => {
+        const productKey = normalizeProductKey(row.getAttribute('data-product'));
+        if (!cardProductKeys.has(productKey)) return;
+        ensureLeftStar(row, productKey);
+      });
+
+      cardProductKeys.forEach((productKey) => {
+        setHeroTransferStarState(productKey);
+      });
+    }
+
     // HERO DETAIL PANEL - Slide-In Animation on Row Click
     function initHeroDetailPanel() {
       const listRows = document.querySelectorAll('.hero-list-row');
@@ -2240,6 +2422,7 @@
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', function() {
       initHeroDetailPanel();
+      initHeroTransferStars();
       startPriceUpdates();
     });
 
