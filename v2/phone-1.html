@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phone 1 - CTA Overlay</title>
+  <style>
+    :root {
+      --whatsapp: #16a34a;
+      --call: #0284c7;
+      --text: #0f172a;
+      --muted: #64748b;
+      --surface: rgba(255, 255, 255, 0.96);
+      --surface-border: rgba(15, 23, 42, 0.14);
+      --cta-shadow: 0 8px 20px rgba(15, 23, 42, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .cta-stack {
+      position: fixed;
+      right: 16px;
+      bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 9999;
+      pointer-events: none;
+      align-items: flex-end;
+    }
+
+    .wa-group {
+      pointer-events: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .cta-btn-icon {
+      pointer-events: auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 999px;
+      width: 44px;
+      height: 44px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: var(--cta-shadow);
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      opacity: 0.88;
+    }
+
+    .cta-btn-icon:hover {
+      transform: translateY(-2px);
+      opacity: 1;
+    }
+
+    .cta-icon {
+      width: 19px;
+      height: 19px;
+      display: block;
+      fill: currentColor;
+    }
+
+    .cta-whatsapp-btn {
+      background: linear-gradient(135deg, #15803d, var(--whatsapp));
+    }
+
+    .cta-call-btn {
+      background: linear-gradient(135deg, #0369a1, var(--call));
+    }
+
+    .cta-scroll-top {
+      background: rgba(2, 6, 23, 0.9);
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+    }
+
+    .cta-scroll-top.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .wa-composer {
+      pointer-events: auto;
+      width: min(280px, calc(100vw - 30px));
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 14px;
+      box-shadow: var(--cta-shadow);
+      padding: 12px;
+      margin-bottom: 2px;
+      opacity: 0;
+      transform: translateY(10px) scale(0.98);
+      transform-origin: bottom right;
+      visibility: hidden;
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    }
+
+    .wa-composer.is-open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      visibility: visible;
+    }
+
+    .wa-group:hover .wa-composer,
+    .wa-group:focus-within .wa-composer {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      visibility: visible;
+    }
+
+    .wa-composer-title {
+      margin: 0 0 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .wa-composer textarea {
+      width: 100%;
+      resize: vertical;
+      min-height: 74px;
+      max-height: 140px;
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      padding: 10px;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--text);
+      outline: none;
+    }
+
+    .wa-composer textarea:focus {
+      border-color: rgba(22, 163, 74, 0.65);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.16);
+    }
+
+    .wa-row {
+      margin-top: 8px;
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .wa-hint {
+      margin-right: auto;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .wa-action {
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 12px;
+      cursor: pointer;
+      background: #fff;
+      color: #1e293b;
+    }
+
+    .wa-send {
+      border: none;
+      background: var(--whatsapp);
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .cta-stack {
+        right: 12px;
+        bottom: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <iframe id="phoneFrame" src="./revize.html" title="Index Color"></iframe>
+
+  <div class="cta-stack" aria-label="Fixed CTA Buttons">
+    <div class="wa-group" id="waGroup">
+      <div id="waComposer" class="wa-composer" aria-hidden="true">
+        <p class="wa-composer-title">WhatsApp mesaji</p>
+        <textarea id="waMessage" placeholder="Merhaba, fiyat bilgisi almak istiyorum."></textarea>
+        <div class="wa-row">
+          <span class="wa-hint">Mesaji yazip gonderebilirsiniz</span>
+          <button id="waClose" class="wa-action" type="button">Kapat</button>
+          <button id="waSend" class="wa-action wa-send" type="button">Gonder</button>
+        </div>
+      </div>
+      <button id="waToggle" class="cta-btn-icon cta-whatsapp-btn" type="button" aria-label="WhatsApp panelini ac">
+        <svg class="cta-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <path d="M19.11 17.36c-.27-.14-1.58-.78-1.83-.87-.24-.09-.42-.14-.6.14-.18.27-.69.87-.85 1.05-.16.18-.31.2-.58.07-.27-.14-1.14-.42-2.18-1.34-.81-.72-1.35-1.61-1.5-1.88-.16-.27-.02-.42.12-.56.13-.13.27-.31.4-.47.13-.16.18-.27.27-.45.09-.18.04-.34-.02-.47-.07-.14-.6-1.44-.82-1.97-.22-.53-.45-.46-.6-.47h-.51c-.18 0-.47.07-.72.34-.24.27-.94.92-.94 2.25s.96 2.61 1.09 2.79c.13.18 1.88 2.87 4.55 4.02.64.27 1.14.43 1.53.55.64.2 1.22.17 1.68.1.51-.08 1.58-.64 1.81-1.26.22-.62.22-1.15.16-1.26-.07-.11-.24-.18-.51-.31z"></path>
+          <path d="M16.01 3.2c-7.09 0-12.84 5.75-12.84 12.84 0 2.26.59 4.47 1.71 6.41L3 29l6.77-1.78a12.79 12.79 0 006.24 1.61h.01c7.09 0 12.84-5.75 12.84-12.84S23.11 3.2 16.01 3.2zm0 23.49h-.01a10.64 10.64 0 01-5.43-1.49l-.39-.23-4.01 1.05 1.07-3.91-.25-.4a10.67 10.67 0 01-1.64-5.72c0-5.89 4.79-10.68 10.69-10.68 2.85 0 5.53 1.11 7.54 3.13a10.61 10.61 0 013.12 7.55c-.01 5.9-4.8 10.7-10.69 10.7z"></path>
+        </svg>
+      </button>
+    </div>
+
+    <a class="cta-btn-icon cta-call-btn" href="tel:4447511" aria-label="Hemen ara: 444 75 11">
+      <svg class="cta-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6.62 10.79a15.07 15.07 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.07 21 3 13.93 3 5c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.24.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"></path>
+      </svg>
+    </a>
+
+    <button id="scrollTopBtn" class="cta-btn-icon cta-scroll-top" type="button" aria-label="Yukari cik">UP</button>
+  </div>
+
+  <script>
+    const frame = document.getElementById("phoneFrame");
+    const scrollTopBtn = document.getElementById("scrollTopBtn");
+    const waGroup = document.getElementById("waGroup");
+    const waComposer = document.getElementById("waComposer");
+    const waToggle = document.getElementById("waToggle");
+    const waClose = document.getElementById("waClose");
+    const waSend = document.getElementById("waSend");
+    const waMessage = document.getElementById("waMessage");
+    const waPhoneNumber = "905320000000";
+
+    function setComposerOpen(isOpen, shouldFocus = false) {
+      if (isOpen) {
+        waComposer.classList.add("is-open");
+        waComposer.setAttribute("aria-hidden", "false");
+        if (shouldFocus) {
+          waMessage.focus();
+        }
+      } else {
+        waComposer.classList.remove("is-open");
+        waComposer.setAttribute("aria-hidden", "true");
+      }
+    }
+
+    waToggle.addEventListener("click", () => {
+      const isOpen = waComposer.classList.contains("is-open");
+      setComposerOpen(!isOpen, !isOpen);
+    });
+
+    waToggle.addEventListener("mouseenter", () => {
+      setComposerOpen(true, false);
+    });
+
+    waToggle.addEventListener("focus", () => {
+      setComposerOpen(true, false);
+    });
+
+    waClose.addEventListener("click", () => {
+      setComposerOpen(false);
+    });
+
+    waSend.addEventListener("click", () => {
+      const message = waMessage.value.trim() || "Merhaba, bilgi almak istiyorum.";
+      const encoded = encodeURIComponent(message);
+      const url = `https://wa.me/${waPhoneNumber}?text=${encoded}`;
+      window.open(url, "_blank", "noopener,noreferrer");
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!waComposer.contains(event.target) && !waToggle.contains(event.target) && !waGroup.contains(event.target)) {
+        setComposerOpen(false);
+      }
+    });
+
+    function toggleScrollTop() {
+      let scrollY = window.scrollY;
+
+      try {
+        if (frame && frame.contentWindow) {
+          scrollY = frame.contentWindow.scrollY || scrollY;
+        }
+      } catch (e) {
+        // Cross-origin guarded access; fallback to window scroll.
+      }
+
+      if (scrollY > 250) {
+        scrollTopBtn.classList.add("is-visible");
+      } else {
+        scrollTopBtn.classList.remove("is-visible");
+      }
+    }
+
+    scrollTopBtn.addEventListener("click", () => {
+      try {
+        if (frame && frame.contentWindow) {
+          frame.contentWindow.scrollTo({ top: 0, behavior: "smooth" });
+          return;
+        }
+      } catch (e) {
+        // Cross-origin guarded access; fallback to window scroll.
+      }
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    window.addEventListener("scroll", toggleScrollTop, { passive: true });
+    frame.addEventListener("load", () => {
+      toggleScrollTop();
+      try {
+        frame.contentWindow.addEventListener("scroll", toggleScrollTop, { passive: true });
+      } catch (e) {
+        // Cross-origin guarded access; keep only window listener.
+      }
+    });
+
+    toggleScrollTop();
+  </script>
+</body>
+</html>

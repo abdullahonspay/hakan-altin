@@ -15,7 +15,7 @@
         fill: #010202;
       }
 .year {
-  transform: translateX(110px);
+  transform: translateX(104px);
 }
     </style>
   </defs>
