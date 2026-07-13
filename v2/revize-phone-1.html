@@ -256,6 +256,45 @@
       justify-content: flex-end !important;
     }
 
+    .nav-phone-link {
+      position: relative;
+      overflow: visible;
+    }
+
+    .nav-phone-chip {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(0.92);
+      padding: 6px 11px;
+      border-radius: 9999px;
+      background: rgba(15, 23, 42, 0.96);
+      color: #f8fafc;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      box-shadow: 0 10px 22px rgba(2, 6, 23, 0.35);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 220ms ease, transform 320ms cubic-bezier(0.2, 0.75, 0.2, 1);
+      z-index: 8;
+    }
+
+    .nav-phone-link:hover .nav-phone-chip,
+    .nav-phone-link:focus-visible .nav-phone-chip {
+      opacity: 1;
+      transform: translate(14px, -50%) scale(1);
+    }
+
+    html:not(.dark) .nav-phone-chip {
+      background: rgba(255, 255, 255, 0.97);
+      color: #0f172a;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16);
+    }
+
     #hero-cards-grid.translate-x-full {
       transform: translateX(100%);
     }
@@ -823,11 +862,12 @@
         <nav class="navbar-side navbar-left">
            <a
             href="tel:4447511"
-            class="hidden lg:inline-flex h-9 w-9 items-center justify-center rounded-full border border-darkBorder/70 bg-white/5 text-gray-300 transition-all text-gold-400 border-gold-500/40"
+            class="nav-phone-link hidden lg:inline-flex h-9 w-9 items-center justify-center rounded-full border border-darkBorder/70 bg-gold-500 text-darkBg transition-all text-darkbg border-gold-500/40"
             title="Bizi Ara: 444 75 11"
             aria-label="Destek hattını ara"
           >
             <i class="fa-solid fa-phone text-sm"></i>
+            <span class="nav-phone-chip bg-darkBg" aria-hidden="true">444 75 11</span>
           </a>
           <a href="canli-piyasalar.html" class="navbar-link navbar-link-muted ml-auto">
             <span>Canlı Piyasalar</span>
