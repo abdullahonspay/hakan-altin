@@ -413,7 +413,7 @@
     .hero-live-badge {
       position: absolute;
       right: 16px;
-      top: 20px;
+      top: -10px;
       z-index: 22;
       display: inline-flex;
       align-items: center;
@@ -423,7 +423,6 @@
       border: 1px solid rgba(16, 185, 129, 0.45);
       background: rgba(15, 23, 42, 0.94);
       backdrop-filter: blur(8px);
-      border-bottom-left-radius: 0;
     }
 
     .hero-live-dot {
@@ -1015,9 +1014,12 @@
     <!-- Background Golden Glows -->
     <div class="absolute top-20 left-12 w-96 h-96 bg-gold-500/5 rounded-full blur-3xl pointer-events-none"></div>
     <div class="absolute bottom-10 right-20 w-80 h-80 bg-gold-400/5 rounded-full blur-3xl pointer-events-none"></div>
+    
+    <div class="max-w-7xl mx-auto p-1 grid grid-cols-1 relative">
     <div class="hero-live-badge" aria-live="polite" aria-label="Canlı saat göstergesi">
       <span class="hero-live-dot" aria-hidden="true"></span>
       <span id="hero-live-time" class="hero-live-time">--:--:--</span>
+    </div>
     </div>
     
     <div class="h-full max-w-7xl mx-auto p-1 grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch rounded-lg bg-gray-100/40 dark:bg-slate-900/50">
