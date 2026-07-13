@@ -412,6 +412,28 @@
     position: relative;
 }
 
+    .hero-list-row,
+    .hero-card {
+      cursor: grab;
+    }
+
+    .hero-list-row.is-dragging,
+    .hero-card.is-dragging {
+      opacity: 0.45;
+      cursor: grabbing;
+    }
+
+    .hero-list-row.drag-over-target,
+    .hero-card.drag-over-target {
+      outline: 2px dashed rgba(212, 175, 55, 0.55);
+      outline-offset: -2px;
+    }
+
+    #hero-list-container.drop-zone-active,
+    #hero-cards-grid.drop-zone-active {
+      box-shadow: inset 0 0 0 1px rgba(212, 175, 55, 0.3);
+    }
+
     .hero-transfer-star {
       display: inline-flex;
       align-items: center;
@@ -908,7 +930,7 @@
             <div class="col-span-2 text-right">% Değ.</div>
           </div>
 
-          <div class="flex-1 min-h-0 max-h-[100%] w-full left-0 top-0 absolute overflow-y-auto custom-scrollbar px-0 pt-10">
+          <div id="hero-list-container" class="flex-1 min-h-0 max-h-[100%] w-full left-0 top-0 absolute overflow-y-auto custom-scrollbar px-0 pt-10">
             <div class="hero-list-row cursor-pointer grid grid-cols-12 gap-2 items-center  px-3 sm:px-4 py-4 my-1 transition-colors odd:bg-gray-100/50" data-product="Has Altın" data-buy="6.565" data-sell="6.596" data-change="+1,45%">
               <div class="col-span-5 text-white text-sm font-semibold uppercase">Has Altın</div>
               <div class="col-span-3 text-left text-white text-sm font-normal xxxy ">6.565</div>
@@ -2230,12 +2252,149 @@
       });
     }
 
+    function initHeroDragDrop() {
+      const leftContainer = document.getElementById('hero-list-container');
+      const rightContainer = document.getElementById('hero-cards-grid');
+      if (!leftContainer || !rightContainer) return;
+
+      const draggableSelector = '.hero-list-row, .hero-card';
+      let draggedEl = null;
+      let draggedType = '';
+      let draggedProductKey = '';
+      let dragSuppressUntil = 0;
+
+      window.__heroDragSuppressClick = () => Date.now() < dragSuppressUntil;
+
+      const clearDropHighlights = () => {
+        document.querySelectorAll('.drag-over-target').forEach((el) => {
+          el.classList.remove('drag-over-target');
+        });
+        leftContainer.classList.remove('drop-zone-active');
+        rightContainer.classList.remove('drop-zone-active');
+      };
+
+      const endDragState = () => {
+        if (draggedEl) {
+          draggedEl.classList.remove('is-dragging');
+        }
+        draggedEl = null;
+        draggedType = '';
+        draggedProductKey = '';
+        dragSuppressUntil = Date.now() + 280;
+        clearDropHighlights();
+      };
+
+      const makeItemsDraggable = () => {
+        document.querySelectorAll(draggableSelector).forEach((item) => {
+          item.setAttribute('draggable', 'true');
+        });
+      };
+
+      makeItemsDraggable();
+
+      document.querySelectorAll(draggableSelector).forEach((item) => {
+        item.addEventListener('dragstart', (event) => {
+          if (event.target.closest('.hero-transfer-star')) {
+            event.preventDefault();
+            return;
+          }
+
+          draggedEl = item;
+          draggedType = item.classList.contains('hero-card') ? 'card' : 'row';
+          draggedProductKey = normalizeProductKey(item.getAttribute('data-product'));
+
+          item.classList.add('is-dragging');
+          leftContainer.classList.add('drop-zone-active');
+          rightContainer.classList.add('drop-zone-active');
+
+          if (event.dataTransfer) {
+            event.dataTransfer.effectAllowed = 'move';
+            event.dataTransfer.setData('text/plain', draggedProductKey || 'hero-drag');
+          }
+        });
+
+        item.addEventListener('dragend', () => {
+          endDragState();
+        });
+      });
+
+      leftContainer.addEventListener('dragover', (event) => {
+        if (!draggedEl) return;
+        event.preventDefault();
+
+        clearDropHighlights();
+        leftContainer.classList.add('drop-zone-active');
+
+        if (draggedType !== 'row') return;
+
+        const targetRow = event.target.closest('.hero-list-row');
+        if (!targetRow || targetRow === draggedEl) return;
+
+        const rect = targetRow.getBoundingClientRect();
+        const before = event.clientY < rect.top + rect.height / 2;
+        targetRow.classList.add('drag-over-target');
+        leftContainer.insertBefore(draggedEl, before ? targetRow : targetRow.nextSibling);
+      });
+
+      rightContainer.addEventListener('dragover', (event) => {
+        if (!draggedEl) return;
+        event.preventDefault();
+
+        clearDropHighlights();
+        rightContainer.classList.add('drop-zone-active');
+
+        if (draggedType !== 'card') return;
+
+        const targetCard = event.target.closest('.hero-card');
+        if (!targetCard || targetCard === draggedEl) return;
+
+        const rect = targetCard.getBoundingClientRect();
+        const isUpperHalf = event.clientY < rect.top + rect.height / 2;
+        const sameBand = Math.abs(event.clientY - (rect.top + rect.height / 2)) < 14;
+        const isLeftHalf = event.clientX < rect.left + rect.width / 2;
+        const before = isUpperHalf || (sameBand && isLeftHalf);
+
+        targetCard.classList.add('drag-over-target');
+        rightContainer.insertBefore(draggedEl, before ? targetCard : targetCard.nextSibling);
+      });
+
+      leftContainer.addEventListener('drop', (event) => {
+        if (!draggedEl) return;
+        event.preventDefault();
+
+        if (draggedType === 'card' && draggedProductKey) {
+          moveHeroProductToLeft(draggedProductKey);
+        }
+
+        endDragState();
+      });
+
+      rightContainer.addEventListener('drop', (event) => {
+        if (!draggedEl) return;
+        event.preventDefault();
+
+        if (draggedType === 'row' && draggedProductKey) {
+          moveHeroProductToRight(draggedProductKey);
+          const card = getHeroCardsByProduct(draggedProductKey)[0];
+          if (card) {
+            rightContainer.prepend(card);
+          }
+        }
+
+        endDragState();
+      });
+    }
+
     // HERO DETAIL PANEL - Slide-In Animation on Row Click
     function initHeroDetailPanel() {
       const listRows = document.querySelectorAll('.hero-list-row');
       const cardRows = document.querySelectorAll('.hero-card');
 
       const goToProductDetail = function() {
+        if (typeof window.__heroDragSuppressClick === 'function' && window.__heroDragSuppressClick()) {
+          return;
+        }
+
         const productName = this.getAttribute('data-product');
         const buyPrice = this.getAttribute('data-buy');
         const sellPrice = this.getAttribute('data-sell');
@@ -2439,6 +2598,7 @@
     document.addEventListener('DOMContentLoaded', function() {
       initHeroDetailPanel();
       initHeroTransferStars();
+      initHeroDragDrop();
       startPriceUpdates();
     });
 
