@@ -60,6 +60,54 @@
       filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.2));
     }
 
+    .presentation-logo-img {
+      filter: drop-shadow(0 8px 24px rgba(2, 6, 23, 0.35));
+    }
+
+    .markets-presentation-bar {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+      padding: 10px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(71, 85, 105, 0.4);
+      background: rgba(13, 14, 18, 0.52);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 28px rgba(2, 6, 23, 0.18);
+    }
+
+    #presentation-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    #presentation-datetime {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+    }
+
+    #presentation-date {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #94a3b8;
+    }
+
+    #presentation-time {
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1;
+      color: #f8fafc;
+      font-variant-numeric: tabular-nums;
+    }
+
    
 
     .custom-scrollbar::-webkit-scrollbar {
@@ -119,6 +167,20 @@
  
     html:not(.dark) .logo-img {
       filter: drop-shadow(0 4px 12px rgba(15, 23, 42, 0.22)) saturate(1.08);
+    }
+
+    html:not(.dark) .markets-presentation-bar {
+      background: rgba(255, 255, 255, 0.78);
+      border-color: rgba(203, 213, 225, 0.95);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.1);
+    }
+
+    html:not(.dark) #presentation-date {
+      color: #64748b;
+    }
+
+    html:not(.dark) #presentation-time {
+      color: #0f172a;
     }
 
     .market-row.flash-up {
@@ -230,14 +292,6 @@
       opacity: 0.1;
     }
 
-    #presentation-logo {
-      display: none;
-    }
-
-    body.presentation-mode #presentation-logo {
-      display: flex;
-    }
-
     body.presentation-mode #markets-wrap {
       position: relative;
       z-index: 1;
@@ -248,8 +302,7 @@
       padding-bottom: 0.5rem;
     }
 
-    body.presentation-mode #fullscreen-toggle,
-    body.presentation-mode #presentation-logo {
+    body.presentation-mode #fullscreen-toggle {
       z-index: 2;
     }
 
@@ -257,8 +310,13 @@
       display: none;
     }
 
+    body.presentation-mode .markets-presentation-bar {
+      display: flex;
+      margin-bottom: 10px;
+    }
+
     body.presentation-mode #markets-grid {
-      min-height: calc(100vh - 1rem);
+      min-height: calc(100vh - 5.75rem);
     }
 
     #fullscreen-toggle {
@@ -342,10 +400,6 @@
     </div>
   </header>
 
-  <div id="presentation-logo" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 items-center justify-center  ">
-    <img src="../docs/images/logo-mobil.svg" alt="Hakan Altın Logo" class="h-32 w-auto presentation-logo-img" />
-  </div>
-
   <main id="markets-wrap" class="max-w-7xl mx-auto px-4 pt-10 pb-24">
     <div id="markets-topbar" class="mb-6 flex items-center justify-between gap-4 flex-wrap">
       <div>
@@ -353,6 +407,17 @@
         <p class="text-sm text-gray-400 mt-1">Vitrin ve ekran yansıtma için sade görünüm. Sağ alttaki buton ile tam ekrana geçebilirsiniz.</p>
       </div>
       
+    </div>
+
+    <div class="markets-presentation-bar">
+      <div id="presentation-logo">
+        <img src="../docs/images/logo-mobil.svg" alt="Hakan Altın Logo" class="h-16 sm:h-20 w-auto presentation-logo-img" />
+      </div>
+
+      <div id="presentation-datetime" aria-live="polite">
+        <span id="presentation-date">-- --- ----</span>
+        <span id="presentation-time">--:--:--</span>
+      </div>
     </div>
 
     <section id="markets-grid" class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch rounded-lg bg-gray-100/50 p-1">
@@ -622,6 +687,8 @@
   <script>
     (function() {
       const fullscreenToggle = document.getElementById('fullscreen-toggle');
+      const presentationDateEl = document.getElementById('presentation-date');
+      const presentationTimeEl = document.getElementById('presentation-time');
 
       window.toggleMobileMenu = function() {
         const menu = document.getElementById('mobile-menu');
@@ -694,6 +761,32 @@
 
       initShrinkHeader();
       initThemeSwitcher();
+
+      function initPresentationDateTime() {
+        if (!presentationDateEl || !presentationTimeEl) return;
+
+        const dateFormatter = new Intl.DateTimeFormat('tr-TR', {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric'
+        });
+        const timeFormatter = new Intl.DateTimeFormat('tr-TR', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        });
+
+        function updateDateTime() {
+          const now = new Date();
+          presentationDateEl.textContent = dateFormatter.format(now);
+          presentationTimeEl.textContent = timeFormatter.format(now);
+        }
+
+        updateDateTime();
+        window.setInterval(updateDateTime, 1000);
+      }
+
+      initPresentationDateTime();
 
       function initFullscreenToggleVisibility() {
         let idleTimer = null;
