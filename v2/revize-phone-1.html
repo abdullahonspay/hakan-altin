@@ -269,39 +269,92 @@
       overflow: visible;
     }
 
+    @keyframes nav-phone-glow {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.28);
+      }
+      60% {
+        box-shadow: 0 0 0 8px rgba(212, 175, 55, 0);
+      }
+    }
+
+    .nav-phone-link::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 9999px;
+      border: 1px solid rgba(212, 175, 55, 0.28);
+      animation: nav-phone-glow 2.3s ease-out infinite;
+      pointer-events: none;
+    }
+
     .nav-phone-chip {
       position: absolute;
-      left: 50%;
+      left: calc(100% + 12px);
       top: 50%;
-      transform: translate(-50%, -50%) scale(0.92);
-      font-family: 'Seven Segment', 'Google Sans Flex', 'Inter', sans-serif;
-      padding: 6px 11px;
-      border-radius: 4px;
-      color: rgba(15, 23, 42, 0.96);
-      background: #f8fafc;
-      font-size: 16px;
-      font-weight: 900;
-      line-height: 1;
-      letter-spacing: 0.08em;
+      transform: translate(0, -50%) scale(0.96);
+      font-family: 'Google Sans Flex', 'Inter', sans-serif;
+      padding: 10px 12px;
+      border-radius: 10px;
+      color: rgba(241, 245, 249, 0.97);
+      background: rgba(15, 23, 42, 0.93);
+      font-size: 12px;
+      line-height: 1.15;
       white-space: nowrap;
-      box-shadow: 0 10px 22px rgba(2, 6, 23, 0.35);
+      box-shadow: 0 12px 30px rgba(2, 6, 23, 0.35);
+      border: 1px solid rgba(148, 163, 184, 0.28);
       opacity: 0;
       pointer-events: none;
       transition: opacity 220ms ease, transform 320ms cubic-bezier(0.2, 0.75, 0.2, 1);
       z-index: 8;
+      display: grid;
+      gap: 3px;
+    }
+
+    .nav-phone-chip-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #94a3b8;
+      text-transform: uppercase;
+    }
+
+    .nav-phone-chip-number {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: #f8fafc;
+    }
+
+    .nav-phone-chip-note {
+      font-size: 11px;
+      font-weight: 600;
+      color: #cbd5e1;
     }
 
     .nav-phone-link:hover .nav-phone-chip,
     .nav-phone-link:focus-visible .nav-phone-chip {
       opacity: 1;
-      transform: translate(14px, -50%) scale(1);
+      transform: translate(0, -50%) scale(1);
     }
 
     html:not(.dark) .nav-phone-chip {
-      color: rgba(255, 255, 255, 0.97);
-      background: #0f172a;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16);
+      color: rgba(15, 23, 42, 0.96);
+      background: rgba(255, 255, 255, 0.97);
+      border: 1px solid rgba(203, 213, 225, 0.9);
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12);
+    }
+
+    html:not(.dark) .nav-phone-chip-label {
+      color: #64748b;
+    }
+
+    html:not(.dark) .nav-phone-chip-number {
+      color: #0f172a;
+    }
+
+    html:not(.dark) .nav-phone-chip-note {
+      color: #334155;
     }
 
     #hero-cards-grid.translate-x-full {
@@ -421,18 +474,14 @@
 
     .hero-live-badge {
       position: absolute;
-      right: 6px;
-      top: -28px;
+     bottom: -14px;
       z-index: 22;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 0px;
-      border-radius: 9999px;
+      padding: 4px 10px;
       
-      backdrop-filter: blur(8px);
     }
-
   
 
     .hero-live-label {
@@ -445,13 +494,11 @@
     }
 
     .hero-live-time {
-      font-family: 'Seven Segment', 'Google Sans Flex', 'Inter', sans-serif;
-      font-size: 20px;
-      font-weight: 900;
+      font-family: 'Google Sans Flex', 'Inter', sans-serif;
+      font-size: 14px;
       letter-spacing: 0.12em;
       color: #f8fafc;
       line-height: 1;
-      font-variant-numeric: tabular-nums;
       text-shadow: 0 0 10px rgba(255, 255, 255, 0.08);
     }
 
@@ -918,6 +965,12 @@
   color: #17191ecc !important;
   -webkit-text-fill-color: #17191ecc !important;
 }
+
+header.is-scrolled  .hero-live-badge{
+  bottom: -36px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 8px;
+}
 </style>
 
   </style>
@@ -937,7 +990,11 @@
             aria-label="Destek hattını ara"
           >
             <i class="fa-solid fa-phone text-sm"></i>
-            <span class="nav-phone-chip " aria-hidden="true">444 75 11</span>
+            <span class="nav-phone-chip" aria-hidden="true">
+              <span class="nav-phone-chip-label">Canli Fiyat Destegi</span>
+              <span class="nav-phone-chip-number">444 75 11</span>
+              <span class="nav-phone-chip-note">Tek dokunusla uzmanla gorusun</span>
+            </span>
           </a>
           <a href="canli-piyasalar.html" class="navbar-link navbar-link-muted ml-auto">
             <span>Canlı Piyasalar</span>
@@ -947,8 +1004,11 @@
           </a>
         </nav>
 
-        <a href="/v2" class="navbar-logo group" aria-label="Hakan Altın ana sayfa">
+        <a href="/v2" class="navbar-logo group relative" aria-label="Hakan Altın ana sayfa">
           <img src="../docs/images/logo.svg" alt="Hakan Altın Logo" class="logo-img" />
+           <div class="hero-live-badge" aria-live="polite" aria-label="Canlı saat göstergesi">
+            <span id="hero-live-time" class="hero-live-time">--:--:--</span>
+          </div>
         </a>
 
         <div class="navbar-side navbar-right">
@@ -1013,11 +1073,7 @@
     <div class="absolute top-20 left-12 w-96 h-96 bg-gold-500/5 rounded-full blur-3xl pointer-events-none"></div>
     <div class="absolute bottom-10 right-20 w-80 h-80 bg-gold-400/5 rounded-full blur-3xl pointer-events-none"></div>
     
-    <div class="max-w-7xl mx-auto p-1 grid grid-cols-1 relative">
-    <div class="hero-live-badge" aria-live="polite" aria-label="Canlı saat göstergesi">
-      <span id="hero-live-time" class="hero-live-time">--:--:--</span>
-    </div>
-    </div>
+   
     
     <div class="h-full max-w-7xl mx-auto p-1 grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch rounded-lg bg-gray-100/40 dark:bg-slate-900/50">
       <!-- Quick Intent / Guide List (Left Column) -->
